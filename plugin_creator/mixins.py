@@ -21,7 +21,7 @@ def available_mixins() -> list:
         # 'LocateMixin',
         # 'NavigationMixin',
         # 'ReportMixin',
-        # 'ScheduleMixin',
+        'ScheduleMixin',
         'SettingsMixin',
         # 'SupplierBarcodeMixin',
         # 'UrlsMixin',
