@@ -88,9 +88,13 @@ def main():
 
     info("InvenTree Plugin Creator Tool")
 
-    context = gather_info()
-
-    output_dir = os.path.join(args.output, context['plugin_name'])
+    if args.default:
+        info("Using default values for all prompts...")
+        context = {}
+        output_dir = os.path.join(args.output, "MyCustomPlugin")
+    else:
+        context = gather_info()
+        output_dir = os.path.join(args.output, context['plugin_name'])
 
     # Run cookiecutter template
     cookiecutter(
@@ -100,6 +104,8 @@ def main():
         extra_context=context,
         overwrite_if_exists=True
     )
+
+    success(f"Plugin created -> '{output_dir}'")
 
 if __name__ == "__main__":
     main()
