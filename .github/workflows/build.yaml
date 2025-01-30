@@ -34,3 +34,7 @@ jobs:
           test -f my_plugin/MyCustomPlugin/src/__init__.py
           test -f my_plugin/MyCustomPlugin/src/plugin.py
           test -f my_plugin/MyCustomPlugin/README.md
+      - name: Build and Install Plugin
+        run: |
+          cd my_plugin
+          pip install .
