@@ -8,6 +8,8 @@ import questionary
 from cookiecutter.main import cookiecutter
 
 from . import PLUGIN_CREATOR_VERSION
+
+from . import devops
 from . import mixins
 from . import validators
 
@@ -107,15 +109,15 @@ def gather_info(context: dict) -> dict:
     # Devops information
     info("Enter plugin devops support information:")
 
-    context['ci_support'] = questionary.select(
-        "Devops support (CI/CD)?",
-        choices=["None", "GitHub Actions", "GitLab CI/CD"],
-        default="GitHub Actions"
-    ).ask().split()[0].lower()
+    context['ci_support'] = devops.get_devops_mode()
 
     return context
 
 
+def cleanup(plugin_dir: str, context: dict) -> None:
+    """Cleanup generated files after cookiecutter runs."""
+    
+    devops.cleanup_devops_files(context['ci_support'], plugin_dir)
 
 
 def main():
@@ -144,6 +146,7 @@ def main():
     )
 
     output_dir = os.path.abspath(args.output)
+    plugin_dir = os.path.join(output_dir, context['plugin_name'])
 
     # Run cookiecutter template
     cookiecutter(
@@ -153,6 +156,9 @@ def main():
         extra_context=context,
         overwrite_if_exists=True
     )
+
+    # Cleanup files after cookiecutter runs
+    cleanup(plugin_dir, context)
 
     success(f"Plugin created -> '{output_dir}'")
 
