@@ -18,6 +18,8 @@
     "license_text": "...",
     "plugin_creator_version": "<version>",
     "plugin_creator_url": "https://github.com/inventree/plugin_creator",
-    "ui_support": false,
-    "ci_support": "github"
+    "ci_support": "github",
+    "frontend": {
+        "enabled": true
+    }
 }

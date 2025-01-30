@@ -27,7 +27,7 @@ To compile the frontend code, run:
 npm run build --emptyOutDir
 ```
 
-This will compile the frontend into the `../order_history/static` directory (ready for distribution).
+This will compile the frontend into the `../{{ cookiecutter.package_name}}/static` directory (ready for distribution).
 
 Note: The target directory is intentionally outside of the frontend directory, so that the compiled files are correctly bundled into the python package install.
 
