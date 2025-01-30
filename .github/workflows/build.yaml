@@ -22,6 +22,15 @@ jobs:
       - name: Install Python Dependencies
         run: |
           pip install --upgrade wheel setuptools twine build
-      - name: Build Binary
+      - name: Build Package
         run: |
-          python -m build
+          pip install .
+      - name: Generate plugin
+        run: |
+          create-inventree-plugin --default --output my_plugin
+          test -d my_plugin
+          test -d my_plugin/MyCustomPlugin
+          test -d my_plugin/MyCustomPlugin/src
+          test -f my_plugin/MyCustomPlugin/src/__init__.py
+          test -f my_plugin/MyCustomPlugin/src/plugin.py
+          test -f my_plugin/MyCustomPlugin/README.md

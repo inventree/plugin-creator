@@ -104,15 +104,15 @@ def main():
     if args.default:
         info("Using default values for all prompts...")
         context = {}
-        output_dir = os.path.join(args.output, "MyCustomPlugin")
     else:
         context = gather_info()
-        output_dir = os.path.join(args.output, context['plugin_name'])
 
     src_path = os.path.join(
         os.path.dirname(os.path.realpath(__file__)),
         "template"
     )
+
+    output_dir = os.path.abspath(args.output)
 
     # Run cookiecutter template
     cookiecutter(
