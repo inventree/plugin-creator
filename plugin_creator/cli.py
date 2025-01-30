@@ -7,14 +7,17 @@ import questionary
 from cookiecutter.main import cookiecutter
 
 
-from .import validators
 from .helpers import error, info, success, warning
+from . import mixins
+from . import validators
 
 
 def gather_info() -> dict:
     """Gather project information from the user."""
 
     context = {}
+
+    info("Enter project information:")
 
     # Basic project information
     context['plugin_title'] = questionary.text(
@@ -73,6 +76,16 @@ def gather_info() -> dict:
         name=context['author_name'],
         email=context['author_email'],
     )
+
+    # Plugin structure information
+    info("Enter plugin structure information:")
+
+    context['plugin_mixins'] = {
+        'mixin_list': questionary.checkbox(
+            "Select plugin mixins",
+            choices=mixins.available_mixins(),
+        ).ask()
+    }
 
     return context
 
