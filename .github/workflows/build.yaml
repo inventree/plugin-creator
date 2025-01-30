@@ -25,6 +25,7 @@ jobs:
           pip install flake8 pep8-naming
       - name: Build Package
         run: |
+          python -m build
           pip install .
       - name: Generate plugin
         run: |
@@ -35,8 +36,11 @@ jobs:
           test -f output/MyCustomPlugin/src/__init__.py || echo "__init__.py not found"
           test -f output/MyCustomPlugin/src/plugin.py || echo "plugin.py not found"
           test -f output/MyCustomPlugin/README.md || echo "README.md not found"
+          test -f output/MyCustomPlugin/.github/workflows/ci.yaml
+          test -f output/MyCustomPlugin/.github/workflows/pypi.yaml
       - name: Build and Install Plugin
         run: |
           cd output/MyCustomPlugin
           flake8 .
+          python -m build
           pip install .
