@@ -37,6 +37,6 @@ jobs:
           test -f output/MyCustomPlugin/README.md || echo "README.md not found"
       - name: Build and Install Plugin
         run: |
-          cd output
+          cd output/MyCustomPlugin
           flake8 .
           pip install .
