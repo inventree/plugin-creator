@@ -8,6 +8,8 @@ import questionary
 from cookiecutter.main import cookiecutter
 
 from . import PLUGIN_CREATOR_VERSION
+
+from . import devops
 from . import mixins
 from . import validators
 
@@ -92,11 +94,30 @@ def gather_info(context: dict) -> dict:
     # Plugin structure information
     info("Enter plugin structure information:")
 
+    plugin_mixins = mixins.get_mixins()
+
     context['plugin_mixins'] = {
-        'mixin_list': mixins.get_mixins()
+        'mixin_list': plugin_mixins
     }
 
+    # TODO: Check if we want to add frontend code support
+    # context['ui_support'] = questionary.confirm(
+    #     "Add User Interface support?",
+    #     default="UserInterfaceMixin" in plugin_mixins
+    # ).ask()
+
+    # Devops information
+    info("Enter plugin devops support information:")
+
+    context['ci_support'] = devops.get_devops_mode()
+
     return context
+
+
+def cleanup(plugin_dir: str, context: dict) -> None:
+    """Cleanup generated files after cookiecutter runs."""
+    
+    devops.cleanup_devops_files(context['ci_support'], plugin_dir)
 
 
 def main():
@@ -114,7 +135,9 @@ def main():
 
     context["plugin_creator_version"] = PLUGIN_CREATOR_VERSION
 
-    if not args.default:
+    if args.default:
+        info("- Using default values for all prompts")
+    else:
         context = gather_info(context)
 
     src_path = os.path.join(
@@ -123,6 +146,7 @@ def main():
     )
 
     output_dir = os.path.abspath(args.output)
+    plugin_dir = os.path.join(output_dir, context['plugin_name'])
 
     # Run cookiecutter template
     cookiecutter(
@@ -132,6 +156,9 @@ def main():
         extra_context=context,
         overwrite_if_exists=True
     )
+
+    # Cleanup files after cookiecutter runs
+    cleanup(plugin_dir, context)
 
     success(f"Plugin created -> '{output_dir}'")
 
