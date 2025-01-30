@@ -9,8 +9,8 @@ from . import PLUGIN_VERSION
 class {{ cookiecutter.plugin_name }}({{ cookiecutter.plugin_mixins.mixin_list | map('trim') | join(', ') }}, InvenTreePlugin):
 {% else %}
 class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
-    {% endif -%}
-    """{{ cookiecutter.plugin_description }}"""
+    {% endif %}
+    """{{ cookiecutter.plugin_name }} - custom InvenTree plugin."""
 
     # Plugin metadata
     TITLE = "{{ cookiecutter.plugin_title }}"
@@ -22,9 +22,8 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
     VERSION = PLUGIN_VERSION
 
     {%- if cookiecutter.plugin_mixins.mixin_list %}
-
-    {%- if "SettingsMixin" in cookiecutter.plugin_mixins.mixin_list %}
-    # Plugin settings
+    {% if "SettingsMixin" in cookiecutter.plugin_mixins.mixin_list %}
+    # Plugin settings (from SettingsMixin)
     SETTINGS = {
         # Define your plugin settings here...
     }

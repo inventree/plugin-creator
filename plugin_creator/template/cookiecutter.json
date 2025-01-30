@@ -5,7 +5,9 @@
     "package_name": "my_custom_plugin",
     "plugin_version": "0.1.0",
     "plugin_mixins": {
-        "mixin_list": []
+        "mixin_list": [
+            "SettingsMixin"
+        ]
     },
     "plugin_description": "A short description of the project",
     "project_url": "https://github.com/username/my-custom-plugin",

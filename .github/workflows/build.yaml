@@ -22,6 +22,7 @@ jobs:
       - name: Install Python Dependencies
         run: |
           pip install --upgrade wheel setuptools twine build
+          pip install flake8 pep8-naming
       - name: Build Package
         run: |
           pip install .
@@ -37,4 +38,5 @@ jobs:
       - name: Build and Install Plugin
         run: |
           cd my_plugin
+          flake8 .
           pip install .
