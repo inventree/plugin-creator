@@ -100,11 +100,11 @@ def gather_info(context: dict) -> dict:
         'mixin_list': plugin_mixins
     }
 
-    # Check if we want to add frontend code support
-    context['ui_support'] = questionary.confirm(
-        "Add User Interface support?",
-        default="UserInterfaceMixin" in plugin_mixins
-    ).ask()
+    # TODO: Check if we want to add frontend code support
+    # context['ui_support'] = questionary.confirm(
+    #     "Add User Interface support?",
+    #     default="UserInterfaceMixin" in plugin_mixins
+    # ).ask()
 
     # Devops information
     info("Enter plugin devops support information:")
