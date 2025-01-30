@@ -5,33 +5,18 @@ import importlib.util
 import os
 import setuptools
 
-
-def get_plugin_version() -> str:
-    """Read the plugin version from the source code."""
-    module_path = os.path.join(
-        os.path.dirname(__file__),
-        "{{ cookiecutter.package_name }}",
-        "__init__.py"
-    )
-
-    spec = importlib.util.spec_from_file_location(
-        "{{ cookiecutter.package_name }}",
-        module_path
-    )
-
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module) 
-
-    return module.PLUGIN_VERSION
-
-PLUGIN_VERSION = get_plugin_version()
+"""Read the plugin version from the source code."""
+module_path = os.path.join(os.path.dirname(__file__), "{{ cookiecutter.package_name }}", "__init__.py")
+spec = importlib.util.spec_from_file_location("{{ cookiecutter.package_name }}", module_path)
+{{ cookiecutter.package_name }} = importlib.util.module_from_spec(spec)
+spec.loader.exec_module({{ cookiecutter.package_name }}) 
 
 with open('README.md', encoding='utf-8') as f:
     long_description = f.read()
 
 setuptools.setup(
     name="{{ cookiecutter.package_name }}",
-    version=PLUGIN_VERSION,
+    version={{ cookiecutter.package_name }}.PLUGIN_VERSION,
     author="{{ cookiecutter.author_name }}",
     {%- if cookiecutter.author_email %}
     author_email="{{ cookiecutter.author_email }}",
