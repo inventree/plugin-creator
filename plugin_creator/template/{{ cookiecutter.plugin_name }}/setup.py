@@ -1,8 +1,30 @@
 # -*- coding: utf-8 -*-
 
+import importlib
+import importlib.util
+import os
 import setuptools
 
-from {{ cookiecutter.package_name }} import PLUGIN_VERSION
+
+def get_plugin_version() -> str:
+    """Read the plugin version from the source code."""
+    module_path = os.path.join(
+        os.path.dirname(__file__),
+        "{{ cookiecutter.package_name }}",
+        "__init__.py"
+    )
+
+    spec = importlib.util.spec_from_file_location(
+        "{{ cookiecutter.package_name }}",
+        module_path
+    )
+
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module) 
+
+    return module.PLUGIN_VERSION
+
+PLUGIN_VERSION = get_plugin_version()
 
 with open('README.md', encoding='utf-8') as f:
     long_description = f.read()
@@ -24,7 +46,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     include_package_data=True,
     install_requires=[
-        # Enter your dependencies here
+        # Enter your plugin library dependencies here
     ],
     setup_requires=[
         "wheel",
