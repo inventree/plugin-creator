@@ -3,6 +3,9 @@
 import os
 import subprocess
 
+import questionary
+from questionary.prompts.common import Choice
+
 from .helpers import info
 
 
@@ -16,16 +19,45 @@ def remove_frontend(plugin_dir: str) -> None:
         subprocess.run(["rm", "-r", frontend_dir])
 
 
-def update_frontend(plugin_dir: str, install=True) -> None:
+def update_frontend(plugin_dir: str, packages: list = None) -> None:
     """Update the frontend code for the plugin."""
+
+    if not packages:
+        return
+
+    info("- Installing frontend dependencies...")
 
     frontend_dir = os.path.join(plugin_dir, "frontend")
 
-    info("- Updating frontend dependencies...")
+    pkg = ' '.join([f'{package}@latest' for package in packages])
 
-    # Run npm update
+    info(f"-- installing {pkg}")
+    subprocess.run(["npm", "install", pkg], cwd=frontend_dir)
     subprocess.run(["npm", "update"], cwd=frontend_dir)
 
-    if install:
-        info("- Installing frontend dependencies...")
-        subprocess.run(["npm", "install"], cwd=frontend_dir)
+
+def available_packages() -> list:
+    """List of default frontend packages to install."""
+
+    return [
+        "react",
+        "@mantine/core",
+        "@mantine/hooks",
+        "@mantine/charts",
+    ]
+
+
+def select_packages(defaults: list = None) -> list:
+    """Select which packages to install."""
+
+    choices = [
+        Choice(
+            title=package,
+            checked=package in defaults if defaults else False,
+        ) for package in available_packages()
+    ]
+
+    return questionary.checkbox(
+        "Select frontend packages to install",
+        choices=choices
+    ).ask()

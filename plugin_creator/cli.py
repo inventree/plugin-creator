@@ -54,8 +54,7 @@ def gather_info(context: dict) -> dict:
     context['plugin_slug'] = context['plugin_title'].replace(" ", "-").lower()
     context['package_name'] = context['plugin_slug'].replace("-", "_")
 
-    success(f"Generating plugin '{context['plugin_title']}' - {context['plugin_description']}")
-    info(f" - Package Name: {context['package_name']}")
+    success(f"Generating plugin '{context['package_name']}' - {context['plugin_description']}")
 
     info("Enter author information:")
 
@@ -106,13 +105,16 @@ def gather_info(context: dict) -> dict:
         "Add User Interface support?",
         default="UserInterfaceMixin" in plugin_mixins
     ).ask():
+        defaults = context.get("frontend", {}).get("packages", None)
         context["frontend"] = {
             "enabled": True,
-            # TODO: Extra frontend options
+            # Extra frontend options
+            "packages": frontend.select_packages(defaults=defaults),
         }
     else:
         context["frontend"] = {
             "enabled": False,
+            "packages": []
         }
 
     # Devops information
@@ -123,7 +125,7 @@ def gather_info(context: dict) -> dict:
     return context
 
 
-def cleanup(plugin_dir: str, context: dict, install: bool = False) -> None:
+def cleanup(plugin_dir: str, context: dict, skip_install: bool = False) -> None:
     """Cleanup generated files after cookiecutter runs."""
     
     info("Cleaning up generated files...")
@@ -131,7 +133,10 @@ def cleanup(plugin_dir: str, context: dict, install: bool = False) -> None:
     devops.cleanup_devops_files(context['ci_support'], plugin_dir)
 
     if context['frontend']['enabled']:
-        frontend.update_frontend(plugin_dir, install=install)
+
+        if not skip_install:
+            packages = context['frontend']['packages'] or None
+            frontend.update_frontend(plugin_dir, packages=packages)
     else:
         frontend.remove_frontend(plugin_dir)
 
@@ -142,7 +147,7 @@ def main():
     parser = argparse.ArgumentParser(description="InvenTree Plugin Creator Tool")
     parser.add_argument("--default", action="store_true", help="Use default values for all prompts (non-interactive mode)")
     parser.add_argument('--output', action='store', help='Specify output directory', default='.')
-    parser.add_argument('--install', action='store_true', help='Install frontend dependencies')
+    parser.add_argument('--skip_install', action='store_true', help='Do not install frontend dependencies')
     parser.add_argument('--version', action='version', version=f'%(prog)s {PLUGIN_CREATOR_VERSION}')
     
     args = parser.parse_args()
@@ -176,7 +181,7 @@ def main():
     )
 
     # Cleanup files after cookiecutter runs
-    cleanup(plugin_dir, context, install=args.install)
+    cleanup(plugin_dir, context, skip_install=args.skip_install)
 
     success(f"Plugin created -> '{output_dir}'")
 
