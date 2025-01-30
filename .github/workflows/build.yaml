@@ -33,7 +33,7 @@ jobs:
           pip install .
       - name: Generate plugin
         run: |
-          create-inventree-plugin --default --output output --install
+          create-inventree-plugin --default --output output
           test -d output
           test -d output/MyCustomPlugin
           test -d output/MyCustomPlugin/src
@@ -53,4 +53,5 @@ jobs:
       - name: Build Frontend Code
         run: |
           cd output/MyCustomPlugin/frontend
+          npm install
           npm run build
