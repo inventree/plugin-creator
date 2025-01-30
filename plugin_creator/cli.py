@@ -95,7 +95,6 @@ def main():
 
     parser = argparse.ArgumentParser(description="InvenTree Plugin Creator Tool")
     parser.add_argument("--default", action="store_true", help="Use default values for all prompts (non-interactive mode)")
-    parser.add_argument("--template", action="store", help="Specify input template file")
     parser.add_argument('--output', action='store', help='Specify output directory', default='.')
 
     args = parser.parse_args()
@@ -110,9 +109,14 @@ def main():
         context = gather_info()
         output_dir = os.path.join(args.output, context['plugin_name'])
 
+    src_path = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        "template"
+    )
+
     # Run cookiecutter template
     cookiecutter(
-        args.template,
+        src_path,
         no_input=True,
         output_dir=output_dir,
         extra_context=context,
