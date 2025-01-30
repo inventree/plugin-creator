@@ -22,9 +22,6 @@
     "ci_support": "github",
     "frontend": {
         "enabled": true,
-        "packages": [
-            "react",
-            "@mantine/core"
-        ]
+        "additional_packages": []
     }
 }

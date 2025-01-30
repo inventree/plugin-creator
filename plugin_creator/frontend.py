@@ -19,29 +19,33 @@ def remove_frontend(plugin_dir: str) -> None:
         subprocess.run(["rm", "-r", frontend_dir])
 
 
-def update_frontend(plugin_dir: str, packages: list = None) -> None:
+def update_frontend(plugin_dir: str, additional_packages: list = None) -> None:
     """Update the frontend code for the plugin."""
 
-    if not packages:
-        return
+    # These packages are *always* installed
+    packages = [
+        'react',
+        '@mantine/core',
+    ]
+
+    if additional_packages:
+        packages += additional_packages
 
     info("- Installing frontend dependencies...")
 
     frontend_dir = os.path.join(plugin_dir, "frontend")
 
-    pkg = ' '.join([f'{package}@latest' for package in packages])
+    for pkg in packages:
+        info(f"-- installing {pkg}")
+        subprocess.run(["npm", "install", pkg], cwd=frontend_dir)
 
-    info(f"-- installing {pkg}")
-    subprocess.run(["npm", "install", pkg], cwd=frontend_dir)
     subprocess.run(["npm", "update"], cwd=frontend_dir)
 
 
 def available_packages() -> list:
-    """List of default frontend packages to install."""
+    """List of additional frontend packages to install."""
 
     return [
-        "react",
-        "@mantine/core",
         "@mantine/hooks",
         "@mantine/charts",
     ]

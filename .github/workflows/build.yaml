@@ -53,5 +53,4 @@ jobs:
       - name: Build Frontend Code
         run: |
           cd output/MyCustomPlugin/frontend
-          npm install
           npm run build

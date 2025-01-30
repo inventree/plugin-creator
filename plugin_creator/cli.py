@@ -133,10 +133,11 @@ def cleanup(plugin_dir: str, context: dict, skip_install: bool = False) -> None:
     devops.cleanup_devops_files(context['ci_support'], plugin_dir)
 
     if context['frontend']['enabled']:
-
         if not skip_install:
-            packages = context['frontend']['packages'] or None
-            frontend.update_frontend(plugin_dir, packages=packages)
+            frontend.update_frontend(
+                plugin_dir,
+                additional_packages=context['frontend']['additional_packages'] or None
+            )
     else:
         frontend.remove_frontend(plugin_dir)
 
