@@ -5,26 +5,28 @@ import questionary
 
 def available_mixins() -> list:
     """Return a list of available plugin mixin classes."""
+
+    # TODO: Support the commented out mixins
+
     return [
-        'APICallMixin',
-        'ActionMixin',
-        'AppMixin',
-        'BarcodeMixin',
+        # 'APICallMixin',
+        # 'ActionMixin',
+        # 'AppMixin',
+        # 'BarcodeMixin',
         # 'BulkNotificationMethod',
-        'CurrencyExchangeMixin',
-        'EventMixin',
-        'IconPackMixin',
-        'LabelPrintingMixin',
-        'LocateMixin',
+        # 'CurrencyExchangeMixin',
+        # 'EventMixin',
+        # 'IconPackMixin',
+        # 'LabelPrintingMixin',
+        # 'LocateMixin',
         # 'NavigationMixin',
-        'ReportMixin',
-        'ScheduleMixin',
+        # 'ReportMixin',
+        # 'ScheduleMixin',
         'SettingsMixin',
-        # 'SingleNotificationMethod',
-        'SupplierBarcodeMixin',
-        'UrlsMixin',
-        'UserInterfaceMixin',
-        'ValidationMixin',
+        # 'SupplierBarcodeMixin',
+        # 'UrlsMixin',
+        # 'UserInterfaceMixin',
+        # 'ValidationMixin',
     ]
 
 
