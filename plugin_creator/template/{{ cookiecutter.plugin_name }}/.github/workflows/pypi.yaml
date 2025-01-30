@@ -1,0 +1,47 @@
+# Publish to PyPi package index
+# Note: Requires a secret named PYPI_API_TOKEN to be set in the repository settings
+
+name: PIP Publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+
+  publish:
+    name: Publish to PyPi
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install Python Dependencies
+        run: |
+          pip install --upgrade wheel setuptools twine build
+      {%- if cookiecutter.ui_support -%}
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+      - name: Build Frontend
+        run: |
+          cd frontend
+          npm install
+          npm run build --emptyOutDir
+      {%- endif -%}
+      - name: Build Binary
+        run: |
+          python -m build
+      - name: Publish
+        run: |
+          python -m twine upload dist/*
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: {%- raw %}${{ secrets.PYPI_API_TOKEN }}{% endraw -%}
+          TWINE_REPOSITORY: pypi
+  

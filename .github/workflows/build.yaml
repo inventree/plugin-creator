@@ -25,7 +25,7 @@ jobs:
           pip install flake8 pep8-naming
       - name: Build Package
         run: |
-          pip install .
+          python -m build
       - name: Generate plugin
         run: |
           create-inventree-plugin --default --output output
@@ -39,4 +39,5 @@ jobs:
         run: |
           cd output/MyCustomPlugin
           flake8 .
+          python -m build
           pip install .
