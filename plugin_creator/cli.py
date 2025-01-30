@@ -10,6 +10,7 @@ from cookiecutter.main import cookiecutter
 from . import PLUGIN_CREATOR_VERSION
 
 from . import devops
+from . import frontend
 from . import mixins
 from . import validators
 
@@ -125,8 +126,12 @@ def gather_info(context: dict) -> dict:
 def cleanup(plugin_dir: str, context: dict) -> None:
     """Cleanup generated files after cookiecutter runs."""
     
+    info("Cleaning up generated files...")
+
     devops.cleanup_devops_files(context['ci_support'], plugin_dir)
 
+    if context['frontend']['enabled']:
+        frontend.update_frontend(plugin_dir, install=True)
 
 def main():
     """Run plugin scaffolding."""

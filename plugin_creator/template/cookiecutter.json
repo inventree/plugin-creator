@@ -20,6 +20,7 @@
     "plugin_creator_url": "https://github.com/inventree/plugin_creator",
     "ci_support": "github",
     "frontend": {
-        "enabled": true
+        "enabled": true,
+        "install": true
     }
 }

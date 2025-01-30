@@ -5,6 +5,8 @@ import shutil
 
 import questionary
 
+from .helpers import info
+
 
 def get_devops_options() -> list:
     """Return a list of available DevOps options."""
@@ -36,6 +38,7 @@ def cleanup_devops_files(devops_mode: str, plugin_dir: str) -> None:
         github_dir = os.path.join(plugin_dir, ".github")
 
         if os.path.exists(github_dir):
+            info("- Removing .github directory")
             shutil.rmtree(github_dir)
 
     # Remove the .gitlab-ci.yml file
@@ -43,4 +46,5 @@ def cleanup_devops_files(devops_mode: str, plugin_dir: str) -> None:
         gitlab_file = os.path.join(plugin_dir, ".gitlab-ci.yml")
 
         if os.path.exists(gitlab_file):
+            info("- Removing .gitlab-ci.yml file")
             os.remove(gitlab_file)
