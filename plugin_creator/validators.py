@@ -34,4 +34,3 @@ class ProjectNameValidator(NotEmptyValidator):
 
         if not re.match(pattern, project_name):
             raise ValidationError(message=f"Must match pattern: '{pattern}'")
-        
