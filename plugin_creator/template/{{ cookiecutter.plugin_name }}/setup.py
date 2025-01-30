@@ -2,7 +2,7 @@
 
 import setuptools
 
-from src.{{ cookiecutter.package_name }} import PLUGIN_VERSION
+from {{ cookiecutter.package_name }} import PLUGIN_VERSION
 
 with open('README.md', encoding='utf-8') as f:
     long_description = f.read()
