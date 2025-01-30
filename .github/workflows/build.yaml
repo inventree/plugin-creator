@@ -30,12 +30,12 @@ jobs:
       - name: Generate plugin
         run: |
           create-inventree-plugin --default --output output --install
-          test -d output || echo "Output directory not found"
-          test -d output/MyCustomPlugin || echo "Plugin directory not found"
-          test -d output/MyCustomPlugin/src || echo "Source directory not found"
-          test -f output/MyCustomPlugin/src/__init__.py || echo "__init__.py not found"
-          test -f output/MyCustomPlugin/src/plugin.py || echo "plugin.py not found"
-          test -f output/MyCustomPlugin/README.md || echo "README.md not found"
+          test -d output
+          test -d output/MyCustomPlugin
+          test -d output/MyCustomPlugin/src
+          test -f output/MyCustomPlugin/src/__init__.py
+          test -f output/MyCustomPlugin/src/plugin.py
+          test -f output/MyCustomPlugin/README.md
           test -f output/MyCustomPlugin/.github/workflows/ci.yaml
           test -f output/MyCustomPlugin/.github/workflows/pypi.yaml
           test -f output/MyCustomPlugin/frontend/README.md
