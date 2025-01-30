@@ -2,7 +2,7 @@
 
 import setuptools
 
-from plugin_creator import PLUGIN_CREATOR_VERSION
+PLUGIN_CREATOR_VERSION = "0.1.0"
 
 with open('README.md', encoding='utf-8') as f:
     long_description = f.read()

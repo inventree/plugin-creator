@@ -1,10 +1,14 @@
 
+import argparse
+import os
+
 import license
 import questionary
 from cookiecutter.main import cookiecutter
 
-import validators
-from helpers import error, info, success, warning
+
+from .import validators
+from .helpers import error, info, success, warning
 
 
 def gather_info() -> dict:
@@ -75,15 +79,24 @@ def gather_info() -> dict:
 def main():
     """Run plugin scaffolding."""
 
+    parser = argparse.ArgumentParser(description="InvenTree Plugin Creator Tool")
+    parser.add_argument("--default", action="store_true", help="Use default values for all prompts (non-interactive mode)")
+    parser.add_argument("--template", action="store", help="Specify input template file")
+    parser.add_argument('--output', action='store', help='Specify output directory', default='.')
+
+    args = parser.parse_args()
+
     info("InvenTree Plugin Creator Tool")
 
     context = gather_info()
 
+    output_dir = os.path.join(args.output, context['plugin_name'])
+
     # Run cookiecutter template
     cookiecutter(
-        'plugin-cookiecutter/',
+        args.template,
         no_input=True,
-        output_dir=context['plugin_name'],
+        output_dir=output_dir,
         extra_context=context,
         overwrite_if_exists=True
     )
