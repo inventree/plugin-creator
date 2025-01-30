@@ -7,11 +7,11 @@ import license
 import questionary
 from cookiecutter.main import cookiecutter
 
-
-from .helpers import info, success
+from . import PLUGIN_CREATOR_VERSION
 from . import mixins
 from . import validators
 
+from .helpers import info, success
 
 def default_values() -> dict:
     """Read default values out from the cookiecutter.json file."""
@@ -110,6 +110,8 @@ def main():
     info("InvenTree Plugin Creator Tool")
 
     context = default_values()
+
+    context["plugin_creator_version"] = PLUGIN_CREATOR_VERSION
 
     if not args.default:
         context = gather_info(context)

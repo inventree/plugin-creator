@@ -14,5 +14,7 @@
     "author_name": "John Doe",
     "author_email": "email@admin.org",
     "license_key": "MIT",
-    "license_text": "..."
+    "license_text": "...",
+    "plugin_creator_version": "<version>",
+    "plugin_creator_url": "https://github.com/inventree/plugin_creator"
 }
