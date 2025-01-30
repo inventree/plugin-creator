@@ -28,8 +28,16 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
     LICENSE = "{{ cookiecutter.license_key }}"
 
     {%- if cookiecutter.plugin_mixins.mixin_list %}
+    {% if "ScheduleMixin" in cookiecutter.plugin_mixins.mixin_list %}
+    # Scheduled tasks (from ScheduleMixin)
+    # Ref: https://docs.inventree.org/en/stable/extend/plugins/schedule/
+    SCHEDULED_TASKS = {
+        # Define your scheduled tasks here
+    }
+    {%- endif %}
     {% if "SettingsMixin" in cookiecutter.plugin_mixins.mixin_list %}
     # Plugin settings (from SettingsMixin)
+    # Ref: https://docs.inventree.org/en/stable/extend/plugins/settings/
     SETTINGS = {
         # Define your plugin settings here...
     }
