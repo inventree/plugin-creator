@@ -5,6 +5,7 @@ from plugin import InvenTreePlugin
 from plugin.mixins import {{ cookiecutter.plugin_mixins.mixin_list | map('trim') | join(', ') }}
 {% endif %}
 from . import PLUGIN_VERSION
+
 {% if cookiecutter.plugin_mixins.mixin_list %}
 class {{ cookiecutter.plugin_name }}({{ cookiecutter.plugin_mixins.mixin_list | map('trim') | join(', ') }}, InvenTreePlugin):
 {% else %}
@@ -32,6 +33,5 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
     SETTINGS = {
         # Define your plugin settings here...
     }
-    {% endif -%}
-
-    {% endif -%}
+    {%- endif -%}
+    {%- endif %}

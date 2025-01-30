@@ -15,7 +15,7 @@ import setuptools
 module_path = os.path.join(os.path.dirname(__file__), "{{ cookiecutter.package_name }}", "__init__.py")
 spec = importlib.util.spec_from_file_location("{{ cookiecutter.package_name }}", module_path)
 {{ cookiecutter.package_name }} = importlib.util.module_from_spec(spec)
-spec.loader.exec_module({{ cookiecutter.package_name }}) 
+spec.loader.exec_module({{ cookiecutter.package_name }})
 
 with open('README.md', encoding='utf-8') as f:
     long_description = f.read()
