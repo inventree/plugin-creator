@@ -13,6 +13,7 @@ from . import validators
 
 from .helpers import info, success
 
+
 def default_values() -> dict:
     """Read default values out from the cookiecutter.json file."""
     fn = os.path.join(
