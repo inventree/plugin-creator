@@ -26,6 +26,7 @@ jobs:
       - name: Build Package
         run: |
           python -m build
+          pip install .
       - name: Generate plugin
         run: |
           create-inventree-plugin --default --output output

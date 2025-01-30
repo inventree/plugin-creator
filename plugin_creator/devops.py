@@ -5,6 +5,7 @@ import shutil
 
 import questionary
 
+
 def get_devops_options() -> list:
     """Return a list of available DevOps options."""
 
