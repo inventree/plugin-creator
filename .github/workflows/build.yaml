@@ -1,0 +1,27 @@
+# Build the package, make sure it compiles OK
+
+name: Build Package
+
+on:
+  - push
+  - pull_request
+
+jobs:
+
+  build:
+    name: Build Package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install Python Dependencies
+        run: |
+          pip install --upgrade wheel setuptools twine build
+      - name: Build Binary
+        run: |
+          python -m build
