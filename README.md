@@ -6,7 +6,7 @@ Command line tool for scaffolding a new InvenTree plugin.
 
 This is a command line tool which allows for rapid scaffolding of a new InvenTree plugin.
 
-It uses the [cookiecutter project](https://cookiecutter.readthedocs.io/en/stable/) to generate a new project, based on a [custom template](https://github.com/inventree/plugin-cookiecutter).
+It uses the [cookiecutter project](https://cookiecutter.readthedocs.io/en/stable/) to generate a new project, based on a custom project template.
 
 ## Installation
 

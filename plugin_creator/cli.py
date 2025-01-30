@@ -1,5 +1,6 @@
 
 import argparse
+import json
 import os
 
 import license
@@ -12,23 +13,33 @@ from . import mixins
 from . import validators
 
 
-def gather_info() -> dict:
-    """Gather project information from the user."""
+def default_values() -> dict:
+    """Read default values out from the cookiecutter.json file."""
+    fn = os.path.join(
+        os.path.dirname(__file__),
+        "template",
+        "cookiecutter.json"
+    )
 
-    context = {}
+    with open(fn, "r") as f:
+        return json.load(f)
+
+
+def gather_info(context: dict) -> dict:
+    """Gather project information from the user."""
 
     info("Enter project information:")
 
     # Basic project information
     context['plugin_title'] = questionary.text(
         "Enter plugin name",
-        default="Custom InvenTree Plugin",
+        default=context['plugin_title'],
         validate=validators.ProjectNameValidator,
     ).ask().strip()
 
     context['plugin_description'] = questionary.text(
         "Enter plugin description",
-        default="A custom InvenTree plugin",
+        default=context['plugin_description'],
         validate=validators.NotEmptyValidator,
     ).ask().strip()
 
@@ -46,18 +57,18 @@ def gather_info() -> dict:
 
     context['author_name'] = questionary.text(
         "Author name",
-        default="John Doe",
+        default=context['author_name'],
         validate=validators.NotEmptyValidator,
     ).ask().strip()
 
     context["author_email"] = questionary.text(
         "Author email",
-        default="email@domain.org",
+        default=context["author_email"],
     ).ask().strip()
 
     context["project_url"] = questionary.text(
         "Project URL",
-        default="",
+        default=context['project_url'],
     ).ask().strip()
 
     # Extract license information
@@ -81,10 +92,7 @@ def gather_info() -> dict:
     info("Enter plugin structure information:")
 
     context['plugin_mixins'] = {
-        'mixin_list': questionary.checkbox(
-            "Select plugin mixins",
-            choices=mixins.available_mixins(),
-        ).ask()
+        'mixin_list': mixins.get_mixins()
     }
 
     return context
@@ -101,11 +109,10 @@ def main():
 
     info("InvenTree Plugin Creator Tool")
 
-    if args.default:
-        info("Using default values for all prompts...")
-        context = {}
-    else:
-        context = gather_info()
+    context = default_values()
+
+    if not args.default:
+        context = gather_info(context)
 
     src_path = os.path.join(
         os.path.dirname(os.path.realpath(__file__)),
