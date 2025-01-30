@@ -110,11 +110,13 @@ def gather_info(context: dict) -> dict:
             "enabled": True,
             # Extra frontend options
             "packages": frontend.select_packages(defaults=defaults),
+            "features": frontend.select_features()
         }
     else:
         context["frontend"] = {
             "enabled": False,
-            "packages": []
+            "packages": [],
+            "features": []
         }
 
     # Devops information

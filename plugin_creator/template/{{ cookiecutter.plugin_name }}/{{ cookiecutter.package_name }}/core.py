@@ -42,4 +42,39 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
         # Define your plugin settings here...
     }
     {%- endif -%}
+    
+    {% if "UserInterfaceMixin" in cookiecutter.plugin_mixins.mixin_list %}
+
+    # User interface elements (from UserInterfaceMixin)
+    # Ref: https://docs.inventree.org/en/stable/extend/plugins/ui/
+    {% if cookiecutter.frontend.features.panel %}
+    # Custom UI panels
+    def get_ui_panels(self, request, context=None, **kwargs):
+        """Return a list of UI panels to be rendered in the InvenTree user interface."""
+
+        panels = []
+
+        # Only display this panel for the 'part' target
+        if context.get('target_model') == 'part':
+            panels.append({
+                'key': '{{ cookiecutter.plugin_slug }}-panel',
+                'title': '{{ cookiecutter.plugin_title }}',
+                'description': 'Custom panel description',
+                'icon': 'ti:mood-smile:outline',
+                'source': self.plugin_static_file('Panels.js:render{{ cookiecutter.plugin_name }}Panel'),
+                'context': {
+                    # Provide additional context data to the panel
+                    {%- if "SettingsMixin" in cookiecutter.plugin_mixins.mixin_list %}
+                    'settings': self.get_settings_dict(),
+                    {% endif -%}
+                    'foo': 'bar'
+                }
+            })
+        
+        return panels
+    {% endif %}
+    {% if cookiecutter.frontend.features.dashboard -%}
+    # Custom dashboard items
+    {% endif %}
+    {% endif %}
     {%- endif %}
