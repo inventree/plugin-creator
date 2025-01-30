@@ -5,6 +5,7 @@ import subprocess
 
 from .helpers import info
 
+
 def remove_frontend(plugin_dir: str) -> None:
     """If frontend code is not required, remove it!"""
 
