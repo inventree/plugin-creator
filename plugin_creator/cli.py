@@ -123,7 +123,7 @@ def gather_info(context: dict) -> dict:
     return context
 
 
-def cleanup(plugin_dir: str, context: dict) -> None:
+def cleanup(plugin_dir: str, context: dict, install: bool = False) -> None:
     """Cleanup generated files after cookiecutter runs."""
     
     info("Cleaning up generated files...")
@@ -131,7 +131,10 @@ def cleanup(plugin_dir: str, context: dict) -> None:
     devops.cleanup_devops_files(context['ci_support'], plugin_dir)
 
     if context['frontend']['enabled']:
-        frontend.update_frontend(plugin_dir, install=True)
+        frontend.update_frontend(plugin_dir, install=install)
+    else:
+        frontend.remove_frontend(plugin_dir)
+
 
 def main():
     """Run plugin scaffolding."""
@@ -139,7 +142,9 @@ def main():
     parser = argparse.ArgumentParser(description="InvenTree Plugin Creator Tool")
     parser.add_argument("--default", action="store_true", help="Use default values for all prompts (non-interactive mode)")
     parser.add_argument('--output', action='store', help='Specify output directory', default='.')
-
+    parser.add_argument('--install', action='store_true', help='Install frontend dependencies')
+    parser.add_argument('--version', action='version', version=f'%(prog)s {PLUGIN_CREATOR_VERSION}')
+    
     args = parser.parse_args()
 
     info("InvenTree Plugin Creator Tool")
@@ -171,7 +176,7 @@ def main():
     )
 
     # Cleanup files after cookiecutter runs
-    cleanup(plugin_dir, context)
+    cleanup(plugin_dir, context, install=args.install)
 
     success(f"Plugin created -> '{output_dir}'")
 

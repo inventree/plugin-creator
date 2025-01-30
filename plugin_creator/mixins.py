@@ -25,7 +25,7 @@ def available_mixins() -> list:
         'SettingsMixin',
         # 'SupplierBarcodeMixin',
         # 'UrlsMixin',
-        # 'UserInterfaceMixin',
+        'UserInterfaceMixin',
         # 'ValidationMixin',
     ]
 
