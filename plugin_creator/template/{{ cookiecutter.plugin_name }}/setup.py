@@ -46,7 +46,7 @@ setuptools.setup(
     python_requires=">=3.9",
     entry_points={
         "inventree_plugins": [
-            "{{ cookiecutter.plugin_name }} = {{ cookiecutter.package_name }}.plugin:{{ cookiecutter.plugin_name }}"
+            "{{ cookiecutter.plugin_name }} = {{ cookiecutter.package_name }}.core:{{ cookiecutter.plugin_name }}"
         ]
     },
 )
