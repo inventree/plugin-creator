@@ -7,7 +7,7 @@ import questionary
 from cookiecutter.main import cookiecutter
 
 
-from .helpers import error, info, success, warning
+from .helpers import info, success
 from . import mixins
 from . import validators
 
@@ -61,8 +61,8 @@ def gather_info() -> dict:
     ).ask().strip()
 
     # Extract license information
-    available_licences = [l for l in license.iter()]
-    license_keys = [l.id for l in available_licences]
+    available_licences = [lic for lic in license.iter()]
+    license_keys = [lic.id for lic in available_licences]
 
     context['license_key'] = questionary.select(
         "Select a license",
@@ -88,6 +88,7 @@ def gather_info() -> dict:
     }
 
     return context
+
 
 def main():
     """Run plugin scaffolding."""
@@ -119,6 +120,7 @@ def main():
     )
 
     success(f"Plugin created -> '{output_dir}'")
+
 
 if __name__ == "__main__":
     main()
