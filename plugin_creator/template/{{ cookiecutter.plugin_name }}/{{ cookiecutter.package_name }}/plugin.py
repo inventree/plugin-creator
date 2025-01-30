@@ -16,10 +16,15 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
     TITLE = "{{ cookiecutter.plugin_title }}"
     NAME = "{{ cookiecutter.plugin_name }}"
     SLUG = "{{ cookiecutter.plugin_slug }}"
-
-    AUTHOR = "{{ cookiecutter.author_name }}"
     DESCRIPTION = "{{ cookiecutter.plugin_description }}"
     VERSION = PLUGIN_VERSION
+
+    # Additional project information
+    AUTHOR = "{{ cookiecutter.author_name }}"
+    {% if cookiecutter.project_url -%}
+    WEBSITE = "{{ cookiecutter.project_url }}"
+    {%- endif %}
+    LICENSE = "{{ cookiecutter.license_key }}"
 
     {%- if cookiecutter.plugin_mixins.mixin_list %}
     {% if "SettingsMixin" in cookiecutter.plugin_mixins.mixin_list %}
