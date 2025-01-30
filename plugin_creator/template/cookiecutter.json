@@ -1,0 +1,20 @@
+{
+    "plugin_title": "My Custom Plugin",
+    "plugin_name": "MyCustomPlugin",
+    "plugin_slug": "my-custom-plugin",
+    "package_name": "my_custom_plugin",
+    "plugin_version": "0.1.0",
+    "plugin_mixins": {
+        "mixin_list": [
+            "SettingsMixin"
+        ]
+    },
+    "plugin_description": "A short description of the project",
+    "project_url": "https://github.com/username/my-custom-plugin",
+    "author_name": "John Doe",
+    "author_email": "email@admin.org",
+    "license_key": "MIT",
+    "license_text": "...",
+    "plugin_creator_version": "<version>",
+    "plugin_creator_url": "https://github.com/inventree/plugin_creator"
+}

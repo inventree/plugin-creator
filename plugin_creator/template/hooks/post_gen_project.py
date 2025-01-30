@@ -1,0 +1,1 @@
+# Custom hook which runs after the project has been generated
