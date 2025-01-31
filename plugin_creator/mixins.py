@@ -20,7 +20,7 @@ def available_mixins() -> list:
         # 'LabelPrintingMixin',
         # 'LocateMixin',
         # 'NavigationMixin',
-        # 'ReportMixin',
+        'ReportMixin',
         'ScheduleMixin',
         'SettingsMixin',
         # 'SupplierBarcodeMixin',

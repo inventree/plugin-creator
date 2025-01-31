@@ -54,7 +54,21 @@ def frontend_features() -> dict:
     }
 
 
-def select_features() -> list:
+def all_features() -> dict:
+    """Select all features by default."""
+    return {
+        key: True for key in frontend_features().keys()
+    }
+
+
+def no_features() -> dict:
+    """Select no features by default."""
+    return {
+        key: False for key in frontend_features().keys()
+    }
+
+
+def select_features() -> dict:
     """Select which frontend features to enable."""
 
     choices = [
@@ -64,10 +78,16 @@ def select_features() -> list:
         ) for title in frontend_features().values()
     ]
 
-    return questionary.checkbox(
+    selected = questionary.checkbox(
         "Select frontend features to enable",
         choices=choices
     ).ask()
+
+    selected_keys = [key for key, value in frontend_features().items() if value in selected]
+
+    return {
+        key: key in selected_keys for key in frontend_features().keys()
+    }
 
 
 def remove_frontend(plugin_dir: str) -> None:

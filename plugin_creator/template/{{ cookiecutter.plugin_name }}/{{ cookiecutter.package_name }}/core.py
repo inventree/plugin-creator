@@ -47,6 +47,22 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
             'default': 42,
         }
     }
+    {%- endif %}
+    {% if "ReportMixin" in cookiecutter.plugin_mixins.mixin_list %}
+    # Custom report context (from ReportMixin)
+    # Ref: https://docs.inventree.org/en/stable/extend/plugins/report/
+    def add_label_context(self, label_instance, model_instance, request, context, **kwargs):
+        """Add custom context data to a label rendering context."""
+        
+        # Add custom context data to the label rendering context
+        context['foo'] = 'label_bar'
+
+    def add_report_context(self, report_instance, model_instance, request, context, **kwargs):
+        """Add custom context data to a report rendering context."""
+        
+        # Add custom context data to the report rendering context
+        context['foo'] = 'report_bar'
+
     {%- endif -%}
     
     {% if "UserInterfaceMixin" in cookiecutter.plugin_mixins.mixin_list %}
