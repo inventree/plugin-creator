@@ -116,7 +116,7 @@ def gather_info(context: dict) -> dict:
         context["frontend"] = {
             "enabled": False,
             "packages": [],
-            "features": []
+            "features": frontend.no_features()
         }
 
     # Devops information
