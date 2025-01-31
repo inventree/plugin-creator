@@ -34,16 +34,19 @@ jobs:
       - name: Generate plugin
         run: |
           create-inventree-plugin --default --output output
-          test -d output || echo "Output directory not found"
-          test -d output/MyCustomPlugin
-          test -d output/MyCustomPlugin/src
-          test -f output/MyCustomPlugin/src/__init__.py
-          test -f output/MyCustomPlugin/src/plugin.py
-          test -f output/MyCustomPlugin/README.md
-          test -f output/MyCustomPlugin/.github/workflows/ci.yaml
-          test -f output/MyCustomPlugin/.github/workflows/pypi.yaml
-          test -f output/MyCustomPlugin/frontend/README.md
-          test -f output/MyCustomPlugin/frontend/vite.config.ts
+      - name: Check Plugin Structure
+        run: |
+          cd output
+          test -d MyCustomPlugin
+          test -d MyCustomPlugin/src
+          test -f MyCustomPlugin/src/__init__.py
+          test -f MyCustomPlugin/src/plugin.py
+          test -f MyCustomPlugin/README.md
+          test -f MyCustomPlugin/.github/workflows/ci.yaml
+          test -f MyCustomPlugin/.github/workflows/pypi.yaml
+          test -f MyCustomPlugin/frontend/README.md
+          test -f MyCustomPlugin/frontend/vite.config.ts
+          test -f MyCustomPlugin/frontend/src/Panel.tsx
       - name: Build and Install Plugin
         run: |
           cd output/MyCustomPlugin
