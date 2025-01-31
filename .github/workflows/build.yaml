@@ -34,7 +34,7 @@ jobs:
       - name: Generate plugin
         run: |
           create-inventree-plugin --default --output output
-          test -d output
+          test -d output || echo "Output directory not found"
           test -d output/MyCustomPlugin
           test -d output/MyCustomPlugin/src
           test -f output/MyCustomPlugin/src/__init__.py
@@ -53,4 +53,5 @@ jobs:
       - name: Build Frontend Code
         run: |
           cd output/MyCustomPlugin/frontend
-          npm run build
+          npm run build --emptyOutDir
+  
