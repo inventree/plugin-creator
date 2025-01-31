@@ -36,13 +36,10 @@ jobs:
           create-inventree-plugin --default --output output
       - name: Check Plugin Structure
         run: |
-          pwd
-          ls -a
-          cd output
           test -d MyCustomPlugin
-          test -d MyCustomPlugin/src
-          test -f MyCustomPlugin/src/__init__.py
-          test -f MyCustomPlugin/src/plugin.py
+          test -d MyCustomPlugin/my_custom_plugin
+          test -f MyCustomPlugin/my_custom_plugin/__init__.py
+          test -f MyCustomPlugin/my_custom_plugin/core.py
           test -f MyCustomPlugin/README.md
           test -f MyCustomPlugin/.github/workflows/ci.yaml
           test -f MyCustomPlugin/.github/workflows/pypi.yaml

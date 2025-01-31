@@ -174,6 +174,8 @@ def main():
     output_dir = os.path.abspath(args.output)
     plugin_dir = os.path.join(output_dir, context['plugin_name'])
 
+    info("- output:", plugin_dir)
+
     # Run cookiecutter template
     cookiecutter(
         src_path,
