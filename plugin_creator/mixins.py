@@ -15,7 +15,7 @@ def available_mixins() -> list:
         # 'BarcodeMixin',
         # 'BulkNotificationMethod',
         # 'CurrencyExchangeMixin',
-        # 'EventMixin',
+        'EventMixin',
         # 'IconPackMixin',
         # 'LabelPrintingMixin',
         # 'LocateMixin',

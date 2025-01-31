@@ -6,6 +6,7 @@
     "plugin_version": "0.1.0",
     "plugin_mixins": {
         "mixin_list": [
+            "EventMixin",
             "ReportMixin",
             "ScheduleMixin",
             "SettingsMixin",
@@ -23,7 +24,7 @@
     "ci_support": "github",
     "frontend": {
         "enabled": true,
-        "additional_packages": [],
+        "packages": [],
         "features": {
             "dashboard": true,
             "panel": true
