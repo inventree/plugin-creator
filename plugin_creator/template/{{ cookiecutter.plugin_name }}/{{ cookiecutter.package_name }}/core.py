@@ -40,7 +40,7 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
     # Ref: https://docs.inventree.org/en/stable/extend/plugins/settings/
     SETTINGS = {
         # Define your plugin settings here...
-        'custom_value': {
+        'CUSTOM_VALUE': {
             'name': 'Custom Value',
             'description': 'A custom value',
             'validator': int,
@@ -67,7 +67,7 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
                 'title': '{{ cookiecutter.plugin_title }}',
                 'description': 'Custom panel description',
                 'icon': 'ti:mood-smile:outline',
-                'source': self.plugin_static_file('Panels.js:render{{ cookiecutter.plugin_name }}Panel'),
+                'source': self.plugin_static_file('Panel.js:render{{ cookiecutter.plugin_name }}Panel'),
                 'context': {
                     # Provide additional context data to the panel
                     {%- if "SettingsMixin" in cookiecutter.plugin_mixins.mixin_list %}

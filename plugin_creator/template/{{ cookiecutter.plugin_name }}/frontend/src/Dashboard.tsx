@@ -18,7 +18,7 @@ function {{ cookiecutter.plugin_name }}DashboardItem({
         <SimpleGrid cols={2} spacing="md">
             <Text>Hello world</Text>
             <Text>
-                {context?.context?.model}: {context?.context?.id}
+                Username: {context.user?.username?.()}
             </Text>
         </SimpleGrid>
     );
