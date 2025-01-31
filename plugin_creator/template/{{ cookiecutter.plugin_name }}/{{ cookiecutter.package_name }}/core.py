@@ -47,8 +47,7 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
             'default': 42,
         }
     }
-    {%- endif -%}
-
+    {%- endif %}
     {% if "ReportMixin" in cookiecutter.plugin_mixins.mixin_list %}
     # Custom report context (from ReportMixin)
     # Ref: https://docs.inventree.org/en/stable/extend/plugins/report/
