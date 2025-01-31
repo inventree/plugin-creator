@@ -16,8 +16,10 @@ function {{ cookiecutter.plugin_name }}DashboardItem({
     // Render a simple grid of data
     return (
         <SimpleGrid cols={2} spacing="md">
-            <Text>Hello</Text>
-            <Text>World</Text>
+            <Text>Hello world</Text>
+            <Text>
+                {context?.context?.model}: {context?.context?.id}
+            </Text>
         </SimpleGrid>
     );
 }

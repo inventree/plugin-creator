@@ -15,7 +15,7 @@ function {{ cookiecutter.plugin_name }}Panel({
 
     // Extract context information
     const instance: string = useMemo(() => {
-        let data = context.instance ?? {};
+        let data = context.context?.instance ?? {};
         return JSON.stringify(data, null, 2);
     }, [context.instance]);
 
