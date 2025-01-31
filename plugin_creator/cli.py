@@ -150,7 +150,7 @@ def main():
     parser = argparse.ArgumentParser(description="InvenTree Plugin Creator Tool")
     parser.add_argument("--default", action="store_true", help="Use default values for all prompts (non-interactive mode)")
     parser.add_argument('--output', action='store', help='Specify output directory', default='.')
-    parser.add_argument('--skip_install', action='store_true', help='Do not install frontend dependencies')
+    parser.add_argument('--skip-install', action='store_true', help='Do not install frontend dependencies')
     parser.add_argument('--version', action='version', version=f'%(prog)s {PLUGIN_CREATOR_VERSION}')
     
     args = parser.parse_args()
