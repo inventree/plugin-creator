@@ -7,7 +7,8 @@
     "plugin_mixins": {
         "mixin_list": [
             "ScheduleMixin",
-            "SettingsMixin"
+            "SettingsMixin",
+            "UserInterfaceMixin"
         ]
     },
     "plugin_description": "A short description of the project",
@@ -18,6 +19,13 @@
     "license_text": "...",
     "plugin_creator_version": "<version>",
     "plugin_creator_url": "https://github.com/inventree/plugin_creator",
-    "ui_support": false,
-    "ci_support": "github"
+    "ci_support": "github",
+    "frontend": {
+        "enabled": true,
+        "additional_packages": [],
+        "features": {
+            "dashboard": true,
+            "panel": true
+        }
+    }
 }

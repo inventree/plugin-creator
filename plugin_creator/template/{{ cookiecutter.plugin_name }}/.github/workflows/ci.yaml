@@ -25,7 +25,7 @@ jobs:
       - name: Build Plugin
         run: |
           python -m build
-  {% if cookiecutter.ui_support %}
+  {% if cookiecutter.frontend.enabled %}
   frontend:
     runs-on: ubuntu-latest
     steps:

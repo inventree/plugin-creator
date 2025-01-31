@@ -10,6 +10,7 @@ from cookiecutter.main import cookiecutter
 from . import PLUGIN_CREATOR_VERSION
 
 from . import devops
+from . import frontend
 from . import mixins
 from . import validators
 
@@ -53,8 +54,7 @@ def gather_info(context: dict) -> dict:
     context['plugin_slug'] = context['plugin_title'].replace(" ", "-").lower()
     context['package_name'] = context['plugin_slug'].replace("-", "_")
 
-    success(f"Generating plugin '{context['plugin_title']}' - {context['plugin_description']}")
-    info(f" - Package Name: {context['package_name']}")
+    success(f"Generating plugin '{context['package_name']}' - {context['plugin_description']}")
 
     info("Enter author information:")
 
@@ -100,11 +100,24 @@ def gather_info(context: dict) -> dict:
         'mixin_list': plugin_mixins
     }
 
-    # TODO: Check if we want to add frontend code support
-    # context['ui_support'] = questionary.confirm(
-    #     "Add User Interface support?",
-    #     default="UserInterfaceMixin" in plugin_mixins
-    # ).ask()
+    # Check if we want to add frontend code support
+    if questionary.confirm(
+        "Add User Interface support?",
+        default="UserInterfaceMixin" in plugin_mixins
+    ).ask():
+        defaults = context.get("frontend", {}).get("packages", None)
+        context["frontend"] = {
+            "enabled": True,
+            # Extra frontend options
+            "packages": frontend.select_packages(defaults=defaults),
+            "features": frontend.select_features()
+        }
+    else:
+        context["frontend"] = {
+            "enabled": False,
+            "packages": [],
+            "features": []
+        }
 
     # Devops information
     info("Enter plugin devops support information:")
@@ -114,10 +127,21 @@ def gather_info(context: dict) -> dict:
     return context
 
 
-def cleanup(plugin_dir: str, context: dict) -> None:
+def cleanup(plugin_dir: str, context: dict, skip_install: bool = False) -> None:
     """Cleanup generated files after cookiecutter runs."""
     
+    info("Cleaning up generated files...")
+
     devops.cleanup_devops_files(context['ci_support'], plugin_dir)
+
+    if context['frontend']['enabled']:
+        if not skip_install:
+            frontend.update_frontend(
+                plugin_dir,
+                additional_packages=context['frontend']['additional_packages'] or None
+            )
+    else:
+        frontend.remove_frontend(plugin_dir)
 
 
 def main():
@@ -126,7 +150,9 @@ def main():
     parser = argparse.ArgumentParser(description="InvenTree Plugin Creator Tool")
     parser.add_argument("--default", action="store_true", help="Use default values for all prompts (non-interactive mode)")
     parser.add_argument('--output', action='store', help='Specify output directory', default='.')
-
+    parser.add_argument('--skip_install', action='store_true', help='Do not install frontend dependencies')
+    parser.add_argument('--version', action='version', version=f'%(prog)s {PLUGIN_CREATOR_VERSION}')
+    
     args = parser.parse_args()
 
     info("InvenTree Plugin Creator Tool")
@@ -148,6 +174,8 @@ def main():
     output_dir = os.path.abspath(args.output)
     plugin_dir = os.path.join(output_dir, context['plugin_name'])
 
+    info("- output:", plugin_dir)
+
     # Run cookiecutter template
     cookiecutter(
         src_path,
@@ -158,7 +186,7 @@ def main():
     )
 
     # Cleanup files after cookiecutter runs
-    cleanup(plugin_dir, context)
+    cleanup(plugin_dir, context, skip_install=args.skip_install)
 
     success(f"Plugin created -> '{output_dir}'")
 

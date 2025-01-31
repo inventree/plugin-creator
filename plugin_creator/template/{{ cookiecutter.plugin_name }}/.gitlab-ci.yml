@@ -18,7 +18,7 @@ build:
   script:
     - python -m build
 
-{% if cookiecutter.ui_support -%}
+{% if cookiecutter.frontend.enabled -%}
 frontend:
   stage: build
   image: node:18

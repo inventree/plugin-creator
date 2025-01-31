@@ -1,5 +1,6 @@
 # Custom hook which runs before the project is generated
 
+
 from collections import OrderedDict
 
 data = {{ cookiecutter }}

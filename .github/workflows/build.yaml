@@ -23,6 +23,10 @@ jobs:
         run: |
           pip install --upgrade wheel setuptools twine build
           pip install flake8 pep8-naming
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
       - name: Build Package
         run: |
           python -m build
@@ -30,17 +34,27 @@ jobs:
       - name: Generate plugin
         run: |
           create-inventree-plugin --default --output output
-          test -d output || echo "Output directory not found"
-          test -d output/MyCustomPlugin || echo "Plugin directory not found"
-          test -d output/MyCustomPlugin/src || echo "Source directory not found"
-          test -f output/MyCustomPlugin/src/__init__.py || echo "__init__.py not found"
-          test -f output/MyCustomPlugin/src/plugin.py || echo "plugin.py not found"
-          test -f output/MyCustomPlugin/README.md || echo "README.md not found"
-          test -f output/MyCustomPlugin/.github/workflows/ci.yaml
-          test -f output/MyCustomPlugin/.github/workflows/pypi.yaml
+      - name: Check Plugin Structure
+        run: |
+          cd output
+          test -d MyCustomPlugin
+          test -d MyCustomPlugin/my_custom_plugin
+          test -f MyCustomPlugin/my_custom_plugin/__init__.py
+          test -f MyCustomPlugin/my_custom_plugin/core.py
+          test -f MyCustomPlugin/README.md
+          test -f MyCustomPlugin/.github/workflows/ci.yaml
+          test -f MyCustomPlugin/.github/workflows/pypi.yaml
+          test -f MyCustomPlugin/frontend/README.md
+          test -f MyCustomPlugin/frontend/vite.config.ts
+          test -f MyCustomPlugin/frontend/src/Panel.tsx
       - name: Build and Install Plugin
         run: |
           cd output/MyCustomPlugin
           flake8 .
           python -m build
           pip install .
+      - name: Build Frontend Code
+        run: |
+          cd output/MyCustomPlugin/frontend
+          npm run build --emptyOutDir
+  

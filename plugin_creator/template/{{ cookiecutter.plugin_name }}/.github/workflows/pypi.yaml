@@ -23,7 +23,7 @@ jobs:
       - name: Install Python Dependencies
         run: |
           pip install --upgrade wheel setuptools twine build
-      {%- if cookiecutter.ui_support -%}
+      {%- if cookiecutter.frontend.enabled -%}
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
