@@ -1,1 +1,1 @@
-recursive-include frontend/static *
+recursive-include {{ cookiecutter.package_name }}/static *

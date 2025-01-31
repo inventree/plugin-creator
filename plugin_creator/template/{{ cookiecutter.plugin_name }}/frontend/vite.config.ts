@@ -23,7 +23,7 @@ export default defineConfig({
         {%- endif %}
       ],
       output: {
-        dir: './static',
+        dir: '../{{ cookiecutter.package_name }}/static',
         entryFileNames: '[name].js',
         assetFileNames: 'assets/[name].[ext]',
       },
