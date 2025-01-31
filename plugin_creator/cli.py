@@ -138,7 +138,7 @@ def cleanup(plugin_dir: str, context: dict, skip_install: bool = False) -> None:
         if not skip_install:
             frontend.update_frontend(
                 plugin_dir,
-                additional_packages=context['frontend']['additional_packages'] or None
+                additional_packages=context['frontend']['packages'] or None
             )
     else:
         frontend.remove_frontend(plugin_dir)

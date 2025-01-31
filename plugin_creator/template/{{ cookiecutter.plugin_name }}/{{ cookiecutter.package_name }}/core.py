@@ -48,6 +48,20 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
         }
     }
     {%- endif %}
+    {% if "EventMixin" in cookiecutter.plugin_mixins.mixin_list %}
+    # Respond to InvenTree events (from EventMixin)
+    # Ref: https://docs.inventree.org/en/stable/extend/plugins/event/
+    def wants_process_event(self, event: str) -> bool:
+        """Return True if the plugin wants to process the given event."""
+        # Example: only process the 'part.create' event
+        return event == 'part.create'
+    
+    def process_event(self, event: str, *args, **kwargs) -> None:
+        """Process the provided event."""
+        print("Processing custom event:", event)
+        print("Arguments:", args)
+        print("Keyword arguments:", kwargs)
+    {%- endif %}
     {% if "ReportMixin" in cookiecutter.plugin_mixins.mixin_list %}
     # Custom report context (from ReportMixin)
     # Ref: https://docs.inventree.org/en/stable/extend/plugins/report/
