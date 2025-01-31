@@ -1,3 +1,6 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PyPI](https://img.shields.io/pypi/v/inventree-plugin-creator)](https://pypi.org/project/inventree=plugin-creator/)
+
 # InvenTree Plugin Creator
 
 Command line tool for scaffolding a new InvenTree plugin.
