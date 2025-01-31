@@ -106,6 +106,6 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
         })
 
         return items
-    {% endif -%}
-    {% endif -%}
     {%- endif -%}
+    {%- endif -%}
+    {%- endif %}
