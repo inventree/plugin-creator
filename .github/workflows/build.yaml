@@ -36,6 +36,7 @@ jobs:
           create-inventree-plugin --default --output output
       - name: Check Plugin Structure
         run: |
+          cd output
           test -d MyCustomPlugin
           test -d MyCustomPlugin/my_custom_plugin
           test -f MyCustomPlugin/my_custom_plugin/__init__.py
