@@ -24,7 +24,7 @@
     "ci_support": "github",
     "frontend": {
         "enabled": true,
-        "additional_packages": [],
+        "packages": [],
         "features": {
             "dashboard": true,
             "panel": true
