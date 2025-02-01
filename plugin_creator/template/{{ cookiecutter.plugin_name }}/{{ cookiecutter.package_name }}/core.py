@@ -27,6 +27,10 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
     {%- endif %}
     LICENSE = "{{ cookiecutter.license_key }}"
 
+    # Optionally specify supported InvenTree versions
+    # MIN_VERSION = '0.18.0'
+    # MAX_VERSION = '2.0.0'
+
     {%- if cookiecutter.plugin_mixins.mixin_list %}
     {% if "ScheduleMixin" in cookiecutter.plugin_mixins.mixin_list %}
     # Scheduled tasks (from ScheduleMixin)
