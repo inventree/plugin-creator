@@ -15,7 +15,7 @@
         ]
     },
     "plugin_description": "A short description of the project",
-    "project_url": "https://github.com/username/my-custom-plugin",
+    "project_url": "",
     "author_name": "John Doe",
     "author_email": "email@admin.org",
     "license_key": "MIT",

@@ -36,6 +36,7 @@ jobs:
           create-inventree-plugin --default --output output
       - name: Check Plugin Structure
         run: |
+          test -f ~/.config/inventree-plugin-creator/config.json
           cd output
           test -d MyCustomPlugin
           test -d MyCustomPlugin/my_custom_plugin

@@ -26,13 +26,13 @@ setuptools.setup(
     author="{{ cookiecutter.author_name }}",
     {%- if cookiecutter.author_email %}
     author_email="{{ cookiecutter.author_email }}",
-    {% endif -%}
+    {%- endif %}
     description="{{ cookiecutter.plugin_description }}",
     long_description=long_description,
     long_description_content_type='text/markdown',
     {%- if cookiecutter.project_url %}
     url="{{ cookiecutter.project_url }}",
-    {% endif -%}
+    {%- endif %}
     license="{{ cookiecutter.license_key }}",
     packages=setuptools.find_packages(),
     include_package_data=True,
