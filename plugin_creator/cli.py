@@ -9,6 +9,7 @@ from cookiecutter.main import cookiecutter
 
 from . import PLUGIN_CREATOR_VERSION
 
+from . import config
 from . import devops
 from . import frontend
 from . import mixins
@@ -158,6 +159,7 @@ def main():
     info("InvenTree Plugin Creator Tool")
 
     context = default_values()
+    context.update(config.load_config())
 
     context["plugin_creator_version"] = PLUGIN_CREATOR_VERSION
 
@@ -173,6 +175,9 @@ def main():
 
     output_dir = os.path.abspath(args.output)
     plugin_dir = os.path.join(output_dir, context['plugin_name'])
+
+    # Save the user config
+    config.save_config(context)
 
     info("- output:", plugin_dir)
 
