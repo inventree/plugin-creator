@@ -62,6 +62,17 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
         print("Arguments:", args)
         print("Keyword arguments:", kwargs)
     {%- endif %}
+    {% if "LocateMixin" in cookiecutter.plugin_mixins.mixin_list %}
+    # Perform custom locate operations (from LocateMixin)
+    # Ref: https://docs.inventree.org/en/stable/extend/plugins/locate/
+    def locate_stock_item(self, item_id: int):
+        """Attempt to locate a particular StockItem."""
+        ...
+
+    def locate_stock_location(self, location_id: int):
+        """Attempt to locate a particular StockLocation."""
+        ...
+    {%- endif %}
     {% if "ReportMixin" in cookiecutter.plugin_mixins.mixin_list %}
     # Custom report context (from ReportMixin)
     # Ref: https://docs.inventree.org/en/stable/extend/plugins/report/

@@ -18,7 +18,7 @@ def available_mixins() -> list:
         'EventMixin',
         # 'IconPackMixin',
         # 'LabelPrintingMixin',
-        # 'LocateMixin',
+        'LocateMixin',
         # 'NavigationMixin',
         'ReportMixin',
         'ScheduleMixin',
