@@ -77,6 +77,10 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
         # Add custom context data to the report rendering context
         context['foo'] = 'report_bar'
 
+    def report_callback(self, template, instance, report, request, **kwargs):
+        """Callback function called after a report is generated."""
+        ...
+
     {%- endif -%}
     
     {% if "UserInterfaceMixin" in cookiecutter.plugin_mixins.mixin_list %}
