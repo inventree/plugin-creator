@@ -1,5 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![PyPI](https://img.shields.io/pypi/v/inventree-plugin-creator)](https://pypi.org/project/inventree=plugin-creator/)
+[![PyPI](https://img.shields.io/pypi/v/inventree-plugin-creator)](https://pypi.org/project/inventree-plugin-creator/)
 
 # InvenTree Plugin Creator
 
