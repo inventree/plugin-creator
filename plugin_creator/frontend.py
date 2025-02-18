@@ -8,14 +8,19 @@ from questionary.prompts.common import Choice
 
 from .helpers import info
 
+# Major versions of base packages
+# Bump these if the InvenTree core frontend is updated
+REACT_VERSION = 18
+MANTINE_VERSION = 7
+
 
 def enforced_packages() -> list:
     """List of frontend packages that are always installed."""
 
     return [
-        "react",
-        "react-dom",
-        "@mantine/core",
+        f"react@^{REACT_VERSION}",
+        f"react-dom@^{REACT_VERSION}",
+        f"@mantine/core@^{MANTINE_VERSION}",
     ]
 
 
@@ -23,9 +28,9 @@ def available_packages() -> list:
     """List of additional frontend packages to install."""
 
     return [
-        "@mantine/hooks",
-        "@mantine/charts",
-        "@tabler/icons-react",
+        f"@mantine/hooks@^{MANTINE_VERSION}",
+        f"@mantine/charts@^{MANTINE_VERSION}",
+        "@tabler/icons-react@latest",
     ]
 
 
