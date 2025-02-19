@@ -11,7 +11,8 @@
             "ReportMixin",
             "ScheduleMixin",
             "SettingsMixin",
-            "UserInterfaceMixin"
+            "UserInterfaceMixin",
+            "ValidationMixin"
         ]
     },
     "plugin_description": "A short description of the project",
