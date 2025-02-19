@@ -202,7 +202,7 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
         """Return the latest serial number for a given part."""
         return None
 
-    def increment_serial_number(self, serial, part = None, **kwargs):
+    def increment_serial_number(self, serial, part=None, **kwargs):
         """Increment a serial number."""
         return None
     {%- endif %}
