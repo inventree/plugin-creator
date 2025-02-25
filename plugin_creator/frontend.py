@@ -105,8 +105,23 @@ def remove_frontend(plugin_dir: str) -> None:
         subprocess.run(["rm", "-r", frontend_dir])
 
 
-def update_frontend(plugin_dir: str, additional_packages: list = None) -> None:
+def update_frontend(plugin_dir: str, features: list, additional_packages: list) -> None:
     """Update the frontend code for the plugin."""
+
+    # Remove features which are not needed
+    for feature in frontend_features().keys():
+        if not features.get(feature, False):
+            info(f"- Removing unused frontend feature: {feature}")
+
+            frontend_file = os.path.abspath(os.path.join(
+                plugin_dir,
+                'frontend',
+                'src',
+                f'{feature.capitalize()}.tsx'
+            ))
+
+            if os.path.exists(frontend_file):
+                subprocess.run(["rm", frontend_file])
 
     # These packages are *always* installed
     packages = enforced_packages()
