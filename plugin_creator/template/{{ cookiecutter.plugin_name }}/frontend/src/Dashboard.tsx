@@ -33,7 +33,7 @@ function {{ cookiecutter.plugin_name }}DashboardItem({
  */
 export function render{{ cookiecutter.plugin_name }}DashboardItem(target: HTMLElement, context: any) {
     createRoot(target).render(
-        <MantineProvider>
+        <MantineProvider theme={context.theme} defaultColorScheme={context.colorScheme}>
             <{{ cookiecutter.plugin_name }}DashboardItem context={context} />
         </MantineProvider>
     );

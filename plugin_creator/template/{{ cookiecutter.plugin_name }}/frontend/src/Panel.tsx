@@ -44,7 +44,7 @@ function {{ cookiecutter.plugin_name }}Panel({
  */
 export function render{{ cookiecutter.plugin_name }}Panel(target: HTMLElement, context: any) {
     createRoot(target).render(
-        <MantineProvider>
+        <MantineProvider theme={context.theme} defaultColorScheme={context.colorScheme}>
             <{{ cookiecutter.plugin_name }}Panel context={context} />
         </MantineProvider>
     );
