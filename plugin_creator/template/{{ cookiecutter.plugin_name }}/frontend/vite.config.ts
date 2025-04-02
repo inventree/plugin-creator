@@ -14,7 +14,8 @@ export default defineConfig({
     viteExternalsPlugin({
       react: 'React',
       'react-dom': 'ReactDOM',
-      '@mantine/core': 'MantineCore'
+      '@mantine/core': 'MantineCore',
+      "@mantine/notifications": 'MantineNotifications',
     }),
   ],
   esbuild: {
@@ -43,12 +44,13 @@ export default defineConfig({
           react: 'React',
           'react-dom': 'ReactDOM',
           '@mantine/core': 'MantineCore',
+          "@mantine/notifications": 'MantineNotifications',
         },
       },
-      external: ['react', 'react-dom', '@mantine/core'],
+      external: ['react', 'react-dom', '@mantine/core', '@mantine/notifications'],
     }
   },
   optimizeDeps: {
-    exclude: ['react', 'react-dom', '@mantine/core'],
+    exclude: ['react', 'react-dom', '@mantine/core', '@mantine/notifications'],
   },
 })

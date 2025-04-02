@@ -1,9 +1,10 @@
 import { Alert, Button, Group, Stack, Text, Title } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import { useCallback, useMemo, useState } from 'react';
 
 // Import for type checking
 import { type InvenTreePluginContext } from 'inventree';
-import { ApiEndpoints, apiUrl } from 'inventree';
+import { ApiEndpoints, apiUrl, ModelType } from 'inventree';
 
 /**
  * Render a custom panel with the provided context.
@@ -16,6 +17,10 @@ function {{ cookiecutter.plugin_name }}Panel({
     context: InvenTreePluginContext;
 }) {
 
+    const partId = useMemo(() => {
+        return context.model == ModelType.part ? context.id || null: null;
+    }, [context.model, context.id]);
+
     // Hello world - counter example
     const [ counter, setCounter ] = useState<number>(0);
 
@@ -25,10 +30,10 @@ function {{ cookiecutter.plugin_name }}Panel({
         return JSON.stringify(data, null, 2);
     }, [context.instance]);
 
-    // Custom form to create a new part
-    const newPartForm = context.forms.create({
-        url: apiUrl(ApiEndpoints.part_list),
-        title: "New Part",
+    // Custom form to edit the selected part
+    const editPartForm = context.forms.edit({
+        url: apiUrl(ApiEndpoints.part_list, partId),
+        title: "Edit Part",
         preFormContent: (
             <Alert title="Custom Plugin Form" color="blue">
                 This is a custom form launched from within a plugin!
@@ -38,26 +43,42 @@ function {{ cookiecutter.plugin_name }}Panel({
             name: {},
             description: {},
             category: {},
+        },
+        successMessage: null,
+        onFormSuccess: () => {
+            notifications.show({
+                title: 'Success',
+                message: 'Part updated successfully!',
+                color: 'green',
+            });
         }
     });
 
     // Custom callback function example
     const openForm = useCallback(() => {
-        newPartForm?.open();
-    }, [newPartForm]);
+        editPartForm?.open();
+    }, [editPartForm]);
+
+    // Navigation functionality example
+    const gotoDashboard = useCallback(() => {
+        context.navigate('/home');
+    }, [context]);
 
     return (
         <>
-        {newPartForm.modal}
+        {editPartForm.modal}
         <Stack gap="xs">
         <Title order={3}>{{ cookiecutter.plugin_title }}</Title>
         <Text>
             This is a custom panel for the {{ cookiecutter.plugin_name }} plugin.
         </Text>
         <Group justify='apart' wrap='nowrap' gap='sm'>
-            <Button color='green' onClick={openForm}>
-                Create New Part
+            <Button color='blue' onClick={gotoDashboard}>
+                Go to Dashboard
             </Button>
+            {partId && <Button color='green' onClick={openForm}>
+                Edit  Part
+            </Button>}
             <Button onClick={() => setCounter(counter + 1)}>
                 Increment Counter
             </Button>
