@@ -1,6 +1,5 @@
 
-import { MantineProvider, SimpleGrid, Text } from '@mantine/core';
-import { createRoot } from 'react-dom/client';
+import { SimpleGrid, Text } from '@mantine/core';
 
 /**
  * Render a custom dashboard item with the provided context
@@ -28,13 +27,8 @@ function {{ cookiecutter.plugin_name }}DashboardItem({
 /**
  * Render the {{ cookiecutter.plugin_name }}DashboardItem component.
  * 
- * @param target - The target HTML element to render the panel into
  * @param context - The context object to pass to the panel
  */
-export function render{{ cookiecutter.plugin_name }}DashboardItem(target: HTMLElement, context: any) {
-    createRoot(target).render(
-        <MantineProvider theme={context.theme} defaultColorScheme={context.colorScheme}>
-            <{{ cookiecutter.plugin_name }}DashboardItem context={context} />
-        </MantineProvider>
-    );
+export function render{{ cookiecutter.plugin_name }}DashboardItem(context: any) {
+    return <{{ cookiecutter.plugin_name }}DashboardItem context={context} />;
 }

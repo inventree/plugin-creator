@@ -1,5 +1,4 @@
-import { MantineProvider, Stack, Text, Title } from '@mantine/core';
-import { createRoot } from 'react-dom/client';
+import { Stack, Text, Title } from '@mantine/core';
 import { useMemo } from 'react';
 
 /**
@@ -39,13 +38,8 @@ function {{ cookiecutter.plugin_name }}Panel({
 /**
  * Render the {{ cookiecutter.plugin_name }}Panel component.
  * 
- * @param target - The target HTML element to render the panel into
  * @param context - The context object to pass to the panel
  */
-export function render{{ cookiecutter.plugin_name }}Panel(target: HTMLElement, context: any) {
-    createRoot(target).render(
-        <MantineProvider theme={context.theme} defaultColorScheme={context.colorScheme}>
-            <{{ cookiecutter.plugin_name }}Panel context={context} />
-        </MantineProvider>
-    );
+export function render{{ cookiecutter.plugin_name }}Panel(context: any) {
+    return <{{ cookiecutter.plugin_name }}Panel context={context} />;
 }
