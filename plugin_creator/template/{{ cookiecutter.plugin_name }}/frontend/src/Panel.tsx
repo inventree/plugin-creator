@@ -1,11 +1,9 @@
-import { MantineProvider } from '@mantine/core';
-import { Alert, Button, Stack, Text, Title } from '@mantine/core';
+import { Alert, Button, Group, Stack, Text, Title } from '@mantine/core';
 import { useCallback, useMemo, useState } from 'react';
 
 // Import for type checking
 import { type InvenTreePluginContext } from 'inventree';
 import { ApiEndpoints, apiUrl } from 'inventree';
-
 
 /**
  * Render a custom panel with the provided context.
@@ -45,21 +43,26 @@ function {{ cookiecutter.plugin_name }}Panel({
 
     // Custom callback function example
     const openForm = useCallback(() => {
-        console.log("Opening form...");
         newPartForm?.open();
     }, [newPartForm]);
 
     return (
         <>
-        {newPartForm && newPartForm.modal}
+        {newPartForm.modal}
         <Stack gap="xs">
         <Title order={3}>{{ cookiecutter.plugin_title }}</Title>
         <Text>
             This is a custom panel for the {{ cookiecutter.plugin_name }} plugin.
         </Text>
-        <Button color='green' onClick={() => openForm}>
-            Create New Part
-        </Button>
+        <Group justify='apart' wrap='nowrap' gap='sm'>
+            <Button color='green' onClick={openForm}>
+                Create New Part
+            </Button>
+            <Button onClick={() => setCounter(counter + 1)}>
+                Increment Counter
+            </Button>
+            <Text size='xl'>Counter: {counter}</Text>
+        </Group>
         {instance ? (
             <Alert title="Instance Data" color="blue">
                 {instance}
@@ -69,25 +72,12 @@ function {{ cookiecutter.plugin_name }}Panel({
                 No instance data available
             </Alert>
         )}
-        <Button onClick={() => setCounter(counter + 1)}>
-            Increment Counter
-        </Button>
-        <Text size='xl'>Counter: {counter}</Text>
         </Stack>
         </>
     );
 }
 
-
-/**
- * Render the {{ cookiecutter.plugin_name }}Panel component.
- * 
- * @param context - The context object to pass to the panel
- */
+// This is the function which is called by InvenTree to render the actual panel component
 export function render{{ cookiecutter.plugin_name }}Panel(context: InvenTreePluginContext) {
-    return (
-        <MantineProvider theme={context.theme} defaultColorScheme={context.colorScheme}>
-            <{{ cookiecutter.plugin_name }}Panel context={context} />;
-        </MantineProvider>
-    );
+    return <{{ cookiecutter.plugin_name }}Panel context={context} />;
 }
