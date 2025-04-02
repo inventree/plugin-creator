@@ -3,7 +3,7 @@ import { notifications } from '@mantine/notifications';
 import { useCallback, useMemo, useState } from 'react';
 
 // Import for type checking
-import { type InvenTreePluginContext } from 'inventree';
+import { checkPluginVersion, type InvenTreePluginContext } from 'inventree';
 import { ApiEndpoints, apiUrl, ModelType } from 'inventree';
 
 /**
@@ -100,5 +100,6 @@ function {{ cookiecutter.plugin_name }}Panel({
 
 // This is the function which is called by InvenTree to render the actual panel component
 export function render{{ cookiecutter.plugin_name }}Panel(context: InvenTreePluginContext) {
+    checkPluginVersion(context);
     return <{{ cookiecutter.plugin_name }}Panel context={context} />;
 }
