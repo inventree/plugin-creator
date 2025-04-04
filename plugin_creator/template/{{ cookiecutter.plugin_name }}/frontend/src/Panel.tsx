@@ -3,8 +3,8 @@ import { notifications } from '@mantine/notifications';
 import { useCallback, useMemo, useState } from 'react';
 
 // Import for type checking
-import { checkPluginVersion, type InvenTreePluginContext } from 'inventree';
-import { ApiEndpoints, apiUrl, ModelType } from 'inventree';
+import { checkPluginVersion, type InvenTreePluginContext } from '@inventreedb/ui';
+import { ApiEndpoints, apiUrl, ModelType } from '@inventreedb/ui';
 
 /**
  * Render a custom panel with the provided context.

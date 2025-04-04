@@ -3,7 +3,7 @@ import { Button, SimpleGrid, Text } from '@mantine/core';
 import { useState } from 'react';
 
 // Import for type checking
-import { checkPluginVersion, type InvenTreePluginContext } from 'inventree';
+import { checkPluginVersion, type InvenTreePluginContext } from '@inventreedb/ui';
 
 /**
  * Render a custom dashboard item with the provided context
