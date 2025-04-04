@@ -26,10 +26,11 @@
     "ci_support": "github",
     "frontend": {
         "enabled": true,
-        "packages": [],
         "features": {
             "dashboard": true,
             "panel": true
-        }
+        },
+        "react_version": "",
+        "mantine_version": ""
     }
 }

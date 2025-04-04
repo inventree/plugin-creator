@@ -10,44 +10,8 @@ from .helpers import info
 
 # Major versions of base packages
 # Bump these if the InvenTree core frontend is updated
-REACT_VERSION = 18
-MANTINE_VERSION = 7
-
-
-def enforced_packages() -> list:
-    """List of frontend packages that are always installed."""
-
-    return [
-        f"react@^{REACT_VERSION}",
-        f"react-dom@^{REACT_VERSION}",
-        f"@mantine/core@^{MANTINE_VERSION}",
-    ]
-
-
-def available_packages() -> list:
-    """List of additional frontend packages to install."""
-
-    return [
-        f"@mantine/hooks@^{MANTINE_VERSION}",
-        f"@mantine/charts@^{MANTINE_VERSION}",
-        "@tabler/icons-react@latest",
-    ]
-
-
-def select_packages(defaults: list = None) -> list:
-    """Select which packages to install."""
-
-    choices = [
-        Choice(
-            title=package,
-            checked=package in defaults if defaults else False,
-        ) for package in available_packages()
-    ]
-
-    return questionary.checkbox(
-        "Select frontend packages to install",
-        choices=choices
-    ).ask()
+MANTINE_VERSION = '^7.16.0'
+REACT_VERSION = '^18.3.1'
 
 
 def frontend_features() -> dict:
@@ -105,7 +69,7 @@ def remove_frontend(plugin_dir: str) -> None:
         subprocess.run(["rm", "-r", frontend_dir])
 
 
-def update_frontend(plugin_dir: str, features: list, additional_packages: list) -> None:
+def update_frontend(plugin_dir: str, features: list) -> None:
     """Update the frontend code for the plugin."""
 
     # Remove features which are not needed
@@ -122,19 +86,3 @@ def update_frontend(plugin_dir: str, features: list, additional_packages: list) 
 
             if os.path.exists(frontend_file):
                 subprocess.run(["rm", frontend_file])
-
-    # These packages are *always* installed
-    packages = enforced_packages()
-
-    if additional_packages:
-        packages += additional_packages
-
-    info("- Installing frontend dependencies...")
-
-    frontend_dir = os.path.join(plugin_dir, "frontend")
-
-    for pkg in packages:
-        info(f"-- installing {pkg}")
-        subprocess.run(["npm", "install", pkg], cwd=frontend_dir)
-
-    subprocess.run(["npm", "update"], cwd=frontend_dir)

@@ -34,3 +34,17 @@ To view the available options, run:
 ```bash
 create-inventree-plugin --help
 ```
+
+## Frontend Features
+
+If you are developing a plugin which provides frontend (UI) features, after creating the initial plugin, run the following commands to install and build the initial version of the frontend code:
+
+```bash
+cd <myplugin>/frontend
+npm install
+npm run build
+```
+
+This will compile frontend code into the `<myplugin>/static` directory - ready to be packaged and distributed with the python plugin code.
+
+*Note: You must run `npm run build` each time before building and distributing the plugin.*

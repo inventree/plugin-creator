@@ -1,6 +1,9 @@
 
-import { MantineProvider, SimpleGrid, Text } from '@mantine/core';
-import { createRoot } from 'react-dom/client';
+import { Button, SimpleGrid, Text } from '@mantine/core';
+import { useState } from 'react';
+
+// Import for type checking
+import { checkPluginVersion, type InvenTreePluginContext } from '@inventreedb/ui';
 
 /**
  * Render a custom dashboard item with the provided context
@@ -10,31 +13,32 @@ import { createRoot } from 'react-dom/client';
 function {{ cookiecutter.plugin_name }}DashboardItem({
     context
 }: {
-    context: any;
+    context: InvenTreePluginContext;
 }) {
+
+    const [ counter, setCounter ] = useState<number>(0);
+
+    const pluginName : string = "{{ cookiecutter.plugin_name }}";
 
     // Render a simple grid of data
     return (
         <SimpleGrid cols={2} spacing="md">
-            <Text>Hello world</Text>
+            <Text>Plugin: {pluginName}</Text>
             <Text>
                 Username: {context.user?.username?.()}
             </Text>
+            <Text>
+                Counter: {counter}
+            </Text>
+            <Button onClick={() => setCounter(counter + 1)}>+</Button>
         </SimpleGrid>
     );
 }
 
 
-/**
- * Render the {{ cookiecutter.plugin_name }}DashboardItem component.
- * 
- * @param target - The target HTML element to render the panel into
- * @param context - The context object to pass to the panel
- */
-export function render{{ cookiecutter.plugin_name }}DashboardItem(target: HTMLElement, context: any) {
-    createRoot(target).render(
-        <MantineProvider theme={context.theme} defaultColorScheme={context.colorScheme}>
-            <{{ cookiecutter.plugin_name }}DashboardItem context={context} />
-        </MantineProvider>
-    );
+// This is the function which is called by InvenTree to render the actual dashboard
+//  component
+export function render{{ cookiecutter.plugin_name }}DashboardItem(context: InvenTreePluginContext) {
+    checkPluginVersion(context);
+    return <{{ cookiecutter.plugin_name }}DashboardItem context={context} />;
 }
