@@ -57,8 +57,8 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
     # Ref: https://docs.inventree.org/en/stable/extend/plugins/event/
     def wants_process_event(self, event: str) -> bool:
         """Return True if the plugin wants to process the given event."""
-        # Example: only process the 'part.create' event
-        return event == 'part.create'
+        # Example: only process the 'create part' event
+        return event == 'part_part.created'
     
     def process_event(self, event: str, *args, **kwargs) -> None:
         """Process the provided event."""
