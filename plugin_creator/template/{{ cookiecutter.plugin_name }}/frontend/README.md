@@ -24,7 +24,7 @@ This project uses [Vite](https://vitejs.dev/) as the build tool. We followed [th
 To compile the frontend code, run:
 
 ```bash
-npm run build --emptyOutDir
+npm run build
 ```
 
 This will compile the frontend into the `../{{ cookiecutter.package_name}}/static` directory (ready for distribution).
