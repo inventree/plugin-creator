@@ -1,6 +1,7 @@
 """InvenTree plugin mixin selection."""
 
 import questionary
+from questionary.prompts.common import Choice
 
 
 def available_mixins() -> list:
@@ -33,8 +34,17 @@ def available_mixins() -> list:
 def get_mixins() -> list:
     """Ask user to select plugin mixins."""
 
+    # Default mixins to select
+    defaults = ['SettingsMixin', 'UserInterfaceMixin']
+
+    choices = [
+        Choice(
+            title=title,
+            checked=title in defaults,
+        ) for title in available_mixins()
+    ]
+
     return questionary.checkbox(
         "Select plugin mixins",
-        choices=available_mixins(),
-        default="SettingsMixin"
+        choices=choices
     ).ask()
