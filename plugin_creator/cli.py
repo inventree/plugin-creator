@@ -101,11 +101,8 @@ def gather_info(context: dict) -> dict:
         'mixin_list': plugin_mixins
     }
 
-    # Check if we want to add frontend code support
-    if questionary.confirm(
-        "Add User Interface support?",
-        default="UserInterfaceMixin" in plugin_mixins
-    ).ask():
+    # If we want to add frontend code support
+    if 'UserInterfaceMixin' in plugin_mixins:
         context["frontend"] = {
             "enabled": True,
             "features": frontend.select_features()
