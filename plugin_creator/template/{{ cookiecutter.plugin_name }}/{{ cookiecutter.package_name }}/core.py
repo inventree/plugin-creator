@@ -31,6 +31,13 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
     # MIN_VERSION = '0.18.0'
     # MAX_VERSION = '2.0.0'
 
+    {% if "UserInterfaceMixin" in cookiecutter.plugin_mixins.mixin_list %}
+    {% if cookiecutter.frontend.features.settings %}
+    # Render custom UI elements to the plugin settings page
+    ADMIN_SOURCE = "Settings.js:renderPluginSettings"
+    {% endif -%}
+    {% endif -%}
+
     {%- if cookiecutter.plugin_mixins.mixin_list %}
     {% if "ScheduleMixin" in cookiecutter.plugin_mixins.mixin_list %}
     # Scheduled tasks (from ScheduleMixin)

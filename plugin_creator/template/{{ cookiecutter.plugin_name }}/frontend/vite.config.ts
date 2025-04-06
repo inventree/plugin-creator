@@ -35,6 +35,9 @@ export default defineConfig({
         {% if cookiecutter.frontend.features.dashboard -%}
         './src/Dashboard.tsx',
         {%- endif %}
+        {% if cookiecutter.frontend.features.settings -%}
+        './src/Settings.tsx',
+        {%- endif %}
       ],
       output: {
         dir: '../{{ cookiecutter.package_name }}/static',

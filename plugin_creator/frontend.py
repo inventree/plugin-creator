@@ -20,6 +20,7 @@ def frontend_features() -> dict:
     return {
         "dashboard": "Custom dashboard items",
         "panel": "Custom panel items",
+        "settings": "Custom settings display",
     }
 
 
