@@ -28,7 +28,8 @@
         "enabled": true,
         "features": {
             "dashboard": true,
-            "panel": true
+            "panel": true,
+            "settings": true
         },
         "react_version": "",
         "mantine_version": ""
