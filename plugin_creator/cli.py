@@ -144,6 +144,7 @@ def cleanup(plugin_dir: str, context: dict) -> None:
     if context["git_support"]:
         devops.git_init(plugin_dir)
 
+
 def main():
     """Run plugin scaffolding."""
 

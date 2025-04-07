@@ -49,6 +49,7 @@ def cleanup_devops_files(devops_mode: str, plugin_dir: str) -> None:
             info("- Removing .gitlab-ci.yml file")
             os.remove(gitlab_file)
 
+
 def git_init(plugin_dir: str) -> None:
     """Initialize git repository."""
 
