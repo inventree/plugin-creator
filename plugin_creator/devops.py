@@ -48,3 +48,15 @@ def cleanup_devops_files(devops_mode: str, plugin_dir: str) -> None:
         if os.path.exists(gitlab_file):
             info("- Removing .gitlab-ci.yml file")
             os.remove(gitlab_file)
+
+def git_init(plugin_dir: str) -> None:
+    """Initialize git repository."""
+
+    info("Initializing git repository...")
+    os.system(f"git init --initial-branch=main {plugin_dir}")
+
+    # Add all files to the staging area
+    os.system(f"git -C {plugin_dir} add .")
+
+    # Commit the changes
+    os.system(f"git -C {plugin_dir} commit -m 'Initial plugin commit'")

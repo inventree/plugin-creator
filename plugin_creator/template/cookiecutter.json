@@ -23,6 +23,7 @@
     "license_text": "...",
     "plugin_creator_version": "<version>",
     "plugin_creator_url": "https://github.com/inventree/plugin_creator",
+    "git_support": true,
     "ci_support": "github",
     "frontend": {
         "enabled": true,
