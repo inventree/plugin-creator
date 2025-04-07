@@ -116,7 +116,12 @@ def gather_info(context: dict) -> dict:
     # Devops information
     info("Enter plugin devops support information:")
 
-    context['ci_support'] = devops.get_devops_mode()
+    git_support = context["git_support"] = questionary.confirm(
+        "Enable Git integration?",
+        default=True,
+    )
+
+    context['ci_support'] = devops.get_devops_mode() if git_support else "None"
 
     return context
 
@@ -135,6 +140,9 @@ def cleanup(plugin_dir: str, context: dict) -> None:
         )
     else:
         frontend.remove_frontend(plugin_dir)
+
+    if context["git_support"]:
+        devops.git_init(plugin_dir)
 
 
 def main():
