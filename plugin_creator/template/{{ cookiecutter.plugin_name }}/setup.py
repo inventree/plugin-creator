@@ -35,6 +35,7 @@ setuptools.setup(
     {%- endif %}
     license="{{ cookiecutter.license_key }}",
     packages=setuptools.find_packages(),
+    keywords="inventree plugin",
     include_package_data=True,
     install_requires=[
         # Enter your plugin library dependencies here
