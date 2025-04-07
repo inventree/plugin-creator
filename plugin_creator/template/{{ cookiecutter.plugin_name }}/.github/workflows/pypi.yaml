@@ -23,7 +23,7 @@ jobs:
       - name: Install Python Dependencies
         run: |
           pip install --upgrade wheel setuptools twine build
-      {%- if cookiecutter.frontend.enabled -%}
+      {%- if cookiecutter.frontend.enabled %}
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
@@ -33,7 +33,7 @@ jobs:
           cd frontend
           npm install
           npm run build
-      {%- endif -%}
+      {%- endif %}
       - name: Build Binary
         run: |
           python -m build
@@ -42,6 +42,6 @@ jobs:
           python -m twine upload dist/*
         env:
           TWINE_USERNAME: __token__
-          TWINE_PASSWORD: {%- raw %}${{ secrets.PYPI_API_TOKEN }}{% endraw -%}
+          TWINE_PASSWORD: {% raw %}${{ secrets.PYPI_API_TOKEN }}{% endraw %}
           TWINE_REPOSITORY: pypi
   
