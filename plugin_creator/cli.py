@@ -119,7 +119,7 @@ def gather_info(context: dict) -> dict:
     git_support = context["git_support"] = questionary.confirm(
         "Enable Git integration?",
         default=True,
-    )
+    ).ask()
 
     context['ci_support'] = devops.get_devops_mode() if git_support else "None"
 
