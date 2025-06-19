@@ -38,4 +38,8 @@ jobs:
           cd frontend
           npm install
           npm run build
+      - name: Code Linting
+        run: |
+          cd frontend
+          npm run lint
   {%- endif -%}
