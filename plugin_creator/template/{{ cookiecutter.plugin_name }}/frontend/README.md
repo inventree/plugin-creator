@@ -42,3 +42,21 @@ npm run dev
 This will start a development server (usually on `localhost:5173`) which will automatically reload when changes are made to the source code.
 
 The development server provides some "dummy" harness data to test the frontend code.
+
+### Linting / Formatting
+
+The frontend code is linted and formatted using [biomejs](https://biomejs.dev/).
+
+To *check* the code for linting errors, run:
+
+```bash
+npm run lint
+```
+
+To *fix* any linting errors, run:
+
+```bash
+npm run lint:fix
+```
+
+Any formatting errors will be automatically fixed when you run the `lint:fix` command.

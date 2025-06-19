@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "lint": "npm @biomejs/biome check ./src",
-    "format": "npm @biomejs/biome check ./src --fix",
+    "lint:fix": "npm @biomejs/biome check ./src --fix",
     "build": "tsc -b && vite build --emptyOutDir",
     "dev": "vite --config vite.dev.config.ts --host",
     "preview": "vite preview --config vite.dev.config.ts --host"
