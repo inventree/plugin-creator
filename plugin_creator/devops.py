@@ -61,3 +61,7 @@ def git_init(plugin_dir: str) -> None:
 
     # Commit the changes
     os.system(f"git -C {plugin_dir} commit -m 'Initial plugin commit'")
+
+    # Intall pre-commit hooks
+    os.system("pip install pre-commit")
+    os.system("pre-commit install")
