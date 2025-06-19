@@ -22,7 +22,7 @@ jobs:
       - name: Install Python Dependencies
         run: |
           pip install --upgrade wheel setuptools twine build
-          pip install flake8 pep8-naming
+          pip install ruff
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
@@ -51,7 +51,7 @@ jobs:
       - name: Build and Install Plugin
         run: |
           cd output/MyCustomPlugin
-          flake8 .
+          ruff check .
           python -m build
           pip install .
       - name: Build Frontend Code

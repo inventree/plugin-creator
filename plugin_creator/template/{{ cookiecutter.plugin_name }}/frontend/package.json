@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "npx @biomejs/biome check ./src",
+    "lint:fix": "npx @biomejs/biome check ./src --fix",
     "build": "tsc -b && vite build --emptyOutDir",
     "dev": "vite --config vite.dev.config.ts --host",
     "preview": "vite preview --config vite.dev.config.ts --host"
@@ -20,16 +21,12 @@
     "react-dom": "{{ cookiecutter.frontend.react_version }}"
   },
   "devDependencies": {
-    "@eslint/js": "^9.17.0",
+    "@biomejs/biome": "2.0.0",
     "@types/react": "{{ cookiecutter.frontend.react_version }}",
     "@types/react-dom": "{{ cookiecutter.frontend.react_version }}",
     "@vitejs/plugin-react": "^4.3.4",
-    "eslint": "^9.17.0",
-    "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
     "typescript": "~5.6.2",
-    "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5",
     "vite-plugin-externals": "^0.6.2"
   }

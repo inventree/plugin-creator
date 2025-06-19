@@ -2,10 +2,11 @@
 
 import os
 import shutil
+import subprocess
 
 import questionary
 
-from .helpers import info
+from .helpers import info, success
 
 
 def get_devops_options() -> list:
@@ -54,10 +55,28 @@ def git_init(plugin_dir: str) -> None:
     """Initialize git repository."""
 
     info("Initializing git repository...")
-    os.system(f"git init --initial-branch=main {plugin_dir}")
+    subprocess.run(
+        ["git init -b main"],
+        check=True,
+        shell=True,
+        cwd=plugin_dir
+    )
 
-    # Add all files to the staging area
-    os.system(f"git -C {plugin_dir} add .")
+    # Intall pre-commit hooks
+    info("Installing pre-commit hooks...")
 
-    # Commit the changes
-    os.system(f"git -C {plugin_dir} commit -m 'Initial plugin commit'")
+    subprocess.run(
+        ["pip install pre-commit"],
+        check=True,
+        shell=True,
+        cwd=plugin_dir
+    )
+
+    subprocess.run(
+        ["pre-commit install"],
+        check=True,
+        shell=True,
+        cwd=plugin_dir
+    )
+
+    success("Git repository initialized and pre-commit hooks installed.")
