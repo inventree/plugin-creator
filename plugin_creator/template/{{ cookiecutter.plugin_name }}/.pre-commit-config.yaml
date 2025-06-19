@@ -3,12 +3,17 @@ repos:
     # Ruff version.
     rev: v0.12.0
     hooks:
-      - id: ruff-check
-        args: [ --fix ]
       - id: ruff-format
+        args: [ --preview ]
+      - id: ruff
+        args: [
+          --fix,
+          # --unsafe-fixes,
+          --preview
+        ]
 -   repo: https://github.com/biomejs/pre-commit
     rev: v2.0.0-beta.5
     hooks:
     -   id: biome-check
         additional_dependencies: ["@biomejs/biome@2.0.0"]
-        files: ^/frontend/src.*\.(js|ts|tsx)$
+        files: ^frontend/src.*\.(js|ts|tsx)$
