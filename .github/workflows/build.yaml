@@ -59,4 +59,5 @@ jobs:
           cd output/MyCustomPlugin/frontend
           npm install
           npm run build
+          npm run lint
   
