@@ -41,14 +41,14 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
     {%- if cookiecutter.plugin_mixins.mixin_list %}
     {% if "ScheduleMixin" in cookiecutter.plugin_mixins.mixin_list %}
     # Scheduled tasks (from ScheduleMixin)
-    # Ref: https://docs.inventree.org/en/stable/extend/plugins/schedule/
+    # Ref: https://docs.inventree.org/en/latest/plugins/mixins/schedule/
     SCHEDULED_TASKS = {
         # Define your scheduled tasks here...
     }
     {%- endif %}
     {% if "SettingsMixin" in cookiecutter.plugin_mixins.mixin_list %}
     # Plugin settings (from SettingsMixin)
-    # Ref: https://docs.inventree.org/en/stable/extend/plugins/settings/
+    # Ref: https://docs.inventree.org/en/latest/plugins/mixins/settings/
     SETTINGS = {
         # Define your plugin settings here...
         'CUSTOM_VALUE': {
@@ -61,7 +61,7 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
     {%- endif %}
     {% if "EventMixin" in cookiecutter.plugin_mixins.mixin_list %}
     # Respond to InvenTree events (from EventMixin)
-    # Ref: https://docs.inventree.org/en/stable/extend/plugins/event/
+    # Ref: https://docs.inventree.org/en/latest/plugins/mixins/event/
     def wants_process_event(self, event: str) -> bool:
         """Return True if the plugin wants to process the given event."""
         # Example: only process the 'create part' event
@@ -75,7 +75,7 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
     {%- endif %}
     {% if "LocateMixin" in cookiecutter.plugin_mixins.mixin_list %}
     # Perform custom locate operations (from LocateMixin)
-    # Ref: https://docs.inventree.org/en/stable/extend/plugins/locate/
+    # Ref: https://docs.inventree.org/en/latest/plugins/mixins/locate/
     def locate_stock_item(self, item_id: int):
         """Attempt to locate a particular StockItem."""
         ...
@@ -86,7 +86,7 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
     {%- endif %}
     {% if "ReportMixin" in cookiecutter.plugin_mixins.mixin_list %}
     # Custom report context (from ReportMixin)
-    # Ref: https://docs.inventree.org/en/stable/extend/plugins/report/
+    # Ref: https://docs.inventree.org/en/latest/plugins/mixins/report/
     def add_label_context(self, label_instance, model_instance, request, context, **kwargs):
         """Add custom context data to a label rendering context."""
         
@@ -103,12 +103,25 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
         """Callback function called after a report is generated."""
         ...
 
-    {%- endif -%}
-    
+    {%- endif %}
+    {% if "UrlsMixin" in cookiecutter.plugin_mixins.mixin_list %}
+    # Custom URL endpoints (from UrlsMixin)
+    # Ref: https://docs.inventree.org/en/latest/plugins/mixins/urls/
+    def setup_urls(self):
+        """Configure custom URL endpoints for this plugin."""
+        from django.urls import path
+        from .views import ExampleView
+
+        return [
+            # Provide path to a simple custom view - replace this with your own views
+            path('example/', ExampleView.as_view(), name='example-view'),
+        ]
+
+    {%- endif %}
     {% if "UserInterfaceMixin" in cookiecutter.plugin_mixins.mixin_list %}
 
     # User interface elements (from UserInterfaceMixin)
-    # Ref: https://docs.inventree.org/en/stable/extend/plugins/ui/
+    # Ref: https://docs.inventree.org/en/latest/plugins/mixins/ui/
     {% if cookiecutter.frontend.features.panel %}
     # Custom UI panels
     def get_ui_panels(self, request, context: dict, **kwargs):
@@ -135,6 +148,7 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
         
         return panels
     {% endif %}
+
     {% if cookiecutter.frontend.features.dashboard -%}
     # Custom dashboard items
     def get_ui_dashboard_items(self, request, context: dict, **kwargs):
@@ -168,7 +182,7 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
     {%- if "ValidationMixin" in cookiecutter.plugin_mixins.mixin_list %}
 
     # Custom data validation (from ValidationMixin)
-    # Ref: https://docs.inventree.org/en/stable/extend/plugins/validation/
+    # Ref: https://docs.inventree.org/en/latest/plugins/mixins/validation/
     def validate_model_deletion(self, instance, **kwargs):
         """Run custom validation when a model instance is being deleted."""
         ...

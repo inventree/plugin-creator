@@ -1,7 +1,7 @@
 {
-  "name": "{{ cookiecutter.plugin_slug }}",
+  "name": "{{ cookiecutter.distribution_name }}",
   "private": true,
-  "version": "0.0.0",
+  "version": "{{ cookiecutter.plugin_version }}",
   "type": "module",
   "scripts": {
     "lint": "npx @biomejs/biome check ./src",
@@ -12,13 +12,17 @@
   },
   "dependencies": {
     "@inventreedb/ui": "latest",
-    "@tabler/icons-react": "^3.31.0"
+    "@mantine/charts": "{{ cookiecutter.frontend.mantine_version }}",
+    "@mantine/dates": "{{ cookiecutter.frontend.mantine_version }}",
+    "@mantine/hooks": "{{ cookiecutter.frontend.mantine_version }}",
+    "react": "{{ cookiecutter.frontend.react_version }}",
+    "react-dom": "{{ cookiecutter.frontend.react_version }}",
+    "@tabler/icons-react": "^3.31.0",
+    "@tanstack/react-query": "^5.60.5"
   },
   "peerDependencies": {
     "@mantine/core": "{{ cookiecutter.frontend.mantine_version }}",
-    "@mantine/notifications": "{{ cookiecutter.frontend.mantine_version }}",
-    "react": "{{ cookiecutter.frontend.react_version }}",
-    "react-dom": "{{ cookiecutter.frontend.react_version }}"
+    "@mantine/notifications": "{{ cookiecutter.frontend.mantine_version }}"
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.0",
