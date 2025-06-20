@@ -1,6 +1,9 @@
+import { useCallback, useMemo, useState } from 'react';
 import { Alert, Button, Group, Stack, Text, Title } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
-import { useCallback, useMemo, useState } from 'react';
+{% if "UrlsMixin" in cookiecutter.plugin_mixins.mixin_list -%}
+import { useQuery } from '@tanstack/react-query';
+{%- endif %}
 
 // Import for type checking
 import { checkPluginVersion, type InvenTreePluginContext } from '@inventreedb/ui';
@@ -9,7 +12,7 @@ import { ApiEndpoints, apiUrl, ModelType } from '@inventreedb/ui';
 /**
  * Render a custom panel with the provided context.
  * Refer to the InvenTree documentation for the context interface
- * https://docs.inventree.org/en/stable/extend/plugins/ui/#plugin-context
+ * https://docs.inventree.org/en/latest/plugins/mixins/ui/#plugin-context
  */
 function {{ cookiecutter.plugin_name }}Panel({
     context
@@ -29,6 +32,22 @@ function {{ cookiecutter.plugin_name }}Panel({
         const data = context?.instance ?? {};
         return JSON.stringify(data, null, 2);
     }, [context.instance]);
+
+    {% if "UrlsMixin" in cookiecutter.plugin_mixins.mixin_list -%}
+    // Fetch API data from the example API endpoint
+    // It will re-fetch when the partId changes
+    const apiQuery = useQuery(
+        {
+            queryKey: ['apiData', partId],
+            queryFn: async() => {
+                const url = `/plugin/{{ cookiecutter.plugin_slug }}/example/`;
+
+                return context.api.get(url).then((response) => response.data).catch(() => {});
+            }
+        },
+        context.queryClient,
+    );
+    {%- endif %}
 
     // Custom form to edit the selected part
     const editPartForm = context.forms.edit({
@@ -93,6 +112,25 @@ function {{ cookiecutter.plugin_name }}Panel({
                 No instance data available
             </Alert>
         )}
+        {% if "UrlsMixin" in cookiecutter.plugin_mixins.mixin_list -%}
+        {apiQuery.isFetched && apiQuery.data && (
+           <Alert color="green" title="API Query Data">
+                {apiQuery.isFetching || apiQuery.isLoading ? (
+                <Text>Loading...</Text>
+                ) : (
+                <Stack gap='xs'>
+                    <Text>Part Count: {apiQuery.data.part_count}</Text>
+                    <Text>Today: {apiQuery.data.today}</Text>
+                    <Text>Random Text: {apiQuery.data.random_text}</Text>
+                    <Button
+                        disabled={apiQuery.isFetching || apiQuery.isLoading}
+                        onClick={() => apiQuery.refetch()}>
+                        Reload Data
+                    </Button>
+                </Stack>
+            )}
+        </Alert>
+        )}{%- endif %}
         </Stack>
         </>
     );
