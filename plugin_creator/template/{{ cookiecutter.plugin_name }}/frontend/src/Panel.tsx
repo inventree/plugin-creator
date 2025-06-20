@@ -68,7 +68,7 @@ function {{ cookiecutter.plugin_name }}Panel({
         <>
         {editPartForm.modal}
         <Stack gap="xs">
-        <Title order={3}>{{ cookiecutter.plugin_title }}</Title>
+        <Title c={context.theme.primaryColor}  order={3}>{{ cookiecutter.plugin_title }}</Title>
         <Text>
             This is a custom panel for the {{ cookiecutter.plugin_name }} plugin.
         </Text>
