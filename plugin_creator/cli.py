@@ -133,6 +133,7 @@ def cleanup(plugin_dir: str, context: dict) -> None:
 
     devops.cleanup_devops_files(context['ci_support'], plugin_dir)
 
+    # Remove frontend code entirely if not enabled
     if context['frontend']['enabled']:
         frontend.update_frontend(
             plugin_dir,
@@ -140,6 +141,9 @@ def cleanup(plugin_dir: str, context: dict) -> None:
         )
     else:
         frontend.remove_frontend(plugin_dir)
+
+    # Cleanup mixins
+    mixins.cleanup_mixins(plugin_dir, context)
 
     if context["git_support"]:
         devops.git_init(plugin_dir)
