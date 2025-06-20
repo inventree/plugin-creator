@@ -10,22 +10,24 @@ def available_mixins() -> list:
     # TODO: Support the commented out mixins
 
     return [
-        # 'APICallMixin',
         # 'ActionMixin',
+        # 'APICallMixin',
         # 'AppMixin',
         # 'BarcodeMixin',
         # 'BulkNotificationMethod',
         # 'CurrencyExchangeMixin',
         'EventMixin',
+        # 'DataExportMixin',
         # 'IconPackMixin',
         # 'LabelPrintingMixin',
         'LocateMixin',
+        # 'MailMixin',
         # 'NavigationMixin',
         'ReportMixin',
         'ScheduleMixin',
         'SettingsMixin',
         # 'SupplierBarcodeMixin',
-        # 'UrlsMixin',
+        'UrlsMixin',
         'UserInterfaceMixin',
         'ValidationMixin',
     ]

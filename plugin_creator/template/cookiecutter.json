@@ -12,6 +12,7 @@
             "ScheduleMixin",
             "SettingsMixin",
             "UserInterfaceMixin",
+            "UrlsMixin",
             "ValidationMixin"
         ]
     },
