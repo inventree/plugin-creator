@@ -69,7 +69,7 @@ def gather_info(context: dict) -> dict:
     pkg = context['plugin_slug']
     
     if not pkg.startswith("inventree-"):
-        pkg = f"inventree-{pkg}"    
+        pkg = f"inventree-{pkg}"
 
     context['distribution_name'] = pkg
 
