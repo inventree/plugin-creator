@@ -3,6 +3,7 @@
     "plugin_name": "MyCustomPlugin",
     "plugin_slug": "my-custom-plugin",
     "package_name": "my_custom_plugin",
+    "distribution_name": "inventree-my-custom-plugin",
     "plugin_version": "0.1.0",
     "plugin_mixins": {
         "mixin_list": [

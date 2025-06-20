@@ -1,7 +1,7 @@
 {
-  "name": "{{ cookiecutter.plugin_slug }}",
+  "name": "{{ cookiecutter.distribution_name }}",
   "private": true,
-  "version": "0.1.0",
+  "version": "{{ cookiecutter.plugin_version }}",
   "type": "module",
   "scripts": {
     "lint": "npx @biomejs/biome check ./src",

@@ -21,7 +21,7 @@ with open('README.md', encoding='utf-8') as f:
     long_description = f.read()
 
 setuptools.setup(
-    name="{{ cookiecutter.package_name }}",
+    name="{{ cookiecutter.distribution_name }}",
     version={{ cookiecutter.package_name }}.PLUGIN_VERSION,
     author="{{ cookiecutter.author_name }}",
     {%- if cookiecutter.author_email %}

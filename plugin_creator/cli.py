@@ -31,7 +31,16 @@ def default_values() -> dict:
 
 
 def gather_info(context: dict) -> dict:
-    """Gather project information from the user."""
+    """Gather project information from the user.
+    
+    There are some conventions regarding naming:
+
+    - Plugin title: The human-readable name of the plugin (e.g., "Custom Plugin").
+    - Plugin name: The Python class name for the plugin (e.g., "CustomPlugin").
+    - Plugin slug: A URL-friendly version of the plugin title (e.g., "custom-plugin").
+    - Package name: The Python package name for the plugin (e.g., "custom_plugin").
+    - Distribution name: The name used for the Python package distribution (e.g., "inventree-custom-plugin").
+    """
 
     info("Enter project information:")
 
@@ -54,6 +63,15 @@ def gather_info(context: dict) -> dict:
     # e.g. 'Custom Plugin' -> 'custom_plugin'
     context['plugin_slug'] = context['plugin_title'].replace(" ", "-").lower()
     context['package_name'] = context['plugin_slug'].replace("-", "_")
+
+    # Convert the package slug to a distribution name
+    # e.g. 'custom-plugin' -> 'inventree-custom-plugin'
+    pkg = context['plugin_slug']
+    
+    if not pkg.startswith("inventree-"):
+        pkg = f"inventree-{pkg}"    
+
+    context['distribution_name'] = pkg
 
     success(f"Generating plugin '{context['package_name']}' - {context['plugin_description']}")
 
