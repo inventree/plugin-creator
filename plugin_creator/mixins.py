@@ -16,7 +16,7 @@ def available_mixins() -> list:
     return [
         # 'ActionMixin',
         # 'APICallMixin',
-        # 'AppMixin',
+        'AppMixin',
         # 'BarcodeMixin',
         # 'BulkNotificationMethod',
         # 'CurrencyExchangeMixin',
