@@ -41,7 +41,12 @@ jobs:
           test -d MyCustomPlugin
           test -d MyCustomPlugin/my_custom_plugin
           test -f MyCustomPlugin/my_custom_plugin/__init__.py
+          test -f MyCustomPlugin/my_custom_plugin/admin.py
+          test -f MyCustomPlugin/my_custom_plugin/apps.py
           test -f MyCustomPlugin/my_custom_plugin/core.py
+          test -f MyCustomPlugin/my_custom_plugin/models.py
+          test -f MyCustomPlugin/my_custom_plugin/serializers.py
+          test -f MyCustomPlugin/my_custom_plugin/views.py
           test -f MyCustomPlugin/README.md
           test -f MyCustomPlugin/.github/workflows/ci.yaml
           test -f MyCustomPlugin/.github/workflows/pypi.yaml
