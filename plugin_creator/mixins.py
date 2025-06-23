@@ -1,6 +1,7 @@
 """InvenTree plugin mixin selection."""
 
 import os
+import shutil
 
 import questionary
 from questionary.prompts.common import Choice
@@ -16,7 +17,7 @@ def available_mixins() -> list:
     return [
         # 'ActionMixin',
         # 'APICallMixin',
-        # 'AppMixin',
+        'AppMixin',
         # 'BarcodeMixin',
         # 'BulkNotificationMethod',
         # 'CurrencyExchangeMixin',
@@ -66,14 +67,31 @@ def cleanup_mixins(plugin_dir: str, context: dict) -> list:
         context['package_name'],
     )
 
+    to_remove = []
+
+    if "AppMixin" not in mixins:
+        # Remove files associated with the AppMixin
+        to_remove.extend([
+            'migrations',
+            'apps.py',
+            'admin.py',
+            'models.py',
+        ])
+
     if "UrlsMixin" not in mixins:
         # Remove files associated with the UrlsMixin
-        for filename in [
+        to_remove.extend([
             'serializers.py',
             'views.py',
-        ]:
-            path = os.path.join(src_dir, filename)
+        ])
 
-            if os.path.exists(path):
-                info("Removing:", filename)
-                os.remove(path)
+    for fn in to_remove:
+        file_path = os.path.join(src_dir, fn)
+        if os.path.exists(file_path):
+
+            if os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+                info(f"- Removed dir  {file_path}")
+            else:
+                os.remove(file_path)
+                info(f"- Removed file {file_path}")
