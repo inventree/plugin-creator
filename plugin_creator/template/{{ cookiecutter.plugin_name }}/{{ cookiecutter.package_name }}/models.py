@@ -8,6 +8,7 @@ This file is where you can define any custom database models.
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class ExampleModel(models.Model):
@@ -15,16 +16,17 @@ class ExampleModel(models.Model):
 
     class Meta:
         """Meta options for the model."""
-        verbose_name = "Example Model"
-        verbose_name_plural = "Example Models"
+        verbose_name = _("Example Model")
+        verbose_name_plural = _("Example Models")
 
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         User, unique=True, null=False, blank=False,
-        on_delete=models.CASCADE, related_name='example_models',
-        help_text="The user associated with this example model"
+        on_delete=models.CASCADE, related_name='example_model',
+        help_text=_("The user associated with this example model")
     )
     
     counter = models.IntegerField(
-        default=0, label="Counter",
-        help_text="A simple counter for the example model"
+        default=0,
+        verbose_name=_('Counter'),
+        help_text=_("A simple counter for the example model")
     )
