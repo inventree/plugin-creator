@@ -1,4 +1,4 @@
-"""Custom model definitions for the {{ cookiecutter.plugin_name }}} plugin.
+"""Custom model definitions for the {{ cookiecutter.plugin_name }} plugin.
 
 This file is where you can define any custom database models.
 
@@ -27,6 +27,6 @@ class ExampleModel(models.Model):
     
     counter = models.IntegerField(
         default=0,
-        verbose_name=_('Counter'),
+        verbose_name=_("Counter"),
         help_text=_("A simple counter for the example model")
     )
