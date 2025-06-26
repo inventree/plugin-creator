@@ -16,6 +16,7 @@ class ExampleModel(models.Model):
 
     class Meta:
         """Meta options for the model."""
+        app_label = "{{ cookiecutter.package_name }}"
         verbose_name = _("Example Model")
         verbose_name_plural = _("Example Models")
 
