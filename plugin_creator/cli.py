@@ -185,13 +185,13 @@ def main():
     # Set version information
     context["plugin_creator_version"] = PLUGIN_CREATOR_VERSION
 
-    context["frontend"]["react_version"] = frontend.REACT_VERSION
-    context["frontend"]["mantine_version"] = frontend.MANTINE_VERSION
-
     if args.default:
         info("- Using default values for all prompts")
     else:
         context = gather_info(context)
+
+    context["frontend"]["react_version"] = frontend.REACT_VERSION
+    context["frontend"]["mantine_version"] = frontend.MANTINE_VERSION
 
     src_path = os.path.join(
         os.path.dirname(os.path.realpath(__file__)),
