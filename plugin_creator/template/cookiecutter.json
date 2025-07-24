@@ -36,6 +36,7 @@
             "settings": true
         },
         "react_version": "",
-        "mantine_version": ""
+        "mantine_version": "",
+        "lingui_version": ""
     }
 }

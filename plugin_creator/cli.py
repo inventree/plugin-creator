@@ -192,6 +192,7 @@ def main():
 
     context["frontend"]["react_version"] = frontend.REACT_VERSION
     context["frontend"]["mantine_version"] = frontend.MANTINE_VERSION
+    context["frontend"]["lingui_version"] = frontend.LINGUI_VERSION
 
     src_path = os.path.join(
         os.path.dirname(os.path.realpath(__file__)),

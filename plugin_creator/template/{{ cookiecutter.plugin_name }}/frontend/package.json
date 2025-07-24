@@ -12,20 +12,24 @@
   },
   "dependencies": {
     "@inventreedb/ui": "latest",
+    "@mantine/core": "{{ cookiecutter.frontend.mantine_version }}",
     "@mantine/charts": "{{ cookiecutter.frontend.mantine_version }}",
     "@mantine/dates": "{{ cookiecutter.frontend.mantine_version }}",
     "@mantine/hooks": "{{ cookiecutter.frontend.mantine_version }}",
-    "react": "{{ cookiecutter.frontend.react_version }}",
-    "react-dom": "{{ cookiecutter.frontend.react_version }}",
+    "@mantine/notifications": "{{ cookiecutter.frontend.mantine_version }}",
     "@tabler/icons-react": "^3.31.0",
     "@tanstack/react-query": "^5.60.5"
   },
   "peerDependencies": {
-    "@mantine/core": "{{ cookiecutter.frontend.mantine_version }}",
-    "@mantine/notifications": "{{ cookiecutter.frontend.mantine_version }}"
+    "@lingui/core": "{{ cookiecutter.frontend.lingui_version }}",
+    "@lingui/react": "{{ cookiecutter.frontend.lingui_version }}",
+    "react": "{{ cookiecutter.frontend.react_version }}",
+    "react-dom": "{{ cookiecutter.frontend.react_version }}"
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.0",
+    "@lingui/cli": "{{ cookiecutter.frontend.lingui_version }}",
+    "@lingui/macro": "{{ cookiecutter.frontend.lingui_version }}",
     "@types/react": "{{ cookiecutter.frontend.react_version }}",
     "@types/react-dom": "{{ cookiecutter.frontend.react_version }}",
     "@vitejs/plugin-react": "^4.3.4",
