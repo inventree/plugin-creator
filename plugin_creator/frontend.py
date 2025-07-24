@@ -12,6 +12,7 @@ from .helpers import info
 # Bump these if the InvenTree core frontend is updated
 MANTINE_VERSION = '^7.16.0'
 REACT_VERSION = '^18.3.1'
+LINGUI_VERSION = '^5.3.1'
 
 
 def frontend_features() -> dict:
