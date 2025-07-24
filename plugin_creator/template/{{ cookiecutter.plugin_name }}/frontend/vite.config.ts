@@ -17,67 +17,65 @@ export const viteExternals = viteExternalsPlugin({
  * Vite config to build the frontend plugin as an exported module.
  * This will be distributed in the 'static' directory of the plugin.
  */
-export default defineConfig(() => {
-  return {
-    plugins: [
-      react({
-        jsxRuntime: 'classic'
-      }),
-      viteExternals,
-    ],
-    esbuild: {
-      jsx: 'preserve',
-    },
-    build: {
-      // minify: false,
-      target: 'esnext',
-      cssCodeSplit: false,
-      manifest: true,
-      sourcemap: true,
-      rollupOptions: {
-        preserveEntrySignatures: "exports-only",
-        input: [
-          {% if cookiecutter.frontend.features.panel -%}
-          './src/Panel.tsx',
-          {%- endif %}
-          {% if cookiecutter.frontend.features.dashboard -%}
-          './src/Dashboard.tsx',
-          {%- endif %}
-          {% if cookiecutter.frontend.features.settings -%}
-          './src/Settings.tsx',
-          {%- endif %}
-        ],
-        output: {
-          dir: '../{{ cookiecutter.package_name }}/static',
-          entryFileNames: '[name].js',
-          assetFileNames: 'assets/[name].[ext]',
-          globals: {
-            react: 'React',
-            'react-dom': 'ReactDOM',
-            '@lingui/core': 'LinguiCore',
-            '@lingui/react': 'LinguiReact', 
-            '@mantine/core': 'MantineCore',
-            "@mantine/notifications": 'MantineNotifications',
-          },
+export default defineConfig({
+  plugins: [
+    react({
+      jsxRuntime: 'classic'
+    }),
+    viteExternals,
+  ],
+  esbuild: {
+    jsx: 'preserve',
+  },
+  build: {
+    // minify: false,
+    target: 'esnext',
+    cssCodeSplit: false,
+    manifest: true,
+    sourcemap: true,
+    rollupOptions: {
+      preserveEntrySignatures: "exports-only",
+      input: [
+        {% if cookiecutter.frontend.features.panel -%}
+        './src/Panel.tsx',
+        {%- endif %}
+        {% if cookiecutter.frontend.features.dashboard -%}
+        './src/Dashboard.tsx',
+        {%- endif %}
+        {% if cookiecutter.frontend.features.settings -%}
+        './src/Settings.tsx',
+        {%- endif %}
+      ],
+      output: {
+        dir: '../{{ cookiecutter.package_name }}/static',
+        entryFileNames: '[name].js',
+        assetFileNames: 'assets/[name].[ext]',
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+          '@lingui/core': 'LinguiCore',
+          '@lingui/react': 'LinguiReact', 
+          '@mantine/core': 'MantineCore',
+          "@mantine/notifications": 'MantineNotifications',
         },
-        external: [
-          'react',
-          'react-dom',
-          '@lingui/core',
-          '@lingui/react',
-          '@mantine/core',
-          '@mantine/notifications'],
-      }
-    },
-    optimizeDeps: {
-      exclude: [
+      },
+      external: [
         'react',
         'react-dom',
         '@lingui/core',
         '@lingui/react',
         '@mantine/core',
-        '@mantine/notifications'
-      ],
-    },
-  };
+        '@mantine/notifications'],
+    }
+  },
+  optimizeDeps: {
+    exclude: [
+      'react',
+      'react-dom',
+      '@lingui/core',
+      '@lingui/react',
+      '@mantine/core',
+      '@mantine/notifications'
+    ],
+  }
 })

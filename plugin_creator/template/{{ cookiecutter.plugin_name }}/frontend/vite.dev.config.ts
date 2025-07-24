@@ -15,20 +15,18 @@ import viteConfig, { viteExternals } from './vite.config'
  */
 export default defineConfig((cfg) => {
 
-  const config = mergeConfig(
-    viteConfig(cfg),
-    defineConfig({
-      resolve: {},
-      server: {
-        port: 5174,  // Default port for plugins
-        strictPort: true,
-        cors: {
-          preflightContinue: true,
-          origin: '*',  // Allow all origins for development
-        }
-      },
-    })
-  );
+  const config = {
+    ...viteConfig,
+    resolve: {},
+    server: {
+      port: 5174,  // Default port for plugins
+      strictPort: true,
+      cors: {   
+        preflightContinue: true,
+        origin: '*',  // Allow all origins for development
+      }
+    },
+  };
   
   // Override specific options for development
   delete config.esbuild;
