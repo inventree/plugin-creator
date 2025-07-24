@@ -7,8 +7,7 @@
     "lint": "npx @biomejs/biome check ./src",
     "lint:fix": "npx @biomejs/biome check ./src --fix",
     "build": "tsc -b && vite build --emptyOutDir",
-    "dev": "vite --config vite.dev.config.ts --host",
-    "preview": "vite preview --config vite.dev.config.ts --host"
+    "dev": "vite --config vite.dev.config.ts --host"
   },
   "dependencies": {
     "@inventreedb/ui": "latest",

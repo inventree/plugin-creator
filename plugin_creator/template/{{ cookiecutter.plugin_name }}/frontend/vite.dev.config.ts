@@ -1,5 +1,8 @@
-import { defineConfig } from 'vite'
-import { viteExternalsPlugin } from 'vite-plugin-externals'
+// Primary vite config - we extend this for dev mode
+import { resolve } from 'node:path';
+import { defineConfig, mergeConfig } from 'vite'
+
+import viteConfig, { viteExternals } from './vite.config'
 
 /**
  * Vite config to run the frontend plugin in development mode.
@@ -10,35 +13,30 @@ import { viteExternalsPlugin } from 'vite-plugin-externals'
  * This is a very minimal config, and is not meant to be used for production builds.
  * Refer to vite.config.ts for the production build config.
  */
-export default defineConfig({
-  plugins: [
-    viteExternalsPlugin({
-      react: 'React',
-      'react-dom': 'ReactDOM',
-      'ReactDom': 'ReactDOM',
-      '@mantine/core': 'MantineCore',
-      "@mantine/notifications": 'MantineNotifications',
-    }),
-  ],
-  build: {
-    rollupOptions: {
-      output: {
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
-          '@mantine/core': 'MantineCore',
-          "@mantine/notifications": 'MantineNotifications',
-        },
-      },
-      external: ['react', 'react-dom', '@mantine/core', '@mantine/notifications'],
-    }
-  },
-  server: {
-    port: 5174,  // Default port for plugins
-    strictPort: true,
-    cors: {
-      origin: '*',  // Allow all origins for development
-    }
-  },
-})
+export default defineConfig((cfg) => {
 
+  const config = mergeConfig(
+    viteConfig(cfg),
+    defineConfig({
+      resolve: {},
+      server: {
+        port: 5174,  // Default port for plugins
+        strictPort: true,
+        cors: {
+          preflightContinue: true,
+          origin: '*',  // Allow all origins for development
+        }
+      },
+    })
+  );
+  
+  // Override specific options for development
+  delete config.esbuild;
+  delete config.optimizeDeps;
+
+  config.plugins = [
+    viteExternals,
+  ];
+
+  return config;
+});
