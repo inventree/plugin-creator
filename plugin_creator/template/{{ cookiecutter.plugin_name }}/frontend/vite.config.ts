@@ -3,15 +3,22 @@ import react from '@vitejs/plugin-react'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
 
 
-export const viteExternals = viteExternalsPlugin({
+/**
+ * The following libraries are externalized to avoid bundling them with the plugin.
+ * These libraries are expected to be provided by the InvenTree core application.
+ */
+export const externalLibs : Record<string, string> = {
   react: 'React',
   'react-dom': 'ReactDOM',
-  ReactDom: 'ReactDOM',
+  'ReactDom': 'ReactDOM',
   '@lingui/core': 'LinguiCore',
   '@lingui/react': 'LinguiReact',
   '@mantine/core': 'MantineCore',
   "@mantine/notifications": 'MantineNotifications',
-});
+};
+
+// Just the keys of the externalLibs object
+const externalKeys = Object.keys(externalLibs);
 
 /**
  * Vite config to build the frontend plugin as an exported module.
@@ -22,7 +29,7 @@ export default defineConfig({
     react({
       jsxRuntime: 'classic'
     }),
-    viteExternals,
+    viteExternalsPlugin(externalLibs),
   ],
   esbuild: {
     jsx: 'preserve',
@@ -50,32 +57,12 @@ export default defineConfig({
         dir: '../{{ cookiecutter.package_name }}/static',
         entryFileNames: '[name].js',
         assetFileNames: 'assets/[name].[ext]',
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
-          '@lingui/core': 'LinguiCore',
-          '@lingui/react': 'LinguiReact', 
-          '@mantine/core': 'MantineCore',
-          "@mantine/notifications": 'MantineNotifications',
-        },
+        globals: externalLibs,
       },
-      external: [
-        'react',
-        'react-dom',
-        '@lingui/core',
-        '@lingui/react',
-        '@mantine/core',
-        '@mantine/notifications'],
+      external: externalKeys,
     }
   },
   optimizeDeps: {
-    exclude: [
-      'react',
-      'react-dom',
-      '@lingui/core',
-      '@lingui/react',
-      '@mantine/core',
-      '@mantine/notifications'
-    ],
+    exclude: externalKeys,
   }
 })
