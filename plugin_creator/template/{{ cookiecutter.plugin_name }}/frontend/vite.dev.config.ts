@@ -1,8 +1,9 @@
 // Primary vite config - we extend this for dev mode
 import { resolve } from 'node:path';
 import { defineConfig, mergeConfig } from 'vite'
+import { viteExternalsPlugin } from 'vite-plugin-externals'
 
-import viteConfig, { viteExternals } from './vite.config'
+import viteConfig, { externalLibs } from './vite.config'
 
 /**
  * Vite config to run the frontend plugin in development mode.
@@ -33,7 +34,7 @@ export default defineConfig((cfg) => {
   delete config.optimizeDeps;
 
   config.plugins = [
-    viteExternals,
+    viteExternalsPlugin(externalLibs),
   ];
 
   return config;
