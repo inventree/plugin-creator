@@ -1,6 +1,5 @@
 // Primary vite config - we extend this for dev mode
-import { resolve } from 'node:path';
-import { defineConfig, mergeConfig } from 'vite'
+import { defineConfig } from 'vite'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
 
 import viteConfig, { externalLibs } from './vite.config'
@@ -8,7 +7,7 @@ import viteConfig, { externalLibs } from './vite.config'
 /**
  * Vite config to run the frontend plugin in development mode.
  * 
- * This allows the plugin devloper to "live reload" their plugin code,
+ * This allows the plugin developer to "live reload" their plugin code,
  * without having to rebuild and reinstall the plugin each time.
  * 
  * This is a very minimal config, and is not meant to be used for production builds.
