@@ -1,12 +1,10 @@
 """DevOps support for the plugin creator."""
 
-import os
-import shutil
+import questionary
 import subprocess
 
-import questionary
-
 from .helpers import info, success
+from .helpers import remove_file, remove_dir
 
 
 def get_devops_options() -> list:
@@ -36,19 +34,11 @@ def cleanup_devops_files(devops_mode: str, plugin_dir: str) -> None:
 
     # Remove the .github directory
     if devops_mode != "github":
-        github_dir = os.path.join(plugin_dir, ".github")
-
-        if os.path.exists(github_dir):
-            info("- Removing .github directory")
-            shutil.rmtree(github_dir)
+        remove_dir(plugin_dir, ".github")
 
     # Remove the .gitlab-ci.yml file
     if devops_mode != "gitlab":
-        gitlab_file = os.path.join(plugin_dir, ".gitlab-ci.yml")
-
-        if os.path.exists(gitlab_file):
-            info("- Removing .gitlab-ci.yml file")
-            os.remove(gitlab_file)
+        remove_file(plugin_dir, ".gitlab-ci.yml")
 
 
 def git_init(plugin_dir: str) -> None:
