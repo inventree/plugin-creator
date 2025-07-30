@@ -6,6 +6,7 @@ from questionary.prompts.common import Choice
 from .helpers import info
 from .helpers import remove_file, remove_dir
 
+
 def frontend_features() -> dict:
     """Provide a list of frontend features to enable."""
 
