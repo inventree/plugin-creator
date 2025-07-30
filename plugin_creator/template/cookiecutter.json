@@ -8,6 +8,7 @@
     "plugin_mixins": {
         "mixin_list": [
             "AppMixin",
+            "CurrencyExchangeMixin",
             "EventMixin",
             "LocateMixin",
             "ReportMixin",
