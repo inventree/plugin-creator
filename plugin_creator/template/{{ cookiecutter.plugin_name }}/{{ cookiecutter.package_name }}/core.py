@@ -59,6 +59,18 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
         }
     }
     {%- endif %}
+    {% if "CurrencyExchangeMixin" in cookiecutter.plugin_mixins.mixin_list %}
+    # Support for currency exchange rates (from CurrencyExchangeMixin)
+    # Ref: https://docs.inventree.org/en/latest/plugins/mixins/currency/
+    def update_exchange_rates(self, base_currency: str, symbols: list[str]) -> dict:
+        """Update currency exchange rates for InvenTree."""
+        # Example implementation
+        return {
+            'USD': 1.0,
+            'EUR': 0.85,
+            'GBP': 0.75,
+        }
+    {%- endif %}
     {% if "EventMixin" in cookiecutter.plugin_mixins.mixin_list %}
     # Respond to InvenTree events (from EventMixin)
     # Ref: https://docs.inventree.org/en/latest/plugins/mixins/event/
