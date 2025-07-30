@@ -5,6 +5,15 @@ import { notifications } from '@mantine/notifications';
 import { useQuery } from '@tanstack/react-query';
 {%- endif %}
 
+{% if cookiecutter.frontend.translation %}
+import { i18n } from '@lingui/core';
+import { Trans } from '@lingui/react';
+
+// Translation support
+import { messages as deMessages } from './locales/de/messages.ts';
+import { messages as esMessages } from './locales/es/messages.ts';
+{% endif %}
+
 // Import for type checking
 import { checkPluginVersion, type InvenTreePluginContext } from '@inventreedb/ui';
 import { ApiEndpoints, apiUrl, ModelType } from '@inventreedb/ui';
@@ -91,6 +100,14 @@ function {{ cookiecutter.plugin_name }}Panel({
         <Text>
             This is a custom panel for the {{ cookiecutter.plugin_name }} plugin.
         </Text>
+        {% if cookiecutter.frontend.translation %}
+        <Alert title='Translated Text' color='grape'>
+          <Trans
+            id='panel.greeting'
+            message='Translated text, provided by custom code!'
+          />
+        </Alert>
+        {% endif %}
         <Group justify='apart' wrap='nowrap' gap='sm'>
             <Button color='blue' onClick={gotoDashboard}>
                 Go to Dashboard
@@ -139,5 +156,14 @@ function {{ cookiecutter.plugin_name }}Panel({
 // This is the function which is called by InvenTree to render the actual panel component
 export function render{{ cookiecutter.plugin_name }}Panel(context: InvenTreePluginContext) {
     checkPluginVersion(context);
+
+    {% if cookiecutter.frontend.translation %}
+    // Set up translations (if required)
+    i18n.load({
+        de: deMessages,
+        es: esMessages
+    });
+    {% endif %}
+
     return <{{ cookiecutter.plugin_name }}Panel context={context} />;
 }

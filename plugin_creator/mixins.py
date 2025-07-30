@@ -1,12 +1,11 @@
 """InvenTree plugin mixin selection."""
 
 import os
-import shutil
-
 import questionary
 from questionary.prompts.common import Choice
 
 from .helpers import info
+from .helpers import remove_file, remove_dir
 
 
 def available_mixins() -> list:
@@ -60,6 +59,8 @@ def get_mixins() -> list:
 def cleanup_mixins(plugin_dir: str, context: dict) -> list:
     """Post-build step to remove certain files based on selected mixins."""
 
+    info("Cleaning up Python files...")
+
     mixins = context['plugin_mixins']['mixin_list']
 
     src_dir = os.path.join(
@@ -67,31 +68,14 @@ def cleanup_mixins(plugin_dir: str, context: dict) -> list:
         context['package_name'],
     )
 
-    to_remove = []
-
     if "AppMixin" not in mixins:
         # Remove files associated with the AppMixin
-        to_remove.extend([
-            'migrations',
-            'apps.py',
-            'admin.py',
-            'models.py',
-        ])
+        remove_dir(src_dir, 'migrations')
+        remove_file(src_dir, 'apps.py')
+        remove_file(src_dir, 'admin.py')
+        remove_file(src_dir, 'models.py')
 
     if "UrlsMixin" not in mixins:
         # Remove files associated with the UrlsMixin
-        to_remove.extend([
-            'serializers.py',
-            'views.py',
-        ])
-
-    for fn in to_remove:
-        file_path = os.path.join(src_dir, fn)
-        if os.path.exists(file_path):
-
-            if os.path.isdir(file_path):
-                shutil.rmtree(file_path)
-                info(f"- Removed dir  {file_path}")
-            else:
-                os.remove(file_path)
-                info(f"- Removed file {file_path}")
+        remove_file(src_dir, 'serializers.py')
+        remove_file(src_dir, 'views.py')

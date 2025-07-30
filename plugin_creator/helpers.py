@@ -1,4 +1,6 @@
 import questionary
+import os
+import shutil
 import sys
 
 
@@ -28,3 +30,23 @@ def success(*args):
 def info(*args):
     """Print an info message."""
     pretty_print(*args, color='blue')
+
+
+def remove_file(*args):
+    """Remove a file if it exists."""
+
+    file_path = os.path.join(*args)
+
+    if os.path.exists(file_path) and os.path.isfile(file_path):
+        info(f"Removing file: {file_path}")
+        os.remove(file_path)
+
+
+def remove_dir(*args):
+    """Remove a directory if it exists."""
+
+    dir_path = os.path.join(*args)
+
+    if os.path.exists(dir_path) and os.path.isdir(dir_path):
+        info(f"Removing directory: {dir_path}")
+        shutil.rmtree(dir_path)

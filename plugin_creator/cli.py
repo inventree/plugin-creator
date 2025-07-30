@@ -123,7 +123,8 @@ def gather_info(context: dict) -> dict:
     if 'UserInterfaceMixin' in plugin_mixins:
         context["frontend"] = {
             "enabled": True,
-            "features": frontend.select_features()
+            "features": frontend.select_features(),
+            "translation": frontend.enable_translation(),
         }
     else:
         context["frontend"] = {
@@ -155,7 +156,7 @@ def cleanup(plugin_dir: str, context: dict) -> None:
     if context['frontend']['enabled']:
         frontend.update_frontend(
             plugin_dir,
-            context['frontend']['features'] or []
+            context
         )
     else:
         frontend.remove_frontend(plugin_dir)
@@ -189,10 +190,6 @@ def main():
         info("- Using default values for all prompts")
     else:
         context = gather_info(context)
-
-    context["frontend"]["react_version"] = frontend.REACT_VERSION
-    context["frontend"]["mantine_version"] = frontend.MANTINE_VERSION
-    context["frontend"]["lingui_version"] = frontend.LINGUI_VERSION
 
     src_path = os.path.join(
         os.path.dirname(os.path.realpath(__file__)),

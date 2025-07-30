@@ -1,18 +1,10 @@
 """Frontend code generation options for the plugin creator."""
 
-import os
-import subprocess
-
 import questionary
 from questionary.prompts.common import Choice
 
 from .helpers import info
-
-# Major versions of base packages
-# Bump these if the InvenTree core frontend is updated
-MANTINE_VERSION = '^7.16.0'
-REACT_VERSION = '^18.3.1'
-LINGUI_VERSION = '^5.3.1'
+from .helpers import remove_file, remove_dir
 
 
 def frontend_features() -> dict:
@@ -39,6 +31,14 @@ def no_features() -> dict:
     }
 
 
+def enable_translation() -> bool:
+    """Ask the user if they want to enable translation support."""
+    return questionary.confirm(
+        "Enable translation support?",
+        default=True,
+    ).ask()
+
+
 def select_features() -> dict:
     """Select which frontend features to enable."""
 
@@ -63,28 +63,28 @@ def select_features() -> dict:
 
 def remove_frontend(plugin_dir: str) -> None:
     """If frontend code is not required, remove it!"""
-
-    frontend_dir = os.path.join(plugin_dir, "frontend")
-
-    if os.path.exists(frontend_dir):
-        info("- Removing frontend code...")
-        subprocess.run(["rm", "-r", frontend_dir])
+    remove_dir(plugin_dir, "frontend")
 
 
-def update_frontend(plugin_dir: str, features: list) -> None:
+def update_frontend(plugin_dir: str, context: dict) -> None:
     """Update the frontend code for the plugin."""
+
+    info("Cleaning up frontend files...")
+
+    features = context['frontend']['features'] or []
+    translation = context['frontend'].get('translation', False)
 
     # Remove features which are not needed
     for feature in frontend_features().keys():
         if not features.get(feature, False):
             info(f"- Removing unused frontend feature: {feature}")
 
-            frontend_file = os.path.abspath(os.path.join(
+            remove_file(
                 plugin_dir,
                 'frontend',
                 'src',
                 f'{feature.capitalize()}.tsx'
-            ))
+            )
 
-            if os.path.exists(frontend_file):
-                subprocess.run(["rm", frontend_file])
+    if not translation:
+        remove_dir(plugin_dir, 'frontend', 'src', 'locales')

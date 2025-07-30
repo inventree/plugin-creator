@@ -30,13 +30,11 @@
     "ci_support": "github",
     "frontend": {
         "enabled": true,
+        "translation": true,
         "features": {
             "dashboard": true,
             "panel": true,
             "settings": true
-        },
-        "react_version": "",
-        "mantine_version": "",
-        "lingui_version": ""
+        }
     }
 }
