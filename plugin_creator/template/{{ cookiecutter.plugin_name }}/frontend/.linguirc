@@ -9,7 +9,7 @@
         "ru",
         "zh_Hans",
         "zh_Hant",
-        "p"
+        "pseudo-LOCALE"
     ],
     "catalogs": [{
         "path": "src/locales/{locale}/messages",
@@ -20,6 +20,7 @@
     "orderBy": "origin",
     "sourceLocale": "en",
     "fallbackLocales": {
-        "default": "en"
+        "default": "en",
+        "pseudo-LOCALE": "en"
     }
 }
