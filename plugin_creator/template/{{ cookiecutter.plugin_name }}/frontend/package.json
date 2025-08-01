@@ -7,6 +7,8 @@
     {% if cookiecutter.frontend.translation %}
     "extract": "lingui extract",
     "compile": "lingui compile --typescript",
+    "translate": "lingui extract && lingui compile --typescript",
+    {% else %}
     {% endif %}
     "lint": "npx @biomejs/biome check ./src",
     "lint:fix": "npx @biomejs/biome check ./src --fix",
