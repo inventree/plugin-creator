@@ -1,3 +1,18 @@
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+exclude = [
+    ".git",
+    "__pycache__",
+    "plugin_creator/template/",
+    "test.py",
+    "tests",
+    "venv",
+    "env",
+    ".venv",
+    ".env",
+]
+
+src=["plugin_creator"]

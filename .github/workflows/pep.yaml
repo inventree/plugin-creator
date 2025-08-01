@@ -18,7 +18,7 @@ jobs:
           python-version: 3.11
       - name: Install Deps
         run: |
-          pip install flake8 pep8-naming
+          pip install -U ruff
       - name: Style Checks
         run: |
-          flake8 .
+          ruff check
