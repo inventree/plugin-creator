@@ -4,12 +4,11 @@
   "version": "{{ cookiecutter.plugin_version }}",
   "type": "module",
   "scripts": {
-    {% if cookiecutter.frontend.translation %}
+    {% if cookiecutter.frontend.translation -%}
     "extract": "lingui extract",
     "compile": "lingui compile --typescript",
     "translate": "lingui extract && lingui compile --typescript",
-    {% else %}
-    {% endif %}
+    {%- endif %}
     "lint": "npx @biomejs/biome check ./src",
     "lint:fix": "npx @biomejs/biome check ./src --fix",
     "build": "tsc -b && vite build --emptyOutDir",
@@ -21,11 +20,11 @@
   "peerDependencies": {},
   "devDependencies": {
     "@biomejs/biome": "2.0.0",
-    {% if cookiecutter.frontend.translation %}
+    {% if cookiecutter.frontend.translation -%}
     "@lingui/cli": "latest",
     "@lingui/macro": "latest",
     "@lingui/babel-plugin-lingui-macro": "latest",
-    {% endif %}
+    {%- endif %}
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@vitejs/plugin-react": "^4.3.4",
