@@ -4,12 +4,14 @@
   "version": "{{ cookiecutter.plugin_version }}",
   "type": "module",
   "scripts": {
+    {% if cookiecutter.frontend.translation %}
+    "extract": "lingui extract",
+    "compile": "lingui compile --typescript",
+    {% endif %}
     "lint": "npx @biomejs/biome check ./src",
     "lint:fix": "npx @biomejs/biome check ./src --fix",
     "build": "tsc -b && vite build --emptyOutDir",
     "dev": "vite --config vite.dev.config.ts --host",
-    "extract": "lingui extract",
-    "compile": "lingui compile --typescript"
   },
   "dependencies": {
     "@inventreedb/ui": "latest"
