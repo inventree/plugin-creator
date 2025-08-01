@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 
 {% if cookiecutter.frontend.translation %}
 import { i18n } from '@lingui/core';
-import { Trans } from '@lingui/react';
+import { Trans } from '@lingui/react/macro';
 
 // Translation support
 import { messages as deMessages } from './locales/de/messages.ts';
@@ -102,11 +102,8 @@ function {{ cookiecutter.plugin_name }}Panel({
         </Text>
         {% if cookiecutter.frontend.translation %}
         <Alert title='Translated Text' color='grape'>
-          <Trans
-            id='panel.greeting'
-            message='Translated text, provided by custom code!'
-          />
-        </Alert>
+          <Trans>Translated text, provided by custom code!</Trans>
+         </Alert>
         {% endif %}
         <Group justify='apart' wrap='nowrap' gap='sm'>
             <Button color='blue' onClick={gotoDashboard}>

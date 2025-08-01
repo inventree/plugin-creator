@@ -21,8 +21,11 @@
   "peerDependencies": {},
   "devDependencies": {
     "@biomejs/biome": "2.0.0",
+    {% if cookiecutter.frontend.translation %}
     "@lingui/cli": "latest",
     "@lingui/macro": "latest",
+    "@lingui/babel-plugin-lingui-macro": "latest",
+    {% endif %}
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@vitejs/plugin-react": "^4.3.4",
