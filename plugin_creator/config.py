@@ -1,33 +1,27 @@
 """Handle config management for the plugin creator tool."""
 
-import appdirs
 import json
 import os
+
+import appdirs
 
 
 def config_dir():
     """Return the directory where the plugin creator config file is stored."""
-
-    return appdirs.user_config_dir("inventree-plugin-creator")
+    return appdirs.user_config_dir('inventree-plugin-creator')
 
 
 def config_file():
     """Return the path to the plugin creator config file."""
-    
-    return os.path.join(config_dir(), "config.json")
+    return os.path.join(config_dir(), 'config.json')
 
 
 def config_keys() -> list:
     """List of keys we wish to store in the config file.
-    
+
     These can be reasonably expected to be set by the user.
     """
-    return [
-        'author_name',
-        'author_email',
-        'license_key',
-        'ci_support',
-    ]
+    return ['author_name', 'author_email', 'license_key', 'ci_support']
 
 
 def load_config() -> dict:
@@ -38,9 +32,9 @@ def load_config() -> dict:
     data = {}
 
     filename = config_file()
-   
+
     if os.path.exists(filename):
-        with open(filename, 'r') as f:
+        with open(filename, encoding='utf-8') as f:
             json_data = json.load(f)
 
             for key in config_keys():
@@ -52,7 +46,6 @@ def load_config() -> dict:
 
 def save_config(data: dict):
     """Save the plugin creator config file."""
-
     filename = config_file()
 
     json_data = {}
@@ -61,5 +54,5 @@ def save_config(data: dict):
         if key in data:
             json_data[key] = data[key]
 
-    with open(filename, 'w') as f:
+    with open(filename, 'w', encoding='utf-8') as f:
         json.dump(json_data, f)
