@@ -63,10 +63,12 @@ jobs:
         run: |
           cd output/MyCustomPlugin/frontend
           npm install
-          npm run build
           npm run translate
+          npm run build
           test -f MyCustomPlugin/my_custom_plugin/static/Panel.js
           test -f MyCustomPlugin/my_custom_plugin/static/Dashboard.js
           test -f MyCustomPlugin/my_custom_plugin/static/.vite/manifest.json
           test -f MyCustomPlugin/frontend/src/locales/de/messages.po
-          test -f MyCustomPlugin/frontend/src/locales/de/messages.ts
+          test -f MyCustomPlugin/frontend/src/locales/es/messages.ts
+          test -f MyCustomPlugin/my_custom_plugin/static/locales/de/messages.ts
+          test -f MyCustomPlugin/my_custom_plugin/static/locales/en/messages.ts
