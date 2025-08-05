@@ -5,14 +5,11 @@ import { notifications } from '@mantine/notifications';
 import { useQuery } from '@tanstack/react-query';
 {%- endif %}
 
-{% if cookiecutter.frontend.translation %}
-import { i18n } from '@lingui/core';
+{% if cookiecutter.frontend.translation -%}
 import { Trans } from '@lingui/react/macro';
+import loadPluginLocale from './locales.tsx';
+{%- endif %}
 
-// Translation support
-import { messages as deMessages } from './locales/de/messages.ts';
-import { messages as esMessages } from './locales/es/messages.ts';
-{% endif %}
 
 // Import for type checking
 import { checkPluginVersion, type InvenTreePluginContext } from '@inventreedb/ui';
@@ -154,13 +151,10 @@ function {{ cookiecutter.plugin_name }}Panel({
 export function render{{ cookiecutter.plugin_name }}Panel(context: InvenTreePluginContext) {
     checkPluginVersion(context);
 
-    {% if cookiecutter.frontend.translation %}
-    // Set up translations (if required)
-    i18n.load({
-        de: deMessages,
-        es: esMessages
-    });
-    {% endif %}
+    {% if cookiecutter.frontend.translation -%}
+    // Load plugin translations dynamically based on the locale
+    loadPluginLocale(context.locale);
+    {%- endif %}
 
     return <{{ cookiecutter.plugin_name }}Panel context={context} />;
 }
