@@ -172,3 +172,5 @@ cython_debug/
 
 # Default generated plugin dir
 ./MyCustomPlugin
+
+*Zone.Identifier

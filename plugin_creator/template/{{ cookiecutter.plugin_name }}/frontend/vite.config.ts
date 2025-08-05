@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
+{% if cookiecutter.frontend.translation -%}
+import { lingui } from "@lingui/vite-plugin";
+{%- endif %}
 
 
 /**
@@ -29,6 +32,9 @@ export default defineConfig({
     react({
       jsxRuntime: 'classic'
     }),
+    {% if cookiecutter.frontend.translation -%}
+    lingui(),
+    {%- endif %}
     viteExternalsPlugin(externalLibs),
   ],
   esbuild: {

@@ -24,6 +24,7 @@
     "@lingui/cli": "latest",
     "@lingui/macro": "latest",
     "@lingui/babel-plugin-lingui-macro": "latest",
+    "@lingui/vite-plugin": "latest",
     {%- endif %}
     "@types/react": "latest",
     "@types/react-dom": "latest",
