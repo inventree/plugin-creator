@@ -1,13 +1,13 @@
 import { useCallback, useMemo, useState } from 'react';
-import { Alert, Button, Group, Stack, Text, Title } from '@mantine/core';
+import { Alert, Button, Group, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 {% if "UrlsMixin" in cookiecutter.plugin_mixins.mixin_list -%}
 import { useQuery } from '@tanstack/react-query';
 {%- endif %}
 
 {% if cookiecutter.frontend.translation -%}
-import { Trans } from '@lingui/react/macro';
-import loadPluginLocale from './locales.tsx';
+import { t } from '@lingui/core/macro';
+import loadPluginLocale from './locale.tsx';
 {%- endif %}
 
 
@@ -99,7 +99,11 @@ function {{ cookiecutter.plugin_name }}Panel({
         </Text>
         {% if cookiecutter.frontend.translation %}
         <Alert title='Translated Text' color='grape'>
-          <Trans>Translated text, provided by custom code!</Trans>
+            <Stack gap='xs'>
+                <Text>{t`Translated text, provided by custom code!`}</Text>
+                <Text>{t`Translations are loaded automatically.`}</Text>
+                <Text>{t`Fallback locale is used if no translation is available`}</Text>
+            </Stack>
          </Alert>
         {% endif %}
         <Group justify='apart' wrap='nowrap' gap='sm'>
@@ -114,34 +118,36 @@ function {{ cookiecutter.plugin_name }}Panel({
             </Button>
             <Text size='xl'>Counter: {counter}</Text>
         </Group>
-        {instance ? (
-            <Alert title="Instance Data" color="blue">
-                {instance}
-            </Alert>
-        ) : (
-            <Alert title="No Instance" color="yellow">
-                No instance data available
-            </Alert>
-        )}
-        {% if "UrlsMixin" in cookiecutter.plugin_mixins.mixin_list -%}
-        {apiQuery.isFetched && apiQuery.data && (
-           <Alert color="green" title="API Query Data">
-                {apiQuery.isFetching || apiQuery.isLoading ? (
-                <Text>Loading...</Text>
-                ) : (
-                <Stack gap='xs'>
-                    <Text>Part Count: {apiQuery.data.part_count}</Text>
-                    <Text>Today: {apiQuery.data.today}</Text>
-                    <Text>Random Text: {apiQuery.data.random_text}</Text>
-                    <Button
-                        disabled={apiQuery.isFetching || apiQuery.isLoading}
-                        onClick={() => apiQuery.refetch()}>
-                        Reload Data
-                    </Button>
-                </Stack>
+        <SimpleGrid cols={2}>
+            {instance ? (
+                <Alert title="Instance Data" color="blue">
+                    {instance}
+                </Alert>
+            ) : (
+                <Alert title="No Instance" color="yellow">
+                    No instance data available
+                </Alert>
             )}
-        </Alert>
-        )}{%- endif %}
+            {% if "UrlsMixin" in cookiecutter.plugin_mixins.mixin_list -%}
+            {apiQuery.isFetched && apiQuery.data && (
+            <Alert color="green" title="API Query Data">
+                    {apiQuery.isFetching || apiQuery.isLoading ? (
+                    <Text>Loading...</Text>
+                    ) : (
+                    <Stack gap='xs'>
+                        <Text>Part Count: {apiQuery.data.part_count}</Text>
+                        <Text>Today: {apiQuery.data.today}</Text>
+                        <Text>Random Text: {apiQuery.data.random_text}</Text>
+                        <Button
+                            disabled={apiQuery.isFetching || apiQuery.isLoading}
+                            onClick={() => apiQuery.refetch()}>
+                            Reload Data
+                        </Button>
+                    </Stack>
+                )}
+            </Alert>
+            )}{%- endif %}
+        </SimpleGrid>
         </Stack>
         </>
     );

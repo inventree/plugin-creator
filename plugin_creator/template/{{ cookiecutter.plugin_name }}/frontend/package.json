@@ -25,7 +25,6 @@
     "@lingui/macro": "latest",
     "@lingui/swc-plugin": "latest",
     "@lingui/vite-plugin": "latest",
-    "@vitejs/plugin-react": "^4.3.4",
     "@vitejs/plugin-react-swc": "latest",
     {%- endif %}
     "@types/react": "latest",
