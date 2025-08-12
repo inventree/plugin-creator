@@ -30,7 +30,7 @@ const externalKeys = Object.keys(externalLibs);
 export default defineConfig({
   plugins: [
     react({
-      jsxRuntime: 'classic'
+      jsxRuntime: 'classic',
     }),
     {% if cookiecutter.frontend.translation -%}
     lingui(),

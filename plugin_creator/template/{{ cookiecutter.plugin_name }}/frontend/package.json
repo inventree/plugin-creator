@@ -23,8 +23,10 @@
     {% if cookiecutter.frontend.translation -%}
     "@lingui/cli": "latest",
     "@lingui/macro": "latest",
-    "@lingui/babel-plugin-lingui-macro": "latest",
+    "@lingui/swc-plugin": "latest",
     "@lingui/vite-plugin": "latest",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-react-swc": "latest",
     {%- endif %}
     "@types/react": "latest",
     "@types/react-dom": "latest",
