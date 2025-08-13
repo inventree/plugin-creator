@@ -7,8 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 
 {% if cookiecutter.frontend.translation -%}
 import { t } from '@lingui/core/macro';
-import { I18nProvider } from '@lingui/react';
-import loadPluginLocale from './locale.tsx';
+import { LocalizedComponent } from './locale';
 {%- endif %}
 
 // Import for type checking
@@ -161,39 +160,6 @@ function {{ cookiecutter.plugin_name }}Panel({
     );
 }
 
-{% if cookiecutter.frontend.translation -%}
-// Wrapper component to ensure translations are loaded correctly
-function {{ cookiecutter.plugin_name }}LocalizedPanel({
-    context
-}: {
-    context: InvenTreePluginContext;
-}) {
-
-    const [loaded, setLoaded] = useState(false);
-
-    // Reload componentwhen the locale changes
-    useEffect(() => {
-        setLoaded(false);
-        loadPluginLocale(context.locale).then(() => {
-            setLoaded(true);
-        });
-    }, [context.locale]);
-
-    if (!loaded) {
-        return (
-            <Skeleton w='100%' animate />
-        )
-    }
-
-    return (
-        <I18nProvider i18n={context.i18n}>
-            <{{ cookiecutter.plugin_name }}Panel context={context} />
-        </I18nProvider>
-    );
-}
-
-{%- endif %}
-
 
 // This is the function which is called by InvenTree to render the actual panel component
 export function render{{ cookiecutter.plugin_name }}Panel(context: InvenTreePluginContext) {
@@ -201,7 +167,9 @@ export function render{{ cookiecutter.plugin_name }}Panel(context: InvenTreePlug
 
     {% if cookiecutter.frontend.translation -%}
     return (
-        <{{ cookiecutter.plugin_name }}LocalizedPanel context={context} />
+        <LocalizedComponent locale={context.locale}>
+            <{{ cookiecutter.plugin_name }}Panel context={context} />
+        </LocalizedComponent>
     );
     {%- else -%}
     return (
