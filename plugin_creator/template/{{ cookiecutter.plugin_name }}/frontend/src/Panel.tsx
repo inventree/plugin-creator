@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Alert, Button, Group, SimpleGrid, Skeleton, Stack, Text, Title } from '@mantine/core';
+import { Alert, Button, Group, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 {% if "UrlsMixin" in cookiecutter.plugin_mixins.mixin_list -%}
 import { useQuery } from '@tanstack/react-query';
