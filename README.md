@@ -25,6 +25,8 @@ pip install -U inventree-plugin-creator
 
 ## Usage
 
+As a starting point, refer to the [plugin creator documentation](https://docs.inventree.org/en/latest/plugins/creator/)
+
 To create a new plugin, run:
 
 ```bash
@@ -52,3 +54,4 @@ npm run build
 This will compile frontend code into the `<myplugin>/static` directory - ready to be packaged and distributed with the python plugin code.
 
 *Note: You must run `npm run build` each time before building and distributing the plugin.*
+
