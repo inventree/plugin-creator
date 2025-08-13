@@ -65,11 +65,11 @@ jobs:
           npm install
           npm run translate
           npm run build
+          test -f src/locales/de/messages.ts
+          test -f src/locales/en/messages.ts
       - name: Check Compiled Output
         run: |
           cd output/MyCustomPlugin
-          test -d frontend/src/locales/de/messages.ts
-          test -d frontend/src/locales/en/messages.ts
           test -d my_custom_plugin/static
           test -d my_custom_plugin/static/assets
           test -f my_custom_plugin/static/Panel.js
