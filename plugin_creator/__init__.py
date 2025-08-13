@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-PLUGIN_CREATOR_VERSION = "1.9.0"
+PLUGIN_CREATOR_VERSION = "1.10.0"
