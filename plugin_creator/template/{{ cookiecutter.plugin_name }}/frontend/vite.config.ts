@@ -29,12 +29,17 @@ const externalKeys = Object.keys(externalLibs);
  */
 export default defineConfig({
   plugins: [
-    react({
-      jsxRuntime: 'classic',
-    }),
     {% if cookiecutter.frontend.translation -%}
     lingui(),
     {%- endif %}
+    react({
+      jsxRuntime: 'classic',
+      {% if cookiecutter.frontend.translation -%}
+      babel: {
+        plugins: ['macros'], // Required for @lingui macros
+      },
+      {%- endif %}
+    }),
     viteExternalsPlugin(externalLibs),
   ],
   esbuild: {
