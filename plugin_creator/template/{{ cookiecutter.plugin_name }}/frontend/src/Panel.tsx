@@ -1,5 +1,5 @@
-import { useCallback, useMemo, useState } from 'react';
-import { Alert, Button, Group, SimpleGrid, Stack, Text, Title } from '@mantine/core';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Alert, Button, Group, SimpleGrid, Skeleton, Stack, Text, Title } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 {% if "UrlsMixin" in cookiecutter.plugin_mixins.mixin_list -%}
 import { useQuery } from '@tanstack/react-query';
@@ -7,9 +7,9 @@ import { useQuery } from '@tanstack/react-query';
 
 {% if cookiecutter.frontend.translation -%}
 import { t } from '@lingui/core/macro';
+import { I18nProvider } from '@lingui/react';
 import loadPluginLocale from './locale.tsx';
 {%- endif %}
-
 
 // Import for type checking
 import { checkPluginVersion, type InvenTreePluginContext } from '@inventreedb/ui';
@@ -26,6 +26,14 @@ function {{ cookiecutter.plugin_name }}Panel({
     context: InvenTreePluginContext;
 }) {
 
+    // React hooks can be used within plugin components
+    useEffect(() => {
+        console.log("useEffect in plugin component:");
+        console.log("- Model:", context.model);
+        console.log("- ID:", context.id);
+    }, [context.model, context.id]);
+
+    // Memoize the part ID as passed via the context object
     const partId = useMemo(() => {
         return context.model == ModelType.part ? context.id || null: null;
     }, [context.model, context.id]);
@@ -97,28 +105,28 @@ function {{ cookiecutter.plugin_name }}Panel({
         <Text>
             This is a custom panel for the {{ cookiecutter.plugin_name }} plugin.
         </Text>
-        {% if cookiecutter.frontend.translation %}
-        <Alert title='Translated Text' color='grape'>
-            <Stack gap='xs'>
-                <Text>{t`Translated text, provided by custom code!`}</Text>
-                <Text>{t`Translations are loaded automatically.`}</Text>
-                <Text>{t`Fallback locale is used if no translation is available`}</Text>
-            </Stack>
-         </Alert>
-        {% endif %}
-        <Group justify='apart' wrap='nowrap' gap='sm'>
-            <Button color='blue' onClick={gotoDashboard}>
-                Go to Dashboard
-            </Button>
-            {partId && <Button color='green' onClick={openForm}>
-                Edit  Part
-            </Button>}
-            <Button onClick={() => setCounter(counter + 1)}>
-                Increment Counter
-            </Button>
-            <Text size='xl'>Counter: {counter}</Text>
-        </Group>
         <SimpleGrid cols={2}>
+            {% if cookiecutter.frontend.translation -%}
+            <Alert title='Translated Text' color='grape'>
+                <Stack gap='xs'>
+                    <Text>{t`Translated text, provided by custom code!`}</Text>
+                    <Text>{t`Translations are loaded automatically.`}</Text>
+                    <Text>{t`Fallback locale is used if no translation is available`}</Text>
+                </Stack>
+            </Alert>
+            {%- endif %}
+            <Group justify='apart' wrap='nowrap' gap='sm'>
+                <Button color='blue' onClick={gotoDashboard}>
+                    Go to Dashboard
+                </Button>
+                {partId && <Button color='green' onClick={openForm}>
+                    Edit  Part
+                </Button>}
+                <Button onClick={() => setCounter(counter + 1)}>
+                    Increment Counter
+                </Button>
+                <Text size='xl'>Counter: {counter}</Text>
+            </Group>
             {instance ? (
                 <Alert title="Instance Data" color="blue">
                     {instance}
@@ -153,14 +161,51 @@ function {{ cookiecutter.plugin_name }}Panel({
     );
 }
 
+{% if cookiecutter.frontend.translation -%}
+// Wrapper component to ensure translations are loaded correctly
+function {{ cookiecutter.plugin_name }}LocalizedPanel({
+    context
+}: {
+    context: InvenTreePluginContext;
+}) {
+
+    const [loaded, setLoaded] = useState(false);
+
+    // Reload componentwhen the locale changes
+    useEffect(() => {
+        setLoaded(false);
+        loadPluginLocale(context.locale).then(() => {
+            setLoaded(true);
+        });
+    }, [context.locale]);
+
+    if (!loaded) {
+        return (
+            <Skeleton w='100%' animate />
+        )
+    }
+
+    return (
+        <I18nProvider i18n={context.i18n}>
+            <{{ cookiecutter.plugin_name }}Panel context={context} />
+        </I18nProvider>
+    );
+}
+
+{%- endif %}
+
+
 // This is the function which is called by InvenTree to render the actual panel component
 export function render{{ cookiecutter.plugin_name }}Panel(context: InvenTreePluginContext) {
     checkPluginVersion(context);
 
     {% if cookiecutter.frontend.translation -%}
-    // Load plugin translations dynamically based on the locale
-    loadPluginLocale(context.locale);
+    return (
+        <{{ cookiecutter.plugin_name }}LocalizedPanel context={context} />
+    );
+    {%- else -%}
+    return (
+        <{{ cookiecutter.plugin_name }}Panel context={context} />;
+    );
     {%- endif %}
-
-    return <{{ cookiecutter.plugin_name }}Panel context={context} />;
 }
