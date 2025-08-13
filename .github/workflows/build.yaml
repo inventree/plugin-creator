@@ -68,6 +68,8 @@ jobs:
       - name: Check Compiled Output
         run: |
           cd output/MyCustomPlugin
+          test -d frontend/src/locales/de/messages.ts
+          test -d frontend/src/locales/en/messages.ts
           test -d my_custom_plugin/static
           test -d my_custom_plugin/static/assets
           test -f my_custom_plugin/static/Panel.js
