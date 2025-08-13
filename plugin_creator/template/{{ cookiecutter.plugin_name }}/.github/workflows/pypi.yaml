@@ -32,6 +32,9 @@ jobs:
         run: |
           cd frontend
           npm install
+          {% if cookiecutter.frontend.translation -%}
+          npm run translate
+          {%- endif %}
           npm run build
       {%- endif %}
       - name: Build Binary

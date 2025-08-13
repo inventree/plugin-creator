@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
+{% if cookiecutter.frontend.translation -%}
+import { lingui } from "@lingui/vite-plugin";
+{%- endif %}
 
 
 /**
@@ -26,8 +29,16 @@ const externalKeys = Object.keys(externalLibs);
  */
 export default defineConfig({
   plugins: [
+    {% if cookiecutter.frontend.translation -%}
+    lingui(),
+    {%- endif %}
     react({
-      jsxRuntime: 'classic'
+      jsxRuntime: 'classic',
+      {% if cookiecutter.frontend.translation -%}
+      babel: {
+        plugins: ['macros'], // Required for @lingui macros
+      },
+      {%- endif %}
     }),
     viteExternalsPlugin(externalLibs),
   ],

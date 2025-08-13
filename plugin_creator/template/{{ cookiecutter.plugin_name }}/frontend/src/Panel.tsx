@@ -1,18 +1,14 @@
-import { useCallback, useMemo, useState } from 'react';
-import { Alert, Button, Group, Stack, Text, Title } from '@mantine/core';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Alert, Button, Group, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 {% if "UrlsMixin" in cookiecutter.plugin_mixins.mixin_list -%}
 import { useQuery } from '@tanstack/react-query';
 {%- endif %}
 
-{% if cookiecutter.frontend.translation %}
-import { i18n } from '@lingui/core';
-import { Trans } from '@lingui/react';
-
-// Translation support
-import { messages as deMessages } from './locales/de/messages.ts';
-import { messages as esMessages } from './locales/es/messages.ts';
-{% endif %}
+{% if cookiecutter.frontend.translation -%}
+import { t } from '@lingui/core/macro';
+import { LocalizedComponent } from './locale';
+{%- endif %}
 
 // Import for type checking
 import { checkPluginVersion, type InvenTreePluginContext } from '@inventreedb/ui';
@@ -29,6 +25,14 @@ function {{ cookiecutter.plugin_name }}Panel({
     context: InvenTreePluginContext;
 }) {
 
+    // React hooks can be used within plugin components
+    useEffect(() => {
+        console.log("useEffect in plugin component:");
+        console.log("- Model:", context.model);
+        console.log("- ID:", context.id);
+    }, [context.model, context.id]);
+
+    // Memoize the part ID as passed via the context object
     const partId = useMemo(() => {
         return context.model == ModelType.part ? context.id || null: null;
     }, [context.model, context.id]);
@@ -100,70 +104,76 @@ function {{ cookiecutter.plugin_name }}Panel({
         <Text>
             This is a custom panel for the {{ cookiecutter.plugin_name }} plugin.
         </Text>
-        {% if cookiecutter.frontend.translation %}
-        <Alert title='Translated Text' color='grape'>
-          <Trans
-            id='panel.greeting'
-            message='Translated text, provided by custom code!'
-          />
-        </Alert>
-        {% endif %}
-        <Group justify='apart' wrap='nowrap' gap='sm'>
-            <Button color='blue' onClick={gotoDashboard}>
-                Go to Dashboard
-            </Button>
-            {partId && <Button color='green' onClick={openForm}>
-                Edit  Part
-            </Button>}
-            <Button onClick={() => setCounter(counter + 1)}>
-                Increment Counter
-            </Button>
-            <Text size='xl'>Counter: {counter}</Text>
-        </Group>
-        {instance ? (
-            <Alert title="Instance Data" color="blue">
-                {instance}
-            </Alert>
-        ) : (
-            <Alert title="No Instance" color="yellow">
-                No instance data available
-            </Alert>
-        )}
-        {% if "UrlsMixin" in cookiecutter.plugin_mixins.mixin_list -%}
-        {apiQuery.isFetched && apiQuery.data && (
-           <Alert color="green" title="API Query Data">
-                {apiQuery.isFetching || apiQuery.isLoading ? (
-                <Text>Loading...</Text>
-                ) : (
+        <SimpleGrid cols={2}>
+            {% if cookiecutter.frontend.translation -%}
+            <Alert title='Translated Text' color='grape'>
                 <Stack gap='xs'>
-                    <Text>Part Count: {apiQuery.data.part_count}</Text>
-                    <Text>Today: {apiQuery.data.today}</Text>
-                    <Text>Random Text: {apiQuery.data.random_text}</Text>
-                    <Button
-                        disabled={apiQuery.isFetching || apiQuery.isLoading}
-                        onClick={() => apiQuery.refetch()}>
-                        Reload Data
-                    </Button>
+                    <Text>{t`Translated text, provided by custom code!`}</Text>
+                    <Text>{t`Translations are loaded automatically.`}</Text>
+                    <Text>{t`Fallback locale is used if no translation is available`}</Text>
                 </Stack>
+            </Alert>
+            {%- endif %}
+            <Group justify='apart' wrap='nowrap' gap='sm'>
+                <Button color='blue' onClick={gotoDashboard}>
+                    Go to Dashboard
+                </Button>
+                {partId && <Button color='green' onClick={openForm}>
+                    Edit  Part
+                </Button>}
+                <Button onClick={() => setCounter(counter + 1)}>
+                    Increment Counter
+                </Button>
+                <Text size='xl'>Counter: {counter}</Text>
+            </Group>
+            {instance ? (
+                <Alert title="Instance Data" color="blue">
+                    {instance}
+                </Alert>
+            ) : (
+                <Alert title="No Instance" color="yellow">
+                    No instance data available
+                </Alert>
             )}
-        </Alert>
-        )}{%- endif %}
+            {% if "UrlsMixin" in cookiecutter.plugin_mixins.mixin_list -%}
+            {apiQuery.isFetched && apiQuery.data && (
+            <Alert color="green" title="API Query Data">
+                    {apiQuery.isFetching || apiQuery.isLoading ? (
+                    <Text>Loading...</Text>
+                    ) : (
+                    <Stack gap='xs'>
+                        <Text>Part Count: {apiQuery.data.part_count}</Text>
+                        <Text>Today: {apiQuery.data.today}</Text>
+                        <Text>Random Text: {apiQuery.data.random_text}</Text>
+                        <Button
+                            disabled={apiQuery.isFetching || apiQuery.isLoading}
+                            onClick={() => apiQuery.refetch()}>
+                            Reload Data
+                        </Button>
+                    </Stack>
+                )}
+            </Alert>
+            )}{%- endif %}
+        </SimpleGrid>
         </Stack>
         </>
     );
 }
 
+
 // This is the function which is called by InvenTree to render the actual panel component
 export function render{{ cookiecutter.plugin_name }}Panel(context: InvenTreePluginContext) {
     checkPluginVersion(context);
 
-    {% if cookiecutter.frontend.translation %}
-    // Set up translations (if required)
-    i18n.load({
-        de: deMessages,
-        es: esMessages
-    });
-    {% endif %}
-
-    return <{{ cookiecutter.plugin_name }}Panel context={context} />;
+    {% if cookiecutter.frontend.translation -%}
+    return (
+        <LocalizedComponent locale={context.locale}>
+            <{{ cookiecutter.plugin_name }}Panel context={context} />
+        </LocalizedComponent>
+    );
+    {%- else -%}
+    return (
+        <{{ cookiecutter.plugin_name }}Panel context={context} />;
+    );
+    {%- endif %}
 }

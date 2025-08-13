@@ -1,8 +1,12 @@
 // Primary vite config - we extend this for dev mode
 import { defineConfig } from 'vite'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
-
 import viteConfig, { externalLibs } from './vite.config'
+
+{% if cookiecutter.frontend.translation -%}
+import react from "@vitejs/plugin-react-swc"
+import { lingui } from "@lingui/vite-plugin"
+{%- endif %}
 
 /**
  * Vite config to run the frontend plugin in development mode.
@@ -33,6 +37,12 @@ export default defineConfig((cfg) => {
   delete config.optimizeDeps;
 
   config.plugins = [
+    {% if cookiecutter.frontend.translation -%}
+    lingui(),
+    react({
+      plugins: [["@lingui/swc-plugin", {}]]
+    }),
+    {%- endif %}
     viteExternalsPlugin(externalLibs),
   ];
 

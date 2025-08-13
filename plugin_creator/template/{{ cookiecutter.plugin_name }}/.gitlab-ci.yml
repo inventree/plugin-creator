@@ -27,5 +27,8 @@ frontend:
     - npm install
   script:
     - npm run build
+    {% if cookiecutter.frontend.translation -%}
+    - npm run translate
+    {%- endif %}
     - npm run lint
 {%- endif -%}
