@@ -15,7 +15,13 @@
     "dev": "vite --config vite.dev.config.ts --host"
   },
   "dependencies": {
-    "@inventreedb/ui": "latest"
+    "@inventreedb/ui": "latest",
+    "react": ">= {{ cookiecutter.frontend.react_version }}",
+    "react-dom": ">= {{ cookiecutter.frontend.react_version }}",
+    "@mantine/core": ">= {{ cookiecutter.frontend.mantine_version }}",
+    "@mantine/hooks": ">= {{ cookiecutter.frontend.mantine_version }}",
+    "@mantine/modals": ">= {{ cookiecutter.frontend.mantine_version }}",
+    "@mantine/notifications": ">= {{ cookiecutter.frontend.mantine_version }}"
   },
   "peerDependencies": {},
   "devDependencies": {
@@ -29,7 +35,7 @@
     {%- endif %}
     "@types/react": "latest",
     "@types/react-dom": "latest",
-    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-react": "^4.7.0",
     "globals": "^15.14.0",
     "typescript": "~5.6.2",
     "vite": "^6.0.5",

@@ -32,6 +32,8 @@
     "frontend": {
         "enabled": true,
         "translation": true,
+        "react_version": "0.0.0",
+        "mantine_version": "0.0.0",
         "features": {
             "dashboard": true,
             "panel": true,

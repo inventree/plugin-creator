@@ -7,6 +7,11 @@ from .helpers import info
 from .helpers import remove_file, remove_dir
 
 
+# Minimum version requirements for core frontend libraries
+MIN_REACT_VERSION = "19.1.1"
+MIN_MANTINE_VERSION = "7.16.0"
+
+
 def frontend_features() -> dict:
     """Provide a list of frontend features to enable."""
 
@@ -60,6 +65,30 @@ def select_features() -> dict:
 def remove_frontend(plugin_dir: str) -> None:
     """If frontend code is not required, remove it!"""
     remove_dir(plugin_dir, "frontend")
+
+
+def define_frontend(enabled: bool, defaults: bool = False) -> dict:
+    """Define the frontend code options for the plugin."""
+
+    frontend = {
+        "react_version": MIN_REACT_VERSION,
+        "mantine_version": MIN_MANTINE_VERSION,
+    }
+
+    if enabled:
+        frontend.update({
+            "enabled": True,
+            "features": all_features() if defaults else select_features(),
+            "translation": True if defaults else enable_translation(),
+        })
+    else:
+        frontend.update({
+            "enabled": False,
+            "translation": False,
+            "features": no_features(),
+        })
+
+    return frontend
 
 
 def update_frontend(plugin_dir: str, context: dict) -> None:
