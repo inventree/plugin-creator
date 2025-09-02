@@ -6,9 +6,9 @@ style:
   stage: lint
   image: python:3.9
   before_script:
-    - pip install flake8 pep8-naming
+    - pip install -U ruff
   script:
-    - flake8 .
+    - ruff check
 
 build:
   stage: build
