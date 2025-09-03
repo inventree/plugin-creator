@@ -9,7 +9,7 @@ from .helpers import remove_file, remove_dir
 
 # Minimum version requirements for core frontend libraries
 MIN_REACT_VERSION = "19.1.1"
-MIN_MANTINE_VERSION = "7.16.0"
+MIN_MANTINE_VERSION = "8.2.7"
 
 
 def frontend_features() -> dict:
