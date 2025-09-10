@@ -50,4 +50,10 @@ setuptools.setup(
             "{{ cookiecutter.plugin_name }} = {{ cookiecutter.package_name }}.core:{{ cookiecutter.plugin_name }}"
         ]
     },
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Operating System :: OS Independent",
+        "Framework :: InvenTree",
+    ],
 )
+
