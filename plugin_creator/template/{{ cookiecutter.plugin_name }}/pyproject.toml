@@ -16,7 +16,7 @@ authors = [
 ]
 readme = "README.md"
 license = "{{ cookiecutter.license_key }}"
-keywords="inventree plugin"
+keywords=["inventree", "plugin"]
 requires-python = ">=3.9"
 dependencies = [
     # Enter your plugin library dependencies here
