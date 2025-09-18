@@ -36,7 +36,7 @@ Homepage = "{{ cookiecutter.project_url }}"
 {{ cookiecutter.plugin_name }} = "{{ cookiecutter.package_name }}.core:{{ cookiecutter.plugin_name }}"
 
 [tool.setuptools.packages.find]
-where = ["{{ cookiecutter.package_name }}"]
+where = [""]
 
 [tool.setuptools.dynamic]
 version = {attr = "{{ cookiecutter.package_name }}.PLUGIN_VERSION"} 
