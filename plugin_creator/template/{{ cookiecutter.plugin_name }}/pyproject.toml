@@ -8,24 +8,24 @@ requires = ["setuptools", "twine", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name="{{ cookiecutter.distribution_name }}"
-description="{{ cookiecutter.plugin_description }}"
+name = "{{ cookiecutter.distribution_name }}"
+description = "{{ cookiecutter.plugin_description }}"
 dynamic = ["version"]
 authors = [
     { name = "{{ cookiecutter.author_name }}", {%- if cookiecutter.author_email %}email = "{{ cookiecutter.author_email }}" },{%- endif %}
 ]
 readme = "README.md"
 license = "{{ cookiecutter.license_key }}"
-keywords=["inventree", "plugin"]
+keywords = ["inventree", "plugin"]
 requires-python = ">=3.9"
 dependencies = [
     # Enter your plugin library dependencies here
 ]
-classifiers=[
-        "Programming Language :: Python :: 3",
-        "Operating System :: OS Independent",
-        "Framework :: InvenTree",
-    ]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Framework :: InvenTree",
+]
 
 {%- if cookiecutter.project_url %}
 [project.urls]
