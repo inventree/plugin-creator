@@ -13,13 +13,29 @@ We use Mantine, running on React, to match the InvenTree stack.
 - [React](https://react.dev/)
 - [Mantine](https://mantine.dev/)
 
-### Project Setup
+## Project Setup
 
 This project uses [Vite](https://vitejs.dev/) as the build tool. We followed [this guide](https://vitejs.dev/guide/#scaffolding-your-first-vite-project) to scaffold the project.
 
-### Building
+*Note: The following instructions assume you are already in the `frontend` directory.*
 
-*Note: Assumed you are already in the `frontend` directory.*
+### Install Frontend Libraries
+
+Install the required frontend libraries:
+
+```bash
+npm install
+```
+
+### Translate
+
+If you have translation support enabled, run:
+
+```bash
+npm run translate
+```
+
+### Building
 
 To compile the frontend code, run:
 
@@ -33,15 +49,15 @@ Note: The target directory is intentionally outside of the frontend directory, s
 
 ### Testing
 
-To test the frontend code, run:
+To run the frontend code in a test environment, run:
 
 ```bash
 npm run dev
 ```
 
-This will start a development server (usually on `localhost:5173`) which will automatically reload when changes are made to the source code.
+This will start a development server (usually on `localhost:5174`) which will automatically reload when changes are made to the source code.
 
-The development server provides some "dummy" harness data to test the frontend code.
+Note: You will also need the InvenTree frontend dev server to be running on `localhost:5173` (using `invoke dev.frontend-server` in the InvenTree project).
 
 ### Linting / Formatting
 
@@ -60,3 +76,4 @@ npm run lint:fix
 ```
 
 Any formatting errors will be automatically fixed when you run the `lint:fix` command.
+
