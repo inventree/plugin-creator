@@ -173,7 +173,7 @@ export function render{{ cookiecutter.plugin_name }}Panel(context: InvenTreePlug
     );
     {%- else -%}
     return (
-        <{{ cookiecutter.plugin_name }}Panel context={context} />;
+        <{{ cookiecutter.plugin_name }}Panel context={context} />
     );
     {%- endif %}
 }
