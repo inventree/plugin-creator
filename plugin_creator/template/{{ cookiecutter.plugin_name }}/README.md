@@ -13,7 +13,7 @@
 To install manually via the command line, run the following command:
 
 ```bash
-pip install {{ cookiecutter.plugin_slug }}
+pip install inventree-{{ cookiecutter.plugin_slug }}
 ```
 
 ## Configuration
