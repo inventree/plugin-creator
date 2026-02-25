@@ -53,6 +53,9 @@ jobs:
           test -f MyCustomPlugin/frontend/README.md
           test -f MyCustomPlugin/frontend/vite.config.ts
           test -f MyCustomPlugin/frontend/src/Panel.tsx
+          test -f MyCustomPlugin/frontend/src/Settings.tsx
+          test -f MyCustomPlugin/frontend/src/Dashboard.tsx
+          test -f MyCustomPlugin/frontend/src/Spotlight.tsx
       - name: Build and Install Plugin
         run: |
           cd output/MyCustomPlugin
