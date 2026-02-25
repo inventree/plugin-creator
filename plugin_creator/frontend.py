@@ -19,6 +19,7 @@ def frontend_features() -> dict:
         "dashboard": "Custom dashboard items",
         "panel": "Custom panel items",
         "settings": "Custom settings display",
+        "spotlight": "Custom spotlight actions",
     }
 
 

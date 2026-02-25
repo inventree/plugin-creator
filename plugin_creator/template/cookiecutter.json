@@ -37,7 +37,8 @@
         "features": {
             "dashboard": true,
             "panel": true,
-            "settings": true
+            "settings": true,
+            "spotlight": true
         }
     }
 }
