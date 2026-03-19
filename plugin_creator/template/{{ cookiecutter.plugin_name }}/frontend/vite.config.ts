@@ -64,12 +64,23 @@ export default defineConfig({
         './src/Settings.tsx',
         {%- endif %}
       ],
-      output: {
-        dir: '../{{ cookiecutter.package_name }}/static',
-        entryFileNames: '[name].js',
-        assetFileNames: 'assets/[name].[ext]',
-        globals: externalLibs,
-      },
+      output: [
+        // Generate two sets of output files:
+        // One without hashes - for backwards compatibility
+        {
+          dir: '../{{ cookiecutter.package_name }}/static',
+          entryFileNames: '[name].js',
+          assetFileNames: 'assets/[name].[ext]',
+          globals: externalLibs,
+        },
+        // And one with hashes for cache busting
+        {
+          dir: '../{{ cookiecutter.package_name }}/static',
+          entryFileNames: '[name]-[hash].js',
+          assetFileNames: 'assets/[name].[ext]',
+          globals: externalLibs,
+        }
+      ],
       external: externalKeys,
     }
   },
