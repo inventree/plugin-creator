@@ -61,8 +61,7 @@ function {{ cookiecutter.plugin_name }}Panel({
             {
                 name: 'assembly',
                 label: 'Assembly',
-                description: 'Show assembly parts',
-                type: 'boolean',
+                description: 'Show assembly parts'
             }
         ],
         rowActions: (record: any) => [
@@ -248,7 +247,6 @@ function {{ cookiecutter.plugin_name }}Panel({
         </>
     );
 }
-
 
 // This is the function which is called by InvenTree to render the actual panel component
 export function render{{ cookiecutter.plugin_name }}Panel(context: InvenTreePluginContext) {
