@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Accordion, Alert, Button, Group, SimpleGrid, Stack, Text, Title } from '@mantine/core';
+import { IconInfoCircle } from '@tabler/icons-react';
 import { notifications } from '@mantine/notifications';
 {% if "UrlsMixin" in cookiecutter.plugin_mixins.mixin_list -%}
 import { useQuery } from '@tanstack/react-query';
@@ -11,6 +12,7 @@ import { LocalizedComponent } from './locale';
 {%- endif %}
 
 // Import for type checking
+import { INVENTREE_PLUGIN_VERSION } from '@inventreedb/ui';
 import { checkPluginVersion, type InvenTreePluginContext } from '@inventreedb/ui';
 import { ApiEndpoints, apiUrl, ModelType } from '@inventreedb/ui';
 
@@ -141,10 +143,16 @@ function {{ cookiecutter.plugin_name }}Panel({
         <Accordion defaultValue='main'>
         <Accordion.Item value='main'>
             <Accordion.Control>
-                <Title c={context.theme.primaryColor}  order={4}>{{ cookiecutter.plugin_title }}</Title>
+                <Title c={context.theme.primaryColor}  order={4}>Custom Data Examples</Title>
             </Accordion.Control>
         <Accordion.Panel>
             <SimpleGrid cols={2}>
+                <Alert icon={<IconInfoCircle />} title={"Version Information"} color="blue">
+                    <Stack gap='xs'>
+                        <Text>Frontend Version: {context?.version?.inventree || 'unknown'}</Text>
+                        <Text>Plugin Version: {INVENTREE_PLUGIN_VERSION}</Text>
+                    </Stack>
+                </Alert>
                 {% if cookiecutter.frontend.translation -%}
                 <Alert title='Translated Text' color='grape'>
                     <Stack gap='xs'>
