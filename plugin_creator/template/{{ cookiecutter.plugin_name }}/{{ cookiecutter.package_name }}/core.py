@@ -1,5 +1,13 @@
 """{{ cookiecutter.plugin_description }}"""
 
+{% if "TransitionMixin" in cookiecutter.plugin_mixins.mixin_list -%}
+from collections.abc import Callable
+from django.db.models import Model
+from django.core.exceptions import ValidationError
+from generic.states import TransitionMethod
+from order.models import PurchaseOrder
+from order.status_codes import PurchaseOrderStatus
+{% endif %}
 from plugin import InvenTreePlugin
 {% if cookiecutter.plugin_mixins.mixin_list %}
 from plugin.mixins import {{ cookiecutter.plugin_mixins.mixin_list | map('trim') | join(', ') }}
@@ -252,4 +260,29 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
     def increment_serial_number(self, serial, part=None, **kwargs):
         """Increment a serial number."""
         return None
+    {%- endif %}
+    {% if "TransitionMixin" in cookiecutter.plugin_mixins.mixin_list %}
+    # Custom transition logic (from TransitionMixin)
+    class CustomTransitionHandler(TransitionMethod):
+        """Example transition handler."""
+
+        def transition(
+            self,
+            current_state: int,
+            target_state: int,
+            instance: Model,
+            default_action: Callable,
+            **kwargs
+        ) -> bool:
+            """Apply custom logic to a state transition.
+
+            Prevent cancelling of a PurchaseOrder.
+            """
+            if isinstance(instance, PurchaseOrder) and target_state == PurchaseOrderStatus.CANCELLED.value:
+                # Prevent cancellation of purchase orders
+                raise ValidationError("Cancelling purchase orders is not allowed by this plugin!")
+            
+            return True
+
+    TRANSITION_HANDLERS = [CustomTransitionHandler()]
     {%- endif %}
