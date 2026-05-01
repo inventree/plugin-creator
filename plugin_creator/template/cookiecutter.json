@@ -14,6 +14,7 @@
             "ReportMixin",
             "ScheduleMixin",
             "SettingsMixin",
+            "TransitionMixin",
             "UserInterfaceMixin",
             "UrlsMixin",
             "ValidationMixin"

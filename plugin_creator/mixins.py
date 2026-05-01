@@ -30,6 +30,7 @@ def available_mixins() -> list:
         'ScheduleMixin',
         'SettingsMixin',
         # 'SupplierBarcodeMixin',
+        'TransitionMixin',
         'UrlsMixin',
         'UserInterfaceMixin',
         'ValidationMixin',
