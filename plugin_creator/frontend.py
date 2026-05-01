@@ -7,10 +7,11 @@ from .helpers import info
 from .helpers import remove_file, remove_dir
 
 
-# Minimum version requirements for core frontend libraries
+# Version requirements for core frontend libraries
 MIN_REACT_VERSION = "19.1.2"
-MIN_MANTINE_VERSION = "8.3.10"
-MIN_LINGUI_VERSION = "5.9.5"
+MIN_MANTINE_VERSION = "8.2.7"
+MIN_LINGUI_VERSION = "5.9.2"
+MIN_VITE_VERSION = "6.4.2"
 
 
 def frontend_features() -> dict:
@@ -76,6 +77,7 @@ def define_frontend(enabled: bool, defaults: bool = False) -> dict:
         "react_version": MIN_REACT_VERSION,
         "mantine_version": MIN_MANTINE_VERSION,
         "lingui_version": MIN_LINGUI_VERSION,
+        "vite_version": MIN_VITE_VERSION,
     }
 
     if enabled:
