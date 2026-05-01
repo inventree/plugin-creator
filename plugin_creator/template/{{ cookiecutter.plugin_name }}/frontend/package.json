@@ -36,15 +36,16 @@
     "@vitejs/plugin-react": "^4.7.0",
     "globals": "^15.14.0",
     "typescript": "~5.6.2",
-    "vite": "^6.0.5",
+    "vite": "^{{ cookiecutter.frontend.vite_version }}",
     "vite-plugin-externals": "^0.6.2"
   },
   "overrides": {
-    "glob": ">= 13.0.0",
     {% if cookiecutter.frontend.translation -%}
     "@lingui/core": "^{{ cookiecutter.frontend.lingui_version }}",
     "@lingui/cli": "^{{ cookiecutter.frontend.lingui_version }}",
-    "@lingui/macro": "^{{ cookiecutter.frontend.lingui_version }}"
+    "@lingui/macro": "^{{ cookiecutter.frontend.lingui_version }}",
     {%- endif %}
+    "glob": ">= 13.0.0",
+    "vite": "^{{ cookiecutter.frontend.vite_version }}"
   }
 }
