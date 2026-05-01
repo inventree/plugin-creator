@@ -27,8 +27,6 @@
   "devDependencies": {
     "@biomejs/biome": "2.0.0",
     {% if cookiecutter.frontend.translation -%}
-    "@lingui/cli": "latest",
-    "@lingui/macro": "latest",
     "@lingui/swc-plugin": "latest",
     "@lingui/vite-plugin": "latest",
     "@vitejs/plugin-react-swc": "latest",
@@ -40,5 +38,13 @@
     "typescript": "~5.6.2",
     "vite": "^6.0.5",
     "vite-plugin-externals": "^0.6.2"
+  },
+  "overrides": {
+    "glob": ">= 13.0.0",
+    {% if cookiecutter.frontend.translation -%}
+    "@lingui/core": "^{{ cookiecutter.frontend.lingui_version }}",
+    "@lingui/cli": "^{{ cookiecutter.frontend.lingui_version }}",
+    "@lingui/macro": "^{{ cookiecutter.frontend.lingui_version }}"
+    {%- endif %}
   }
 }
