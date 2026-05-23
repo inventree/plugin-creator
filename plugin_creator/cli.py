@@ -131,6 +131,10 @@ def gather_info(context: dict) -> dict:
 
     context["ci_support"] = devops.get_devops_mode() if git_support else "None"
 
+    context["testing"] = questionary.confirm(
+        "Include testing support?", default=True,
+    ).ask()
+
     return context
 
 
