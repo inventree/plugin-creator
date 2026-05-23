@@ -9,7 +9,7 @@ import questionary
 from cookiecutter.main import cookiecutter
 
 from . import PLUGIN_CREATOR_VERSION, config, devops, frontend, mixins, validators
-from .helpers import info, success
+from .helpers import info, success, remove_dir
 
 
 def default_values() -> dict:
@@ -155,6 +155,10 @@ def cleanup(plugin_dir: str, context: dict) -> None:
 
     if context["git_support"]:
         devops.git_init(plugin_dir)
+
+    if not context["testing"]:
+        src_dir = os.path.join(plugin_dir, context["package_name"])
+        remove_dir(src_dir, "tests")
 
 
 def main():
