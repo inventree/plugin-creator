@@ -38,6 +38,16 @@ jobs:
           cd inventree
           invoke install
           invoke dev.setup-test -ui
+      - name: Build Plugin
+        run: |
+          pip install .
+          create-inventree-plugin --default
+          cd MyCustomPlugin/frontend
+          npm install && npm translate && npm build
+      - name: Install Plugin
+        run: |
+          cd MyCustomPlugin
+          pip install .
       - name: Start InvenTree Server
         run: |
           cd inventree
