@@ -45,14 +45,10 @@ jobs:
           cd inventree
           invoke install
           invoke dev.setup-test -i
-      - name: Start InvenTree Server
-        run: |
-          cd inventree
-          invoke dev.server &
-          sleep 10
       - name: Run Playwright Tests
         id: playwright
         run: |
+          cd inventree && invoke dev.server & && sleep 10
           cd playwright && npm install && npx playwright install --with-deps && npx playwright test
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # pin@v7.0.1
         if: ${{ !cancelled() && steps.playwright.outcome == 'failure' }}
