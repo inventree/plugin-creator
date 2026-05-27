@@ -44,7 +44,7 @@ jobs:
           git clone --depth 1 https://github.com/inventree/inventree inventree
           cd inventree
           invoke install
-          invoke dev.setup-test -ui
+          invoke dev.setup-test -i
       - name: Start InvenTree Server
         run: |
           cd inventree
