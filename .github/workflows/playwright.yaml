@@ -26,10 +26,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 20
-      - name: Setup Playwright
-        run: |
-          cd playwright
-          npx playwright install --with-deps
       - name: Build Plugin
         run: |
           pip install .
@@ -53,6 +49,10 @@ jobs:
           cd inventree
           invoke dev.server &
           sleep 10
+      - name: Setup Playwright
+        run: |
+          cd playwright
+          npx playwright install --with-deps
       - name: Run Playwright Tests
         run: |
           cd playwright
