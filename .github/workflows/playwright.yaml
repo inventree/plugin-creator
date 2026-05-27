@@ -14,6 +14,8 @@ jobs:
       INVENTREE_BACKUP_DIR: $GITHUB_WORKSPACE/path/to/backup
       INVENTREE_MEDIA_ROOT: $GITHUB_WORKSPACE/path/to/media
       INVENTREE_STATIC_ROOT: $GITHUB_WORKSPACE/path/to/static
+      INVENTREE_PLUGINS_ENABLED: true
+      INVENTREE_DEBUG: true
 
     steps:
       - name: Checkout Code
