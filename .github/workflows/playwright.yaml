@@ -33,7 +33,7 @@ jobs:
           pip install .
           create-inventree-plugin --default
           cd MyCustomPlugin/frontend
-          npm install && npm translate && npm build
+          npm install && npm run translate && npm run build
       - name: Install Plugin
         run: |
           cd MyCustomPlugin
