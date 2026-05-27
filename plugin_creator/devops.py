@@ -44,7 +44,7 @@ def git_init(plugin_dir: str) -> None:
     info('Initializing git repository...')
     subprocess.run(['git init -b main'], check=True, shell=True, cwd=plugin_dir)
 
-    # Intall pre-commit hooks
+    # Install pre-commit hooks
     info('Installing pre-commit hooks...')
 
     subprocess.run(['pip install pre-commit'], check=True, shell=True, cwd=plugin_dir)
