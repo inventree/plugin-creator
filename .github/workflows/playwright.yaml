@@ -6,6 +6,15 @@ jobs:
   playwright:
     runs-on: ubuntu-latest
 
+    # Simple InvenTree setup
+    env:
+      INVENTREE_SITE_URL: http://localhost:8000
+      INVENTREE_DB_ENGINE: sqlite3
+      INVENTREE_DB_NAME: inventree_db_latest.sqlite3
+      INVENTREE_BACKUP_DIR: $GITHUB_WORKSPACE/path/to/backup
+      INVENTREE_MEDIA_ROOT: $GITHUB_WORKSPACE/path/to/media
+      INVENTREE_STATIC_ROOT: $GITHUB_WORKSPACE/path/to/static
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -21,6 +30,19 @@ jobs:
         run: |
           cd playwright
           npx playwright install --with-deps
+      - name: Install InvenTree
+        run: |
+          sudo apt-get install python3-dev python3-pip python3-venv python3
+          pip3 install invoke
+          git clone --depth 1 https://github.com/inventree/inventree inventree
+          cd inventree
+          invoke install
+          invoke dev.setup-test -ui
+      - name: Start InvenTree Server
+        run: |
+          cd inventree
+          invoke dev.server &
+          sleep 10
       - name: Run Playwright Tests
         run: |
           cd playwright
