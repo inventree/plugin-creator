@@ -2,6 +2,7 @@ stages:
   - lint
   - build
 
+# Run python linter checks
 style:
   stage: lint
   image: python:3.9
@@ -10,15 +11,35 @@ style:
   script:
     - ruff check
 
+{% if cookiecutter.frontend.enabled -%}
+{% if cookiecutter.frontend.translation -%}
+# Run translation file checks on the frontend code
+# Exit if there are any uncommitted changes to the compiled translation catalogs
+# (i.e. if the source strings have changed without updating the catalogs)
+translation:
+  stage: lint
+  image: node:20
+  before_script:
+    - cd frontend
+    - npm install
+  script:
+    - npm run build
+    - npm run translate
+    - git diff --exit-code frontend/src/locales
+{%- endif -%}
+{%- endif -%}
+
+# Build the plugin package
 build:
   stage: build
-  image: python:3.9
+  image: python:3.11
   before_script:
     - pip install --upgrade wheel setuptools twine build
   script:
     - python -m build
 
 {% if cookiecutter.frontend.enabled -%}
+# Build the frontend code
 frontend:
   stage: build
   image: node:20
