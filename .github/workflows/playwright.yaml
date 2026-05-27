@@ -17,7 +17,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 20
-      - name: Build Plugin
+      - name: Setup Playwright
         run: |
-          pip install -e .
-          create-inventree-plugin --default
+          cd playwright
+          npx playwright install --with-deps
+      - name: Run Playwright Tests
+        run: |
+          cd playwright
+          npx playwright test
