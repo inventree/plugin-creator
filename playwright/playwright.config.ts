@@ -18,10 +18,10 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
     testDir: './tests',
     fullyParallel: false,
-    timeout: 30000,
-    retries: 1,
+    timeout: 10000,
+    retries: 0,
     workers: 1,
-    reporter: 'list',
+    reporter: [['html', { open: 'never' }], ['github']],
     projects: [
         {
             'name': 'chromium',
