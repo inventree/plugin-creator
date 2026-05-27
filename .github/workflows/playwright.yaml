@@ -50,11 +50,8 @@ jobs:
           cd inventree
           invoke dev.server &
           sleep 10
-      - name: Setup Playwright
-        run: |
-          cd playwright
-          npx playwright install --with-deps
       - name: Run Playwright Tests
         run: |
           cd playwright
+          npx playwright install --with-deps
           npx playwright test
