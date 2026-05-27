@@ -47,8 +47,8 @@ async function loadPluginLocale(locale: string) {
     messages = await tryLoadLocale('en');
   }
 
-  if (messages) {
-    i18n.load(locale, messages);
+  if (messages?.messages) {
+    i18n.load(locale, messages.messages);
     i18n.activate(locale);
   } else {
     console.error(`Failed to load any locale for ${locale}`);
