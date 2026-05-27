@@ -27,7 +27,7 @@ translation:
     - npm run translate
     - git diff --exit-code frontend/src/locales
 {%- endif -%}
-{%- endif -%}
+{%- endif %}
 
 # Build the plugin package
 build:
@@ -50,6 +50,6 @@ frontend:
     - npm run build
     {% if cookiecutter.frontend.translation -%}
     - npm run translate
-    {%- endif %}
+    {%- endif -%}
     - npm run lint
 {%- endif -%}
