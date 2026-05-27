@@ -58,5 +58,5 @@ jobs:
         if: ${{ !cancelled() && steps.playwright.outcome == 'failure' }}
         with:
           name: playwright-report
-          path: src/frontend/playwright-report/
+          path: playwright/playwright-report/
           retention-days: 14
