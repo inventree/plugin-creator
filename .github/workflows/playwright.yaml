@@ -47,6 +47,8 @@ jobs:
           cd inventree
           invoke install
           invoke migrate
+          invoke int.frontend-install
+          invoke int.frontend-compile
           invoke dev.setup-test -i
       - name: Run InvenTree Server
         run: |
