@@ -10,12 +10,14 @@ jobs:
     env:
       INVENTREE_SITE_URL: http://localhost:8000
       INVENTREE_DB_ENGINE: sqlite3
-      INVENTREE_DB_NAME: inventree_db_latest.sqlite3
-      INVENTREE_BACKUP_DIR: $GITHUB_WORKSPACE/path/to/backup
-      INVENTREE_MEDIA_ROOT: $GITHUB_WORKSPACE/path/to/media
-      INVENTREE_STATIC_ROOT: $GITHUB_WORKSPACE/path/to/static
+      INVENTREE_DB_NAME: ../inventree/inventree_db.sqlite3
+      INVENTREE_BACKUP_DIR: ../inventree/backup
+      INVENTREE_MEDIA_ROOT: ../inventree/media
+      INVENTREE_STATIC_ROOT: ../inventree/static
       INVENTREE_PLUGINS_ENABLED: true
+      INVENTREE_COOKIE_SAMESITE: false
       INVENTREE_DEBUG: true
+      INVENTREE_LOG_LEVEL: INFO
 
     steps:
       - name: Checkout Code
@@ -44,11 +46,16 @@ jobs:
           git clone --depth 1 https://github.com/inventree/inventree inventree
           cd inventree
           invoke install
+          invoke migrate
           invoke dev.setup-test -i
+      - name: Run InvenTree Server
+        run: |
+          cd inventree
+          invoke dev.server &
+          invoke wait
       - name: Run Playwright Tests
         id: playwright
         run: |
-          cd inventree && invoke dev.server &
           cd playwright && npm install && npx playwright install --with-deps && npx playwright test
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # pin@v7.0.1
         if: ${{ !cancelled() && steps.playwright.outcome == 'failure' }}
