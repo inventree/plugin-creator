@@ -1,0 +1,67 @@
+name: Playwright Tests
+
+on: ["push", "pull_request"]
+
+jobs:
+  playwright:
+    runs-on: ubuntu-latest
+
+    # Simple InvenTree setup
+    env:
+      INVENTREE_SITE_URL: http://localhost:8000
+      INVENTREE_DB_ENGINE: sqlite3
+      INVENTREE_DB_NAME: ../inventree/inventree_db.sqlite3
+      INVENTREE_BACKUP_DIR: ../inventree/backup
+      INVENTREE_MEDIA_ROOT: ../inventree/media
+      INVENTREE_STATIC_ROOT: ../inventree/static
+      INVENTREE_PLUGINS_ENABLED: true
+      INVENTREE_COOKIE_SAMESITE: false
+      INVENTREE_DEBUG: true
+      INVENTREE_LOG_LEVEL: INFO
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+      - name: Build Plugin
+        run: |
+          pip install .
+          create-inventree-plugin --default
+          cd MyCustomPlugin/frontend &&npm install && npm run translate && npm run build
+      - name: Install Plugin
+        run: |
+          cd MyCustomPlugin
+          pip install .
+      - name: Install InvenTree
+        run: |
+          sudo apt-get install python3-dev python3-pip python3-venv python3
+          pip3 install invoke
+          git clone --depth 1 https://github.com/inventree/inventree inventree
+          cd inventree
+          invoke install
+          invoke migrate
+          invoke int.frontend-install
+          invoke int.frontend-compile
+          invoke dev.setup-test -i
+      - name: Run InvenTree Server
+        run: |
+          cd inventree
+          invoke dev.server &
+          invoke wait
+      - name: Run Playwright Tests
+        id: playwright
+        run: |
+          cd playwright && npm install && npx playwright install --with-deps && npx playwright test
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # pin@v7.0.1
+        if: ${{ !cancelled() && steps.playwright.outcome == 'failure' }}
+        with:
+          name: playwright-report
+          path: playwright/playwright-report/
+          retention-days: 14
