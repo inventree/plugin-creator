@@ -42,7 +42,7 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
     {% if "UserInterfaceMixin" in cookiecutter.plugin_mixins.mixin_list -%}
     {%- if cookiecutter.frontend.features.settings -%}
     # Render custom UI elements to the plugin settings page
-    ADMIN_SOURCE = "Settings.js:renderPluginSettings"
+    ADMIN_SOURCE = "Settings.js:RenderPluginSettings"
     {%- endif -%}
     {%- endif -%}
 
@@ -156,7 +156,7 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
                 'title': '{{ cookiecutter.plugin_title }}',
                 'description': 'Custom panel description',
                 'icon': 'ti:mood-smile:outline',
-                'source': self.plugin_static_file('Panel.js:render{{ cookiecutter.plugin_name }}Panel'),
+                'source': self.plugin_static_file('Panel.js:Render{{ cookiecutter.plugin_name }}Panel'),
                 'context': {
                     # Provide additional context data to the panel
                     {%- if "SettingsMixin" in cookiecutter.plugin_mixins.mixin_list %}
@@ -185,7 +185,7 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
             'title': '{{ cookiecutter.plugin_title }} Dashboard Item',
             'description': 'Custom dashboard item',
             'icon': 'ti:dashboard:outline',
-            'source': self.plugin_static_file('Dashboard.js:render{{ cookiecutter.plugin_name }}DashboardItem'),
+            'source': self.plugin_static_file('Dashboard.js:Render{{ cookiecutter.plugin_name }}DashboardItem'),
             'context': {
                 # Provide additional context data to the dashboard item
                 {%- if "SettingsMixin" in cookiecutter.plugin_mixins.mixin_list %}
@@ -207,7 +207,9 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
                 'title': 'Hello Action',
                 'description': 'Hello from {{ cookiecutter.plugin_name }}',
                 'icon': 'ti:heart-handshake:outline',
-                'source': self.plugin_static_file('Spotlight.js:{{ cookiecutter.plugin_name }}SpotlightAction'),
+                'source': self.plugin_static_file(
+                    'Spotlight.js:{{ cookiecutter.plugin_name[0]|upper }}{{ cookiecutter.plugin_name[1:] }}SpotlightAction'
+                ),
             }
         ]
     {%- endif -%}

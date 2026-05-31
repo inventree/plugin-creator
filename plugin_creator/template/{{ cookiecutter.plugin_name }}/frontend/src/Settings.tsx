@@ -27,7 +27,7 @@ function PluginSettingsDisplay({
 }
 
 
-export function renderPluginSettings(context: InvenTreePluginContext) {
+export function RenderPluginSettings(context: InvenTreePluginContext) {
     return (
         <PluginSettingsDisplay context={context} />
     );
