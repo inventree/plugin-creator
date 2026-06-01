@@ -1,5 +1,5 @@
 // Primary vite config - we extend this for dev mode
-import { defineConfig, Plugin } from 'vite'
+import { defineConfig } from 'vite'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
 import viteConfig, { externalLibs } from './vite.config'
 
@@ -8,7 +8,11 @@ import react from "@vitejs/plugin-react-swc"
 import { lingui } from "@lingui/vite-plugin"
 {%- endif %}
 
+import type { ResolvedConfig, Plugin } from 'vite'
+
 function inventreeHmrPlugin(): Plugin {
+  let isDev = false;
+
   const fileRegex = /\.(js|jsx|ts|tsx)(\?|$)/;
 
   const hmrBlock = [
@@ -16,20 +20,29 @@ function inventreeHmrPlugin(): Plugin {
     '// __inventree_hmr_injected__',
     'if (import.meta.hot) {',
     '  import.meta.hot.accept((newModule) => {',
-    '    window.__plugin_hmr_reload?.(newModule);',
+    '    window.__plugin_hmr_reload?.({mod: newModule, url: import.meta.url});',
     '  })',
     '}',
   ];
 
   return {
     name: 'inventree-hmr-plugin',
+    enforce: 'post',
+
+    configResolved(config: ResolvedConfig) {
+      isDev = config.command === 'serve';
+    },
 
     transform(code, id) {
+      if (!isDev) return;
       if (!fileRegex.test(id)) return;
-      if (id.includes("node_modules")) return;
-      if (code.includes("__inventree_hmr_injected__")) return;
+      if (id.includes('node_modules')) return;
+      if (code.includes('__inventree_hmr_injected__')) return;
 
-      return code + hmrBlock.join('\n');
+      return {
+        code: code + hmrBlock.join('\n'),
+        map: null,
+      }
     }
   }
 }
