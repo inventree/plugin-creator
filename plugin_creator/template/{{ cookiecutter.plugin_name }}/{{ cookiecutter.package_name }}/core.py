@@ -282,7 +282,8 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
                 # Prevent cancellation of purchase orders
                 raise ValidationError("Cancelling purchase orders is not allowed by this plugin!")
             
-            return True
+            # Return False to indicate that the custom logic did not apply, and that the default action should be attempted
+            return False
 
     TRANSITION_HANDLERS = [CustomTransitionHandler()]
     {%- endif %}
