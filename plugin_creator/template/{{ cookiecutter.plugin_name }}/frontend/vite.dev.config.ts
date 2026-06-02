@@ -10,6 +10,7 @@ import { lingui } from "@lingui/vite-plugin"
 
 import type { ResolvedConfig, Plugin } from 'vite'
 
+// Enable HMR support for this plugin by hooking into the InvenTree vite dev server
 function inventreeHmrPlugin(): Plugin {
   let isDev = false;
 
