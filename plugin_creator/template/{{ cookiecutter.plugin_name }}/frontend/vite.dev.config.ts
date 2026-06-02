@@ -8,12 +8,10 @@ import react from "@vitejs/plugin-react-swc"
 import { lingui } from "@lingui/vite-plugin"
 {%- endif %}
 
-import type { ResolvedConfig, Plugin } from 'vite'
+import type { Plugin } from 'vite'
 
 // Enable HMR support for this plugin by hooking into the InvenTree vite dev server
 function inventreeHmrPlugin(): Plugin {
-  let isDev = false;
-
   const fileRegex = /\.(js|jsx|ts|tsx)(\?|$)/;
 
   const hmrBlock = [
@@ -21,7 +19,10 @@ function inventreeHmrPlugin(): Plugin {
     '// __inventree_hmr_injected__',
     'if (import.meta.hot) {',
     '  import.meta.hot.accept((newModule) => {',
-    '    window.__plugin_hmr_reload?.({mod: newModule, url: import.meta.url});',
+    '    const key = new URL(import.meta.url).origin + new URL(import.meta.url).pathname;',
+    '    window.__plugin_hmr_callbacks?.[key]?.forEach(callback => {',
+    '      callback(newModule);',
+    '    });',
     '  })',
     '}',
   ];
@@ -30,12 +31,7 @@ function inventreeHmrPlugin(): Plugin {
     name: 'inventree-hmr-plugin',
     enforce: 'post',
 
-    configResolved(config: ResolvedConfig) {
-      isDev = config.command === 'serve';
-    },
-
     transform(code, id) {
-      if (!isDev) return;
       if (!fileRegex.test(id)) return;
       if (id.includes('node_modules')) return;
       if (code.includes('__inventree_hmr_injected__')) return;
