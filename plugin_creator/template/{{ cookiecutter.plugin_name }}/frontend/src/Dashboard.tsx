@@ -38,7 +38,7 @@ function {{ cookiecutter.plugin_name }}DashboardItem({
 
 // This is the function which is called by InvenTree to render the actual dashboard
 //  component
-export function render{{ cookiecutter.plugin_name }}DashboardItem(context: InvenTreePluginContext) {
+export function Render{{ cookiecutter.plugin_name }}DashboardItem(context: InvenTreePluginContext) {
     checkPluginVersion(context);
     return <{{ cookiecutter.plugin_name }}DashboardItem context={context} />;
 }

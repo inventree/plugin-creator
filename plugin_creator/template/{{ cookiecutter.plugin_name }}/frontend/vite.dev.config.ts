@@ -8,6 +8,42 @@ import react from "@vitejs/plugin-react-swc"
 import { lingui } from "@lingui/vite-plugin"
 {%- endif %}
 
+import type { Plugin } from 'vite'
+
+// Enable HMR support for this plugin by hooking into the InvenTree vite dev server
+function inventreeHmrPlugin(): Plugin {
+  const fileRegex = /\.(js|jsx|ts|tsx)(\?|$)/;
+
+  const hmrBlock = [
+    '',
+    '// __inventree_hmr_injected__',
+    'if (import.meta.hot) {',
+    '  import.meta.hot.accept((newModule) => {',
+    '    const key = new URL(import.meta.url).origin + new URL(import.meta.url).pathname;',
+    '    window.__plugin_hmr_callbacks?.[key]?.forEach(callback => {',
+    '      callback(newModule);',
+    '    });',
+    '  })',
+    '}',
+  ];
+
+  return {
+    name: 'inventree-hmr-plugin',
+    enforce: 'post',
+
+    transform(code, id) {
+      if (!fileRegex.test(id)) return;
+      if (id.includes('node_modules')) return;
+      if (code.includes('__inventree_hmr_injected__')) return;
+
+      return {
+        code: code + hmrBlock.join('\n'),
+        map: null,
+      }
+    }
+  }
+}
+
 /**
  * Vite config to run the frontend plugin in development mode.
  * 
@@ -40,10 +76,12 @@ export default defineConfig((cfg) => {
     {% if cookiecutter.frontend.translation -%}
     lingui(),
     react({
-      plugins: [["@lingui/swc-plugin", {}]]
+      plugins: [["@lingui/swc-plugin", {}]],
+      reactRefreshHost: 'http://localhost:5173',
     }),
     {%- endif %}
     viteExternalsPlugin(externalLibs),
+    inventreeHmrPlugin(),
   ];
 
   return config;
