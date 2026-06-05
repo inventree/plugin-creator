@@ -249,7 +249,7 @@ function {{ cookiecutter.plugin_name }}Panel({
 }
 
 // This is the function which is called by InvenTree to render the actual panel component
-export function render{{ cookiecutter.plugin_name }}Panel(context: InvenTreePluginContext) {
+export function Render{{ cookiecutter.plugin_name }}Panel(context: InvenTreePluginContext) {
     checkPluginVersion(context);
 
     {% if cookiecutter.frontend.translation -%}
