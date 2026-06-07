@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 {% if cookiecutter.frontend.translation -%}
 import { t } from '@lingui/core/macro';
 import { LocalizedComponent } from '@inventreedb/ui';
+import { loadLocale } from './locales';
 {%- endif %}
 
 // Import for type checking
@@ -258,7 +259,7 @@ export function Render{{ cookiecutter.plugin_name }}Panel(context: InvenTreePlug
 
     {% if cookiecutter.frontend.translation -%}
     return (
-        <LocalizedComponent i18n={context.i18n} locale={context.locale}>
+        <LocalizedComponent i18n={context.i18n} locale={context.locale} loadLocale={loadLocale}>
             <{{ cookiecutter.plugin_name }}Panel context={context} />
         </LocalizedComponent>
     );
