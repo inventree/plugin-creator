@@ -161,18 +161,22 @@ function {{ cookiecutter.plugin_name }}Panel({
                     </Stack>
                 </Alert>
                 {%- endif %}
-                <Group justify='apart' wrap='nowrap' gap='sm'>
+                <Stack gap='xs'>
+                <Group grow justify='apart' wrap='nowrap' gap='sm'>
                     <Button color='blue' onClick={gotoDashboard}>
                         Go to Dashboard
                     </Button>
                     {partId && <Button color='green' onClick={openForm}>
-                        Edit  Part
+                        Edit Part
                     </Button>}
+                </Group>
+                <Group grow justify='apart' wrap='nowrap' gap='sm'>
                     <Button onClick={() => setCounter(counter + 1)}>
                         Increment Counter
                     </Button>
                     <Text size='xl'>Counter: {counter}</Text>
                 </Group>
+                </Stack>
                 {instance ? (
                     <Alert title="Instance Data" color="blue">
                         {instance}
