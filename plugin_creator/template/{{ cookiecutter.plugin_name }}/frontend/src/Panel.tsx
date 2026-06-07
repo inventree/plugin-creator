@@ -8,7 +8,8 @@ import { useQuery } from '@tanstack/react-query';
 
 {% if cookiecutter.frontend.translation -%}
 import { t } from '@lingui/core/macro';
-import { LocalizedComponent } from './locale';
+import { LocalizedComponent } from '@inventreedb/ui';
+import { loadLocale } from './locales';
 {%- endif %}
 
 // Import for type checking
@@ -161,18 +162,22 @@ function {{ cookiecutter.plugin_name }}Panel({
                     </Stack>
                 </Alert>
                 {%- endif %}
-                <Group justify='apart' wrap='nowrap' gap='sm'>
+                <Stack gap='xs'>
+                <Group grow justify='apart' wrap='nowrap' gap='sm'>
                     <Button color='blue' onClick={gotoDashboard}>
                         Go to Dashboard
                     </Button>
                     {partId && <Button color='green' onClick={openForm}>
-                        Edit  Part
+                        Edit Part
                     </Button>}
+                </Group>
+                <Group grow justify='apart' wrap='nowrap' gap='sm'>
                     <Button onClick={() => setCounter(counter + 1)}>
                         Increment Counter
                     </Button>
                     <Text size='xl'>Counter: {counter}</Text>
                 </Group>
+                </Stack>
                 {instance ? (
                     <Alert title="Instance Data" color="blue">
                         {instance}
@@ -254,7 +259,7 @@ export function Render{{ cookiecutter.plugin_name }}Panel(context: InvenTreePlug
 
     {% if cookiecutter.frontend.translation -%}
     return (
-        <LocalizedComponent locale={context.locale}>
+        <LocalizedComponent i18n={context.i18n} locale={context.locale} loadLocale={loadLocale}>
             <{{ cookiecutter.plugin_name }}Panel context={context} />
         </LocalizedComponent>
     );
