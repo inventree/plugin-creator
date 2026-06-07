@@ -2,7 +2,7 @@
 import { defineConfig } from 'vite'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
 import viteConfig, { externalLibs } from './vite.config'
-import { InventreeHmrPlugin } from '@inventreedb/ui';
+import InventreeHmrPlugin from '@inventreedb/ui/vite';
 
 {% if cookiecutter.frontend.translation -%}
 import react from "@vitejs/plugin-react-swc"

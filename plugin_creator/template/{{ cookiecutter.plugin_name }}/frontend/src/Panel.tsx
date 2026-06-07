@@ -254,7 +254,7 @@ export function Render{{ cookiecutter.plugin_name }}Panel(context: InvenTreePlug
 
     {% if cookiecutter.frontend.translation -%}
     return (
-        <LocalizedComponent locale={context.locale}>
+        <LocalizedComponent i18n={context.i18n} locale={context.locale}>
             <{{ cookiecutter.plugin_name }}Panel context={context} />
         </LocalizedComponent>
     );
