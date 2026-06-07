@@ -114,7 +114,7 @@ def update_frontend(plugin_dir: str, context: dict) -> None:
     if not translation:
         remove_dir(plugin_dir, "frontend", "src", "locales")
         remove_file(plugin_dir, "frontend", "src", "locales.tsx")
-        remove_file(plugin_dir, "frontend", ".linguirc")
+        remove_file(plugin_dir, "frontend", "lingui.config.ts")
 
         # Remove the translation check from the CI configuration
         remove_file(plugin_dir, ".github", "workflows", "translations.yaml")
