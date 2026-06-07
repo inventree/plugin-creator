@@ -112,6 +112,7 @@ def update_frontend(plugin_dir: str, context: dict) -> None:
             remove_file(plugin_dir, "frontend", "src", f"{feature.capitalize()}.tsx")
 
     if not translation:
+        # Remove translation files and configuration from the frontend code
         remove_dir(plugin_dir, "frontend", "src", "locales")
         remove_file(plugin_dir, "frontend", "src", "locales.tsx")
         remove_file(plugin_dir, "frontend", "lingui.config.ts")
