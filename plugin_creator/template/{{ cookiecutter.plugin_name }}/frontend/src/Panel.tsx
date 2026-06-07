@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 
 {% if cookiecutter.frontend.translation -%}
 import { t } from '@lingui/core/macro';
-import { LocalizedComponent } from './locale';
+import { LocalizedComponent } from '@inventreedb/ui';
 {%- endif %}
 
 // Import for type checking
