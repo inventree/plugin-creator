@@ -3,9 +3,7 @@
 import questionary
 from questionary.prompts.common import Choice
 
-from .helpers import info
-from .helpers import remove_file, remove_dir
-
+from .helpers import info, remove_dir, remove_file
 
 # Version requirements for core frontend libraries
 MIN_REACT_VERSION = "19.2.4"
@@ -27,12 +25,12 @@ def frontend_features() -> dict:
 
 def all_features() -> dict:
     """Select all features by default."""
-    return {key: True for key in frontend_features().keys()}
+    return {key: True for key in frontend_features()}
 
 
 def no_features() -> dict:
     """Select no features by default."""
-    return {key: False for key in frontend_features().keys()}
+    return {key: False for key in frontend_features()}
 
 
 def enable_translation() -> bool:
@@ -62,7 +60,7 @@ def select_features() -> dict:
         key for key, value in frontend_features().items() if value in selected
     ]
 
-    return {key: key in selected_keys for key in frontend_features().keys()}
+    return {key: key in selected_keys for key in frontend_features()}
 
 
 def remove_frontend(plugin_dir: str) -> None:
@@ -105,7 +103,7 @@ def update_frontend(plugin_dir: str, context: dict) -> None:
     translation = context["frontend"].get("translation", False)
 
     # Remove features which are not needed
-    for feature in frontend_features().keys():
+    for feature in frontend_features():
         if not features.get(feature, False):
             info(f"- Removing unused frontend feature: {feature}")
 
