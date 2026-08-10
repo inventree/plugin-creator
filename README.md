@@ -23,6 +23,11 @@ To install the plugin creator, run:
 pip install -U inventree-plugin-creator
 ```
 
+or directly execute the create command if you have `uv` installed:
+```bash
+uvx --from inventree-plugin-creator create-inventree-plugin
+```
+
 ## Usage
 
 As a starting point, refer to the [plugin creator documentation](https://docs.inventree.org/en/latest/plugins/creator/)
