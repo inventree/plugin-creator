@@ -1,6 +1,12 @@
 name: Playwright Tests
 
-on: ["push", "pull_request"]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  schedule: # run every week to catch upstream InvenTree breakage
+    - cron: "0 12 * * 6"
 
 jobs:
   playwright:
