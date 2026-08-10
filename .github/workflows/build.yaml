@@ -3,8 +3,12 @@
 name: Build Package
 
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+      - main
+  pull_request:
+  schedule: # run every week to catch upstream InvenTree breakage
+    - cron: "0 12 * * 6"
 
 jobs:
 
@@ -18,7 +22,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.11
+          python-version: 3.12
       - name: Install Python Dependencies
         run: |
           pip install --upgrade wheel setuptools twine build

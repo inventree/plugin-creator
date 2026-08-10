@@ -130,6 +130,7 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
     def setup_urls(self):
         """Configure custom URL endpoints for this plugin."""
         from django.urls import path
+
         from .views import ExampleView
 
         return [
@@ -253,15 +254,15 @@ class {{ cookiecutter.plugin_name }}(InvenTreePlugin):
 
     def convert_serial_to_int(self, serial, **kwargs) -> int:
         """Convert a serial number to an integer value."""
-        return None
+        ...
         
     def get_latest_serial_number(self, part, **kwargs):
         """Return the latest serial number for a given part."""
-        return None
+        ...
 
     def increment_serial_number(self, serial, part=None, **kwargs):
         """Increment a serial number."""
-        return None
+        ...
     {%- endif %}
     {% if "TransitionMixin" in cookiecutter.plugin_mixins.mixin_list %}
     # Custom transition logic (from TransitionMixin)

@@ -5,7 +5,7 @@ In practice, you would define your custom views here.
 Ref: https://www.django-rest-framework.org/api-guide/views/
 """
 
-from datetime import date
+import datetime
 import random
 import string
 
@@ -37,7 +37,7 @@ class ExampleView(APIView):
         response_serializer = self.serializer_class(data={
             'random_text': ''.join(random.choices(string.ascii_letters, k=50)),
             'part_count': Part.objects.count(),
-            'today': date.today()
+            'today': datetime.datetime.now(tz=datetime.timezone.utc).date()
         })
 
         # Serializer must be validated before it can be returned to the client

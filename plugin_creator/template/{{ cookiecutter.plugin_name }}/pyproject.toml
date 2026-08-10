@@ -54,3 +54,11 @@ exclude = [
 ]
 
 src=["{{ cookiecutter.package_name }}"]
+
+[tool.ruff.lint]
+
+ignore = [
+    "I001",
+    "PIE790",
+    "RUF012"
+]
