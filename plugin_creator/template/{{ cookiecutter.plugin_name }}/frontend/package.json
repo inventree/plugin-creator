@@ -28,7 +28,7 @@
     "@biomejs/biome": "2.0.0",
     {% if cookiecutter.frontend.translation -%}
     "@lingui/swc-plugin": "latest",
-    "@lingui/vite-plugin": "latest",
+    "@lingui/vite-plugin": "^{{ cookiecutter.frontend.lingui_version }}",
     "@vitejs/plugin-react-swc": "latest",
     {%- endif %}
     "@types/react": "latest",
